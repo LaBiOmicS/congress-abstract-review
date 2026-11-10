@@ -1,0 +1,1120 @@
+{
+  "description": "Global evaluation categories. Each edital criterion that matches one of these (same id, or \"based_on\": \"<id>\") inherits its anchors, automated indicators and caps unless the edital defines its own anchors. Anchor levels are on a 0-10 scale and are rescaled to each criterion's own range. Caps are upper bounds on the criterion score applied by code when an automated signal is present.",
+  "levels": [
+    9,
+    7,
+    5,
+    3,
+    0
+  ],
+  "categories": {
+    "relevance": {
+      "name": {
+        "pt": "Relevância e adequação ao eixo temático",
+        "en": "Relevance and fit to the track",
+        "es": "Relevancia y adecuación al eje temático"
+      },
+      "description": {
+        "pt": "O problema importa para a área e para o público do evento; o trabalho se encaixa no eixo.",
+        "en": "The problem matters to the field and to the event's audience; the work fits the track.",
+        "es": "El problema importa para el área y el público del evento; el trabajo encaja en el eje."
+      },
+      "anchors": {
+        "en": [
+          "A problem of clear importance for this audience, stated with its context; fits the track squarely.",
+          "Relevant and in scope; importance stated but generic.",
+          "In scope, but the relevance is left for the reader to infer or the track fit is partial.",
+          "Marginal to the event or the track; relevance not argued.",
+          "Out of the event's scope."
+        ],
+        "pt": [
+          "Problema de importância clara para este público, com contexto; encaixa-se plenamente no eixo.",
+          "Relevante e dentro do escopo; importância dita de forma genérica.",
+          "Dentro do escopo, mas a relevância fica implícita ou o encaixe no eixo é parcial.",
+          "Marginal ao evento ou ao eixo; relevância não argumentada.",
+          "Fora do escopo do evento."
+        ],
+        "es": [
+          "Problema de importancia clara para este público, con contexto; encaja plenamente en el eje.",
+          "Relevante y dentro del alcance; importancia dicha de forma genérica.",
+          "Dentro del alcance, pero la relevancia queda implícita o el encaje en el eje es parcial.",
+          "Marginal al evento o al eje; relevancia no argumentada.",
+          "Fuera del alcance del evento."
+        ]
+      },
+      "indicators": [],
+      "caps": []
+    },
+    "originality": {
+      "name": {
+        "pt": "Originalidade e contribuição",
+        "en": "Originality and contribution",
+        "es": "Originalidad y contribución"
+      },
+      "description": {
+        "pt": "O trabalho traz algo novo (dado, método, contexto ou síntese) e diz o que é.",
+        "en": "The work adds something new (data, method, context or synthesis) and says what it is.",
+        "es": "El trabajo aporta algo nuevo (dato, método, contexto o síntesis) y dice qué es."
+      },
+      "anchors": {
+        "en": [
+          "A new contribution, named explicitly and set against what was known.",
+          "A clear contribution (new data, local evidence, adapted method), named.",
+          "Some novelty, but the authors do not say what it adds.",
+          "Replicates known work without a stated reason or new context.",
+          "No identifiable contribution."
+        ],
+        "pt": [
+          "Contribuição nova, nomeada explicitamente e contraposta ao que se sabia.",
+          "Contribuição clara (dado novo, evidência local, método adaptado), nomeada.",
+          "Alguma novidade, mas os autores não dizem o que ela acrescenta.",
+          "Repete trabalho conhecido sem motivo declarado nem contexto novo.",
+          "Nenhuma contribuição identificável."
+        ],
+        "es": [
+          "Contribución nueva, nombrada explícitamente y contrastada con lo que se sabía.",
+          "Contribución clara (dato nuevo, evidencia local, método adaptado), nombrada.",
+          "Alguna novedad, pero los autores no dicen qué aporta.",
+          "Repite trabajo conocido sin motivo declarado ni contexto nuevo.",
+          "Ninguna contribución identificable."
+        ]
+      },
+      "indicators": [],
+      "caps": []
+    },
+    "objectives": {
+      "name": {
+        "pt": "Clareza do problema e dos objetivos",
+        "en": "Clarity of the problem and objectives",
+        "es": "Claridad del problema y de los objetivos"
+      },
+      "description": {
+        "pt": "Lacuna e objetivo explícitos, verificáveis e coerentes entre si.",
+        "en": "Gap and objective explicit, verifiable and consistent with each other.",
+        "es": "Brecha y objetivo explícitos, verificables y coherentes entre sí."
+      },
+      "anchors": {
+        "en": [
+          "Gap and objective explicit and specific; the objective can be checked against the results.",
+          "Objective explicit; the gap is stated but broad.",
+          "Objective present but vague (\"to study\", \"to analyse\") or only implicit.",
+          "Objective must be inferred; it does not match what was done.",
+          "No objective."
+        ],
+        "pt": [
+          "Lacuna e objetivo explícitos e específicos; o objetivo pode ser conferido nos resultados.",
+          "Objetivo explícito; lacuna dita, mas ampla.",
+          "Objetivo presente, mas vago (\"estudar\", \"analisar\") ou só implícito.",
+          "Objetivo precisa ser deduzido; não corresponde ao que foi feito.",
+          "Sem objetivo."
+        ],
+        "es": [
+          "Brecha y objetivo explícitos y específicos; el objetivo puede verificarse en los resultados.",
+          "Objetivo explícito; brecha dicha, pero amplia.",
+          "Objetivo presente, pero vago (\"estudiar\", \"analizar\") o solo implícito.",
+          "El objetivo debe deducirse; no corresponde a lo que se hizo.",
+          "Sin objetivo."
+        ]
+      },
+      "indicators": [
+        "section_objectives",
+        "objective_conclusion"
+      ],
+      "caps": []
+    },
+    "methods": {
+      "name": {
+        "pt": "Metodologia",
+        "en": "Methods",
+        "es": "Metodología"
+      },
+      "description": {
+        "pt": "Desenho, amostra, período, instrumentos e análise descritos o suficiente para julgar a validade.",
+        "en": "Design, sample, period, instruments and analysis described enough to judge validity.",
+        "es": "Diseño, muestra, período, instrumentos y análisis descritos lo suficiente para juzgar la validez."
+      },
+      "anchors": {
+        "en": [
+          "Design, sample (n), setting, period, instruments and analysis all stated; the method can answer the question.",
+          "Most elements stated; one minor gap (e.g. period or software).",
+          "Design stated but the sample or the analysis is missing; validity hard to judge.",
+          "Only a generic description (\"a survey was applied\"); the method cannot be judged.",
+          "No method, or a method that cannot answer the question."
+        ],
+        "pt": [
+          "Desenho, amostra (n), local, período, instrumentos e análise informados; o método responde à pergunta.",
+          "Maioria dos elementos informada; uma lacuna menor (p. ex. período ou software).",
+          "Desenho informado, mas falta a amostra ou a análise; difícil julgar a validade.",
+          "Só descrição genérica (\"foi aplicado um questionário\"); o método não pode ser julgado.",
+          "Sem método, ou método que não responde à pergunta."
+        ],
+        "es": [
+          "Diseño, muestra (n), lugar, período, instrumentos y análisis informados; el método responde a la pregunta.",
+          "La mayoría de los elementos informados; una laguna menor (p. ej. período o software).",
+          "Diseño informado, pero falta la muestra o el análisis; difícil juzgar la validez.",
+          "Solo descripción genérica (\"se aplicó un cuestionario\"); el método no puede juzgarse.",
+          "Sin método, o método que no responde a la pregunta."
+        ]
+      },
+      "indicators": [
+        "section_methods"
+      ],
+      "caps": []
+    },
+    "results": {
+      "name": {
+        "pt": "Resultados com dados concretos",
+        "en": "Results with concrete data",
+        "es": "Resultados con datos concretos"
+      },
+      "description": {
+        "pt": "Resultados apresentados com números (n, medidas, incerteza, testes), não prometidos para depois.",
+        "en": "Results reported with numbers (n, measures, uncertainty, tests), not promised for later.",
+        "es": "Resultados presentados con números (n, medidas, incertidumbre, pruebas), no prometidos para después."
+      },
+      "anchors": {
+        "en": [
+          "Main results with n, magnitude and uncertainty, and a test or interval where inference is claimed; consistent figures.",
+          "Results with numbers for the main findings; uncertainty or test missing for some.",
+          "Some numbers, but the main finding is qualitative or partly missing.",
+          "Results described without numbers, or mostly preliminary.",
+          "No results, or results only promised for the event."
+        ],
+        "pt": [
+          "Resultados principais com n, magnitude e incerteza, e teste ou intervalo quando há inferência; números consistentes.",
+          "Resultados com números para os achados principais; falta incerteza ou teste em alguns.",
+          "Alguns números, mas o achado principal é qualitativo ou está parcialmente ausente.",
+          "Resultados descritos sem números, ou majoritariamente preliminares.",
+          "Sem resultados, ou resultados apenas prometidos para o evento."
+        ],
+        "es": [
+          "Resultados principales con n, magnitud e incertidumbre, y prueba o intervalo cuando hay inferencia; números consistentes.",
+          "Resultados con números para los hallazgos principales; falta incertidumbre o prueba en algunos.",
+          "Algunos números, pero el hallazgo principal es cualitativo o está parcialmente ausente.",
+          "Resultados descritos sin números, o mayoritariamente preliminares.",
+          "Sin resultados, o resultados solo prometidos para el evento."
+        ]
+      },
+      "indicators": [
+        "data_density",
+        "inferential",
+        "promises_high",
+        "statcheck"
+      ],
+      "caps": [
+        {
+          "when": "promises_high",
+          "max": 3
+        },
+        {
+          "when": "results_without_numbers",
+          "max": 4
+        }
+      ]
+    },
+    "conclusion": {
+      "name": {
+        "pt": "Conclusão coerente",
+        "en": "Sound conclusion",
+        "es": "Conclusión coherente"
+      },
+      "description": {
+        "pt": "A conclusão responde ao objetivo e não vai além do que os resultados sustentam.",
+        "en": "The conclusion answers the objective and does not go beyond what the results support.",
+        "es": "La conclusión responde al objetivo y no va más allá de lo que los resultados sostienen."
+      },
+      "anchors": {
+        "en": [
+          "Answers the objective directly, supported by the results shown, with stated limits.",
+          "Answers the objective; slight overreach or no limits stated.",
+          "Partly answers the objective, or generalises beyond the sample.",
+          "Restates the method or makes claims the results do not support.",
+          "No conclusion, or it contradicts the results."
+        ],
+        "pt": [
+          "Responde diretamente ao objetivo, sustentada pelos resultados apresentados, com limites declarados.",
+          "Responde ao objetivo; leve extrapolação ou sem limites declarados.",
+          "Responde parcialmente ao objetivo, ou generaliza além da amostra.",
+          "Repete o método ou afirma o que os resultados não sustentam.",
+          "Sem conclusão, ou contradiz os resultados."
+        ],
+        "es": [
+          "Responde directamente al objetivo, sostenida por los resultados presentados, con límites declarados.",
+          "Responde al objetivo; leve extrapolación o sin límites declarados.",
+          "Responde parcialmente al objetivo, o generaliza más allá de la muestra.",
+          "Repite el método o afirma lo que los resultados no sostienen.",
+          "Sin conclusión, o contradice los resultados."
+        ]
+      },
+      "indicators": [
+        "section_conclusion",
+        "objective_conclusion"
+      ],
+      "caps": []
+    },
+    "writing": {
+      "name": {
+        "pt": "Redação e conformidade às normas",
+        "en": "Writing and compliance with the rules",
+        "es": "Redacción y conformidad con las normas"
+      },
+      "description": {
+        "pt": "Texto claro, conciso, correto, dentro dos limites e das seções exigidas.",
+        "en": "Clear, concise, correct text, within the limits and with the required sections.",
+        "es": "Texto claro, conciso, correcto, dentro de los límites y con las secciones exigidas."
+      },
+      "anchors": {
+        "en": [
+          "Clear and concise, no errors, acronyms defined, every rule met.",
+          "Clear; minor language slips or one minor rule issue.",
+          "Understandable but wordy or with recurrent errors, or one important rule breach.",
+          "Hard to follow, or several rule breaches.",
+          "Unreadable, or ignores the format."
+        ],
+        "pt": [
+          "Claro e conciso, sem erros, siglas definidas, todas as normas cumpridas.",
+          "Claro; deslizes menores de linguagem ou uma questão menor de norma.",
+          "Compreensível, mas prolixo ou com erros recorrentes, ou um descumprimento importante.",
+          "Difícil de acompanhar, ou vários descumprimentos de norma.",
+          "Ilegível, ou ignora o formato."
+        ],
+        "es": [
+          "Claro y conciso, sin errores, siglas definidas, todas las normas cumplidas.",
+          "Claro; deslices menores de lenguaje o una cuestión menor de norma.",
+          "Comprensible, pero prolijo o con errores recurrentes, o un incumplimiento importante.",
+          "Difícil de seguir, o varios incumplimientos de norma.",
+          "Ilegible, o ignora el formato."
+        ]
+      },
+      "indicators": [
+        "compliance",
+        "repetition"
+      ],
+      "caps": [
+        {
+          "when": "repeated_text",
+          "max": 5
+        }
+      ]
+    },
+    "problem": {
+      "name": {
+        "pt": "Problema e necessidade",
+        "en": "Problem and need",
+        "es": "Problema y necesidad"
+      },
+      "description": {
+        "pt": "O problema ou a demanda que o projeto atende, quem o enfrenta e por que as soluções atuais não bastam.",
+        "en": "The problem or demand the project addresses, who faces it and why current solutions fall short.",
+        "es": "El problema o la demanda que atiende el proyecto, quién lo enfrenta y por qué las soluciones actuales no bastan."
+      },
+      "anchors": {
+        "en": [
+          "A concrete, bounded problem, with the affected users and evidence of the need (data, reports, a survey).",
+          "Clear problem and identified users; limited evidence of the need.",
+          "Problem stated generically; users or need poorly characterized.",
+          "Vague or merely assumed problem.",
+          "No identifiable problem or need."
+        ],
+        "pt": [
+          "Problema concreto e delimitado, com o público afetado e evidência da necessidade (dados, relatos, levantamento).",
+          "Problema claro e público identificado; a evidência da necessidade é limitada.",
+          "Problema enunciado de forma genérica; público ou necessidade pouco caracterizados.",
+          "Problema vago ou apenas presumido.",
+          "Sem problema ou necessidade identificável."
+        ],
+        "es": [
+          "Problema concreto y delimitado, con el público afectado y evidencia de la necesidad (datos, relatos, relevamiento).",
+          "Problema claro y público identificado; evidencia de la necesidad limitada.",
+          "Problema enunciado de forma genérica; público o necesidad poco caracterizados.",
+          "Problema vago o solo presupuesto.",
+          "Sin problema ni necesidad identificables."
+        ]
+      },
+      "indicators": [
+        "section_objectives"
+      ],
+      "caps": []
+    },
+    "solution_stage": {
+      "name": {
+        "pt": "Solução e estágio de desenvolvimento",
+        "en": "Solution and stage of development",
+        "es": "Solución y etapa de desarrollo"
+      },
+      "description": {
+        "pt": "O que foi efetivamente construído e em que estágio está (ideia, especificação, protótipo, produto testado), com entregáveis concretos.",
+        "en": "What was actually built and its stage (idea, specification, prototype, tested product), with concrete deliverables.",
+        "es": "Lo que se construyó efectivamente y en qué etapa está (idea, especificación, prototipo, producto probado), con entregables concretos."
+      },
+      "anchors": {
+        "en": [
+          "Clearly described solution, declared stage and verifiable deliverables (working prototype, user tests or measured performance).",
+          "Clear solution and declared stage, with concrete deliverables (specified and counted requirements, screens, architecture, prototype) not yet tested.",
+          "Solution described, but what was delivered is vague or the stage is ambiguous.",
+          "Only the intention or idea of the solution, no deliverable described.",
+          "No solution described, or deliverables only promised for the event."
+        ],
+        "pt": [
+          "Solução descrita com clareza, estágio declarado e entregáveis verificáveis (protótipo funcional, testes com usuários ou desempenho medido).",
+          "Solução clara e estágio declarado, com entregáveis concretos (requisitos especificados e contados, telas, arquitetura, protótipo) ainda sem teste.",
+          "Solução descrita, mas o que foi entregue fica vago ou o estágio é ambíguo.",
+          "Só a intenção ou a ideia da solução, sem entregável descrito.",
+          "Sem solução descrita, ou entregáveis apenas prometidos para o evento."
+        ],
+        "es": [
+          "Solución descrita con claridad, etapa declarada y entregables verificables (prototipo funcional, pruebas con usuarios o desempeño medido).",
+          "Solución clara y etapa declarada, con entregables concretos (requisitos especificados y contados, pantallas, arquitectura, prototipo) aún sin prueba.",
+          "Solución descrita, pero lo entregado queda vago o la etapa es ambigua.",
+          "Solo la intención o la idea de la solución, sin entregable descrito.",
+          "Sin solución descrita, o entregables solo prometidos para el evento."
+        ]
+      },
+      "indicators": [
+        "promises_high",
+        "data_density"
+      ],
+      "caps": [
+        {
+          "when": "promises_high",
+          "max": 3
+        }
+      ]
+    },
+    "differential": {
+      "name": {
+        "pt": "Diferencial em relação ao existente",
+        "en": "Advantage over existing solutions",
+        "es": "Diferencial frente a lo existente"
+      },
+      "description": {
+        "pt": "Em que a proposta difere das soluções, produtos ou práticas já disponíveis.",
+        "en": "How the proposal differs from the solutions, products or practices already available.",
+        "es": "En qué se diferencia la propuesta de las soluciones, productos o prácticas ya disponibles."
+      },
+      "anchors": {
+        "en": [
+          "Compares with named existing solutions and shows a clear, plausible advantage.",
+          "States the advantage, with a brief or generic comparison with what exists.",
+          "Advantage claimed without comparison with what already exists.",
+          "Similar to common solutions, no advantage stated.",
+          "No identifiable advantage."
+        ],
+        "pt": [
+          "Compara com soluções existentes nomeadas e mostra um diferencial claro e plausível.",
+          "Indica o diferencial, com comparação breve ou genérica com o existente.",
+          "Diferencial afirmado sem comparação com o que já existe.",
+          "Proposta parecida com soluções comuns, sem diferencial apontado.",
+          "Nenhum diferencial identificável."
+        ],
+        "es": [
+          "Compara con soluciones existentes nombradas y muestra un diferencial claro y plausible.",
+          "Indica el diferencial, con comparación breve o genérica con lo existente.",
+          "Diferencial afirmado sin comparación con lo que ya existe.",
+          "Propuesta parecida a soluciones comunes, sin diferencial señalado.",
+          "Ningún diferencial identificable."
+        ]
+      },
+      "indicators": [],
+      "caps": []
+    },
+    "feasibility": {
+      "name": {
+        "pt": "Viabilidade e aplicabilidade",
+        "en": "Feasibility and applicability",
+        "es": "Viabilidad y aplicabilidad"
+      },
+      "description": {
+        "pt": "Se a solução pode ser implementada e usada: recursos, tecnologia, método de desenvolvimento, usuários, caminho até o uso.",
+        "en": "Whether the solution can be built and used: resources, technology, development method, users, path to use.",
+        "es": "Si la solución puede implementarse y usarse: recursos, tecnología, método de desarrollo, usuarios, camino hasta el uso."
+      },
+      "anchors": {
+        "en": [
+          "Development method and technology described, with risks or limitations acknowledged and a realistic path to use.",
+          "Method and technology described; limitations or next steps barely addressed.",
+          "Feasibility only suggested; method or resources unclear.",
+          "Doubtful or undiscussed feasibility.",
+          "Unfeasible, or no indication of how it would be done."
+        ],
+        "pt": [
+          "Método de desenvolvimento e tecnologia descritos, com riscos ou limitações reconhecidos e caminho realista até o uso.",
+          "Método e tecnologia descritos; limitações ou próximos passos pouco tratados.",
+          "Viabilidade apenas sugerida; método ou recursos pouco claros.",
+          "Viabilidade duvidosa ou não discutida.",
+          "Inviável ou sem qualquer indicação de como seria feito."
+        ],
+        "es": [
+          "Método de desarrollo y tecnología descritos, con riesgos o limitaciones reconocidos y un camino realista hasta el uso.",
+          "Método y tecnología descritos; limitaciones o próximos pasos poco tratados.",
+          "Viabilidad apenas sugerida; método o recursos poco claros.",
+          "Viabilidad dudosa o no discutida.",
+          "Inviable, o sin indicación de cómo se haría."
+        ]
+      },
+      "indicators": [
+        "section_methods"
+      ],
+      "caps": []
+    },
+    "impact": {
+      "name": {
+        "pt": "Impacto esperado e coerência das conclusões",
+        "en": "Expected impact and sound conclusions",
+        "es": "Impacto esperado y conclusiones coherentes"
+      },
+      "description": {
+        "pt": "Quem se beneficia e como, e se as afirmações finais são proporcionais ao estágio do projeto.",
+        "en": "Who benefits and how, and whether the closing claims match the project's stage.",
+        "es": "Quién se beneficia y cómo, y si las afirmaciones finales son proporcionales a la etapa del proyecto."
+      },
+      "anchors": {
+        "en": [
+          "Concrete beneficiaries and benefit, with an indicator of how impact would be measured; claims proportional to the stage.",
+          "Clear benefit; claims mostly proportional, with minor overstatement.",
+          "Generic impact, or claims that go beyond what was delivered.",
+          "Vague impact and claims clearly overstated for the stage.",
+          "No identifiable impact, or claims unrelated to the work."
+        ],
+        "pt": [
+          "Beneficiários e benefício concretos, com indicador de como medir o impacto; conclusões proporcionais ao estágio.",
+          "Benefício claro; conclusões em geral proporcionais, com algum exagero menor.",
+          "Impacto genérico, ou conclusões que vão além do que foi entregue.",
+          "Impacto vago e conclusões claramente exageradas para o estágio.",
+          "Sem impacto identificável, ou conclusões sem relação com o trabalho."
+        ],
+        "es": [
+          "Beneficiarios y beneficio concretos, con un indicador de cómo medir el impacto; conclusiones proporcionales a la etapa.",
+          "Beneficio claro; conclusiones en general proporcionales, con alguna exageración menor.",
+          "Impacto genérico, o conclusiones que van más allá de lo entregado.",
+          "Impacto vago y conclusiones claramente exageradas para la etapa.",
+          "Sin impacto identificable, o conclusiones sin relación con el trabajo."
+        ]
+      },
+      "indicators": [
+        "section_conclusion",
+        "objective_conclusion"
+      ],
+      "caps": []
+    },
+    "community": {
+      "name": {
+        "pt": "Público e demanda da comunidade",
+        "en": "Community and its demand",
+        "es": "Público y demanda de la comunidad"
+      },
+      "description": {
+        "pt": "Quem é a comunidade atendida, qual demanda dela a ação responde e como essa demanda foi identificada.",
+        "en": "Who the community served is, which of its demands the action answers and how that demand was identified.",
+        "es": "Quién es la comunidad atendida, a qué demanda suya responde la acción y cómo se identificó esa demanda."
+      },
+      "anchors": {
+        "en": [
+          "Community characterized (who, where, how many) and demand identified with it, with evidence.",
+          "Clear community and demand; little evidence of how the demand was identified.",
+          "Community or demand described generically.",
+          "Vague audience; demand assumed by the team.",
+          "No identifiable community or demand."
+        ],
+        "pt": [
+          "Comunidade caracterizada (quem, onde, quantos) e demanda identificada com ela, com evidência.",
+          "Comunidade e demanda claras; pouca evidência de como a demanda foi identificada.",
+          "Comunidade ou demanda descritas de forma genérica.",
+          "Público vago; demanda presumida pela equipe.",
+          "Sem comunidade ou demanda identificável."
+        ],
+        "es": [
+          "Comunidad caracterizada (quién, dónde, cuántos) y demanda identificada con ella, con evidencia.",
+          "Comunidad y demanda claras; poca evidencia de cómo se identificó la demanda.",
+          "Comunidad o demanda descritas de forma genérica.",
+          "Público vago; demanda presupuesta por el equipo.",
+          "Sin comunidad ni demanda identificables."
+        ]
+      },
+      "indicators": [
+        "section_objectives"
+      ],
+      "caps": []
+    },
+    "action": {
+      "name": {
+        "pt": "Ação realizada",
+        "en": "Action carried out",
+        "es": "Acción realizada"
+      },
+      "description": {
+        "pt": "O que foi feito, onde, quando, com quantos participantes e com que metodologia.",
+        "en": "What was done, where, when, with how many participants and with which approach.",
+        "es": "Qué se hizo, dónde, cuándo, con cuántos participantes y con qué metodología."
+      },
+      "anchors": {
+        "en": [
+          "Action described with place, period, participants, activities and approach, enough to replicate it.",
+          "Clear action; one element missing (period, number of participants or approach).",
+          "Action described in general terms; several elements missing.",
+          "Only the intention of the action, little on what was done.",
+          "Action not described, or not yet carried out."
+        ],
+        "pt": [
+          "Ação descrita com local, período, participantes, atividades e metodologia, o bastante para ser replicada.",
+          "Ação clara; falta um dos elementos (período, número de participantes ou metodologia).",
+          "Ação descrita de forma geral; vários elementos ausentes.",
+          "Só a intenção da ação, com pouca descrição do que foi feito.",
+          "Ação não descrita, ou ainda não realizada."
+        ],
+        "es": [
+          "Acción descrita con lugar, período, participantes, actividades y metodología, suficiente para replicarla.",
+          "Acción clara; falta un elemento (período, número de participantes o metodología).",
+          "Acción descrita en términos generales; faltan varios elementos.",
+          "Solo la intención de la acción, poco sobre lo que se hizo.",
+          "Acción no descrita, o aún no realizada."
+        ]
+      },
+      "indicators": [
+        "section_methods"
+      ],
+      "caps": []
+    },
+    "outcomes": {
+      "name": {
+        "pt": "Resultados e impacto social",
+        "en": "Outcomes and social impact",
+        "es": "Resultados e impacto social"
+      },
+      "description": {
+        "pt": "O que mudou para a comunidade e para a formação dos estudantes; dados qualitativos ou quantitativos valem.",
+        "en": "What changed for the community and for the students' training; qualitative or quantitative evidence both count.",
+        "es": "Qué cambió para la comunidad y para la formación de los estudiantes; valen datos cualitativos o cuantitativos."
+      },
+      "anchors": {
+        "en": [
+          "Concrete outcomes with evidence (people reached, participants' assessment, testimonies, indicators) and reflection on impact.",
+          "Concrete outcomes, partial evidence.",
+          "Outcomes described generically, little evidence.",
+          "Vague or merely expected outcomes.",
+          "No outcomes, or outcomes only promised for the event."
+        ],
+        "pt": [
+          "Resultados concretos com evidência (participantes atendidos, avaliação dos participantes, relatos, indicadores) e reflexão sobre o impacto.",
+          "Resultados concretos, com evidência parcial.",
+          "Resultados descritos de forma genérica, pouca evidência.",
+          "Resultados vagos ou apenas esperados.",
+          "Sem resultados, ou resultados apenas prometidos para o evento."
+        ],
+        "es": [
+          "Resultados concretos con evidencia (participantes atendidos, evaluación de los participantes, relatos, indicadores) y reflexión sobre el impacto.",
+          "Resultados concretos, con evidencia parcial.",
+          "Resultados descritos de forma genérica, poca evidencia.",
+          "Resultados vagos o solo esperados.",
+          "Sin resultados, o resultados solo prometidos para el evento."
+        ]
+      },
+      "indicators": [
+        "section_results",
+        "promises_high",
+        "data_density"
+      ],
+      "caps": [
+        {
+          "when": "promises_high",
+          "max": 3
+        }
+      ]
+    },
+    "dialogue": {
+      "name": {
+        "pt": "Interação com a comunidade e formação",
+        "en": "Engagement with the community and training",
+        "es": "Interacción con la comunidad y formación"
+      },
+      "description": {
+        "pt": "Se a comunidade participou da ação (não só a recebeu) e o que os estudantes aprenderam com ela.",
+        "en": "Whether the community took part in the action (not only received it) and what the students learned from it.",
+        "es": "Si la comunidad participó en la acción (no solo la recibió) y qué aprendieron los estudiantes con ella."
+      },
+      "anchors": {
+        "en": [
+          "Active community participation and students' learning described with concrete examples.",
+          "Participation or learning described, one of them with little detail.",
+          "Engagement mentioned in general terms.",
+          "One-way action, no community participation or reflection on training.",
+          "Nothing on engagement or training."
+        ],
+        "pt": [
+          "Participação ativa da comunidade e aprendizado dos estudantes descritos com exemplos concretos.",
+          "Participação ou aprendizado descritos, um deles com pouca concretude.",
+          "Interação mencionada de forma genérica.",
+          "Ação unidirecional, sem participação da comunidade ou reflexão sobre a formação.",
+          "Nada sobre interação ou formação."
+        ],
+        "es": [
+          "Participación activa de la comunidad y aprendizaje de los estudiantes descritos con ejemplos concretos.",
+          "Participación o aprendizaje descritos, uno de ellos con poca concreción.",
+          "Interacción mencionada de forma genérica.",
+          "Acción unidireccional, sin participación de la comunidad ni reflexión sobre la formación.",
+          "Nada sobre interacción o formación."
+        ]
+      },
+      "indicators": [],
+      "caps": []
+    }
+  },
+  "generic_anchors": {
+    "en": [
+      "Exemplary for a congress submission: the criterion is fully met.",
+      "Met, with minor weaknesses.",
+      "Partly met: clear weaknesses.",
+      "Barely met: serious weaknesses.",
+      "Absent or unacceptable."
+    ],
+    "pt": [
+      "Exemplar para um trabalho de congresso: o critério é plenamente atendido.",
+      "Atendido, com fragilidades menores.",
+      "Parcialmente atendido: fragilidades claras.",
+      "Mal atendido: fragilidades graves.",
+      "Ausente ou inaceitável."
+    ],
+    "es": [
+      "Ejemplar para un trabajo de congreso: el criterio se cumple plenamente.",
+      "Cumplido, con debilidades menores.",
+      "Parcialmente cumplido: debilidades claras.",
+      "Apenas cumplido: debilidades graves.",
+      "Ausente o inaceptable."
+    ]
+  },
+  "approach_variants": {
+    "qualitative": {
+      "methods": {
+        "name": {
+          "pt": "Percurso metodológico",
+          "en": "Methodological approach",
+          "es": "Recorrido metodológico"
+        },
+        "description": {
+          "pt": "Abordagem, participantes, corpus ou fontes e critério de escolha, contexto, técnica de produção dos dados e procedimento de análise nomeado.",
+          "en": "Approach, participants, corpus or sources and how they were chosen, setting, data-collection technique and a named analysis procedure.",
+          "es": "Enfoque, participantes, corpus o fuentes y criterio de elección, contexto, técnica de producción de datos y procedimiento de análisis nombrado."
+        },
+        "anchors": {
+          "pt": [
+            "Abordagem, participantes ou corpus/fontes com critério de escolha, contexto, técnica de coleta e procedimento de análise nomeado (p. ex. análise de conteúdo, temática, do discurso); o percurso responde à pergunta.",
+            "Maioria dos elementos informada; uma lacuna menor (p. ex. período ou número de participantes/documentos).",
+            "Abordagem e técnica informadas, mas falta o critério de escolha do corpus/participantes ou o procedimento de análise.",
+            "Só descrição genérica (\"foram realizadas entrevistas\", \"foi feita uma análise documental\"); o percurso não pode ser julgado.",
+            "Sem percurso metodológico, ou percurso que não responde à pergunta."
+          ],
+          "en": [
+            "Approach, participants or corpus/sources with selection criteria, setting, collection technique and a named analysis procedure (e.g. content, thematic or discourse analysis); the approach can answer the question.",
+            "Most elements stated; one minor gap (e.g. period or number of participants/documents).",
+            "Approach and technique stated, but the selection of corpus/participants or the analysis procedure is missing.",
+            "Only a generic description (\"interviews were conducted\", \"a documentary analysis was carried out\"); the approach cannot be judged.",
+            "No methodological approach, or one that cannot answer the question."
+          ],
+          "es": [
+            "Enfoque, participantes o corpus/fuentes con criterio de elección, contexto, técnica de recolección y procedimiento de análisis nombrado (p. ej. análisis de contenido, temático o del discurso); el recorrido responde a la pregunta.",
+            "La mayoría de los elementos informados; una laguna menor (p. ej. período o número de participantes/documentos).",
+            "Enfoque y técnica informados, pero falta el criterio de elección del corpus/participantes o el procedimiento de análisis.",
+            "Solo descripción genérica (\"se realizaron entrevistas\", \"se hizo un análisis documental\"); el recorrido no puede juzgarse.",
+            "Sin recorrido metodológico, o uno que no responde a la pregunta."
+          ]
+        }
+      },
+      "results": {
+        "name": {
+          "pt": "Resultados sustentados pelo material",
+          "en": "Findings grounded in the material",
+          "es": "Resultados sustentados por el material"
+        },
+        "description": {
+          "pt": "Achados (categorias, temas, sentidos) apresentados com evidência do material analisado, não prometidos para depois.",
+          "en": "Findings (categories, themes, meanings) presented with evidence from the analyzed material, not promised for later.",
+          "es": "Hallazgos (categorías, temas, sentidos) presentados con evidencia del material analizado, no prometidos para después."
+        },
+        "anchors": {
+          "pt": [
+            "Achados principais nomeados (categorias, temas, sentidos) e sustentados por evidência do material (trechos, falas, documentos citados); interpretação articulada ao referencial.",
+            "Achados principais nomeados e sustentados; evidência ou articulação com o referencial falta em alguns.",
+            "Achados enunciados de forma genérica, com pouca evidência do material, ou parcialmente ausentes.",
+            "Resultados vagos (\"os resultados mostram a importância de…\") sem achados identificáveis, ou majoritariamente preliminares.",
+            "Sem resultados, ou resultados apenas prometidos para o evento."
+          ],
+          "en": [
+            "Main findings named (categories, themes, meanings) and supported by evidence from the material (excerpts, quotes, cited documents); interpretation linked to the framework.",
+            "Main findings named and supported; evidence or link to the framework missing for some.",
+            "Findings stated generically, with little evidence from the material, or partly missing.",
+            "Vague results (\"the results show the importance of…\") with no identifiable findings, or mostly preliminary.",
+            "No results, or results only promised for the event."
+          ],
+          "es": [
+            "Hallazgos principales nombrados (categorías, temas, sentidos) y sustentados por evidencia del material (fragmentos, testimonios, documentos citados); interpretación articulada con el marco teórico.",
+            "Hallazgos principales nombrados y sustentados; falta evidencia o articulación con el marco en algunos.",
+            "Hallazgos enunciados de forma genérica, con poca evidencia del material, o parcialmente ausentes.",
+            "Resultados vagos (\"los resultados muestran la importancia de…\") sin hallazgos identificables, o mayoritariamente preliminares.",
+            "Sin resultados, o resultados solo prometidos para el evento."
+          ]
+        }
+      }
+    },
+    "mixed": {
+      "methods": {
+        "name": {
+          "pt": "Metodologia (métodos mistos)",
+          "en": "Methods (mixed methods)",
+          "es": "Metodología (métodos mixtos)"
+        },
+        "description": {
+          "pt": "Os dois componentes descritos (amostra e análise quantitativa; participantes e procedimento qualitativo) e como se integram.",
+          "en": "Both strands described (sample and quantitative analysis; participants and qualitative procedure) and how they are integrated.",
+          "es": "Ambos componentes descritos (muestra y análisis cuantitativo; participantes y procedimiento cualitativo) y cómo se integran."
+        },
+        "anchors": {
+          "pt": [
+            "Os dois componentes descritos (amostra, instrumentos e análise; participantes e procedimento qualitativo nomeado) e a forma de integração; o método responde à pergunta.",
+            "Os dois componentes descritos; lacuna menor em um deles ou na integração.",
+            "Um componente bem descrito e o outro só mencionado, ou a integração ausente.",
+            "Só descrição genérica dos dois componentes; o método não pode ser julgado.",
+            "Sem método, ou método que não responde à pergunta."
+          ],
+          "en": [
+            "Both strands described (sample, instruments and analysis; participants and a named qualitative procedure) and how they are integrated; the method can answer the question.",
+            "Both strands described; minor gap in one of them or in the integration.",
+            "One strand well described and the other only mentioned, or no integration.",
+            "Only a generic description of both strands; the method cannot be judged.",
+            "No method, or a method that cannot answer the question."
+          ],
+          "es": [
+            "Ambos componentes descritos (muestra, instrumentos y análisis; participantes y procedimiento cualitativo nombrado) y la forma de integración; el método responde a la pregunta.",
+            "Ambos componentes descritos; laguna menor en uno de ellos o en la integración.",
+            "Un componente bien descrito y el otro solo mencionado, o sin integración.",
+            "Solo descripción genérica de ambos componentes; el método no puede juzgarse.",
+            "Sin método, o método que no responde a la pregunta."
+          ]
+        }
+      },
+      "results": {
+        "name": {
+          "pt": "Resultados (métodos mistos)",
+          "en": "Results (mixed methods)",
+          "es": "Resultados (métodos mixtos)"
+        },
+        "description": {
+          "pt": "Resultados quantitativos com números e achados qualitativos com evidência do material, articulados entre si.",
+          "en": "Quantitative results with numbers and qualitative findings with evidence from the material, related to each other.",
+          "es": "Resultados cuantitativos con números y hallazgos cualitativos con evidencia del material, articulados entre sí."
+        },
+        "anchors": {
+          "pt": [
+            "Resultados quantitativos com números (n, medidas) e achados qualitativos com evidência do material, articulados entre si.",
+            "Os dois tipos de resultado presentes; números ou evidência faltam em alguns, ou a articulação é fraca.",
+            "Só um dos componentes traz resultados concretos; o outro é genérico.",
+            "Resultados descritos sem números nem evidência do material, ou majoritariamente preliminares.",
+            "Sem resultados, ou resultados apenas prometidos para o evento."
+          ],
+          "en": [
+            "Quantitative results with numbers (n, measures) and qualitative findings with evidence from the material, related to each other.",
+            "Both kinds of result present; numbers or evidence missing for some, or a weak link between them.",
+            "Only one strand has concrete results; the other is generic.",
+            "Results described without numbers or evidence from the material, or mostly preliminary.",
+            "No results, or results only promised for the event."
+          ],
+          "es": [
+            "Resultados cuantitativos con números (n, medidas) y hallazgos cualitativos con evidencia del material, articulados entre sí.",
+            "Ambos tipos de resultado presentes; faltan números o evidencia en algunos, o la articulación es débil.",
+            "Solo uno de los componentes trae resultados concretos; el otro es genérico.",
+            "Resultados descritos sin números ni evidencia del material, o mayoritariamente preliminares.",
+            "Sin resultados, o resultados solo prometidos para el evento."
+          ]
+        }
+      }
+    },
+    "review": {
+      "methods": {
+        "name": {
+          "pt": "Estratégia de busca e seleção",
+          "en": "Search and selection strategy",
+          "es": "Estrategia de búsqueda y selección"
+        },
+        "description": {
+          "pt": "Tipo de revisão, bases, descritores, período, critérios de inclusão e exclusão e forma de síntese.",
+          "en": "Type of review, databases, search terms, period, inclusion and exclusion criteria and how the studies were synthesized.",
+          "es": "Tipo de revisión, bases, descriptores, período, criterios de inclusión y exclusión y forma de síntesis."
+        },
+        "anchors": {
+          "pt": [
+            "Tipo de revisão, bases, descritores, período, critérios de inclusão/exclusão e forma de síntese informados; a busca é reprodutível.",
+            "Maioria dos elementos informada; uma lacuna menor (p. ex. período ou descritores).",
+            "Bases informadas, mas faltam os critérios de inclusão ou a forma de síntese.",
+            "Só \"foi feita uma revisão de literatura\"; a busca não pode ser julgada.",
+            "Sem descrição da busca, ou busca que não responde à pergunta."
+          ],
+          "en": [
+            "Type of review, databases, search terms, period, inclusion/exclusion criteria and synthesis method stated; the search is reproducible.",
+            "Most elements stated; one minor gap (e.g. period or search terms).",
+            "Databases stated, but inclusion criteria or the synthesis method missing.",
+            "Only \"a literature review was carried out\"; the search cannot be judged.",
+            "No description of the search, or a search that cannot answer the question."
+          ],
+          "es": [
+            "Tipo de revisión, bases, descriptores, período, criterios de inclusión/exclusión y forma de síntesis informados; la búsqueda es reproducible.",
+            "La mayoría de los elementos informados; una laguna menor (p. ej. período o descriptores).",
+            "Bases informadas, pero faltan los criterios de inclusión o la forma de síntesis.",
+            "Solo \"se realizó una revisión de literatura\"; la búsqueda no puede juzgarse.",
+            "Sin descripción de la búsqueda, o búsqueda que no responde a la pregunta."
+          ]
+        }
+      },
+      "results": {
+        "name": {
+          "pt": "Síntese dos estudos",
+          "en": "Synthesis of the studies",
+          "es": "Síntesis de los estudios"
+        },
+        "description": {
+          "pt": "Quantos estudos foram incluídos e o que mostram em conjunto: convergências, divergências e lacunas.",
+          "en": "How many studies were included and what they show together: agreements, disagreements and gaps.",
+          "es": "Cuántos estudios se incluyeron y qué muestran en conjunto: convergencias, divergencias y lagunas."
+        },
+        "anchors": {
+          "pt": [
+            "Número de estudos encontrados e incluídos e síntese do que mostram em conjunto (convergências, divergências, lacunas), com exemplos concretos.",
+            "Número de estudos e síntese presentes; convergências ou lacunas pouco exploradas.",
+            "Síntese genérica, sem o número de estudos ou sem achados identificáveis.",
+            "Lista de temas ou autores sem síntese, ou resultados majoritariamente preliminares.",
+            "Sem resultados, ou resultados apenas prometidos para o evento."
+          ],
+          "en": [
+            "Number of studies found and included, and a synthesis of what they show together (agreements, disagreements, gaps) with concrete examples.",
+            "Number of studies and a synthesis present; agreements or gaps barely explored.",
+            "Generic synthesis, without the number of studies or identifiable findings.",
+            "A list of topics or authors without synthesis, or mostly preliminary results.",
+            "No results, or results only promised for the event."
+          ],
+          "es": [
+            "Número de estudios encontrados e incluidos y síntesis de lo que muestran en conjunto (convergencias, divergencias, lagunas), con ejemplos concretos.",
+            "Número de estudios y síntesis presentes; convergencias o lagunas poco exploradas.",
+            "Síntesis genérica, sin el número de estudios o sin hallazgos identificables.",
+            "Lista de temas o autores sin síntesis, o resultados mayoritariamente preliminares.",
+            "Sin resultados, o resultados solo prometidos para el evento."
+          ]
+        }
+      }
+    },
+    "theoretical": {
+      "methods": {
+        "name": {
+          "pt": "Percurso teórico",
+          "en": "Theoretical approach",
+          "es": "Recorrido teórico"
+        },
+        "description": {
+          "pt": "Referencial e autores em diálogo, conceitos centrais e modo de construção do argumento.",
+          "en": "Framework and authors in dialogue, central concepts and how the argument is built.",
+          "es": "Marco y autores en diálogo, conceptos centrales y modo de construcción del argumento."
+        },
+        "anchors": {
+          "pt": [
+            "Referencial e autores em diálogo identificados, conceitos centrais definidos e o modo de construção do argumento explicitado; o percurso responde à pergunta.",
+            "Referencial e conceitos claros; o modo de construção do argumento fica implícito.",
+            "Referencial mencionado, mas os conceitos centrais não são definidos.",
+            "Só \"trata-se de um estudo teórico\"; o percurso não pode ser julgado.",
+            "Sem referencial, ou percurso que não responde à pergunta."
+          ],
+          "en": [
+            "Framework and authors in dialogue identified, central concepts defined and how the argument is built made explicit; the approach can answer the question.",
+            "Framework and concepts clear; how the argument is built stays implicit.",
+            "Framework mentioned, but central concepts not defined.",
+            "Only \"this is a theoretical study\"; the approach cannot be judged.",
+            "No framework, or an approach that cannot answer the question."
+          ],
+          "es": [
+            "Marco y autores en diálogo identificados, conceptos centrales definidos y el modo de construcción del argumento explícito; el recorrido responde a la pregunta.",
+            "Marco y conceptos claros; el modo de construcción del argumento queda implícito.",
+            "Marco mencionado, pero los conceptos centrales no se definen.",
+            "Solo \"se trata de un estudio teórico\"; el recorrido no puede juzgarse.",
+            "Sin marco, o recorrido que no responde a la pregunta."
+          ]
+        }
+      },
+      "results": {
+        "name": {
+          "pt": "Argumentação e contribuição",
+          "en": "Argument and contribution",
+          "es": "Argumentación y contribución"
+        },
+        "description": {
+          "pt": "Tese clara, sustentada por argumentos e pela literatura, com contribuição conceitual identificável.",
+          "en": "A clear thesis, supported by argument and literature, with an identifiable conceptual contribution.",
+          "es": "Tesis clara, sustentada por argumentos y por la literatura, con contribución conceptual identificable."
+        },
+        "anchors": {
+          "pt": [
+            "Tese clara, sustentada por argumentos encadeados e pela literatura, com contribuição conceitual identificável (distinção, crítica, proposta).",
+            "Tese clara e sustentada; a contribuição própria fica pouco destacada.",
+            "Argumento presente, mas a tese é difusa ou a sustentação é fraca.",
+            "Paráfrase de autores sem tese própria, ou argumento majoritariamente anunciado.",
+            "Sem argumento, ou conclusões apenas prometidas para o evento."
+          ],
+          "en": [
+            "A clear thesis, supported by chained arguments and the literature, with an identifiable conceptual contribution (distinction, critique, proposal).",
+            "A clear, supported thesis; the authors' own contribution barely stands out.",
+            "An argument is present, but the thesis is diffuse or poorly supported.",
+            "Paraphrase of authors with no thesis of its own, or an argument mostly announced.",
+            "No argument, or conclusions only promised for the event."
+          ],
+          "es": [
+            "Tesis clara, sustentada por argumentos encadenados y por la literatura, con contribución conceptual identificable (distinción, crítica, propuesta).",
+            "Tesis clara y sustentada; la contribución propia queda poco destacada.",
+            "Argumento presente, pero la tesis es difusa o la sustentación es débil.",
+            "Paráfrasis de autores sin tesis propia, o argumento mayoritariamente anunciado.",
+            "Sin argumento, o conclusiones solo prometidas para el evento."
+          ]
+        }
+      }
+    },
+    "case_report": {
+      "methods": {
+        "name": {
+          "pt": "Descrição do caso ou da experiência",
+          "en": "Description of the case or experience",
+          "es": "Descripción del caso o de la experiencia"
+        },
+        "description": {
+          "pt": "Contexto, local, período, participantes e o que foi feito, com detalhe suficiente para entender o caso ou a experiência.",
+          "en": "Setting, place, period, participants and what was done, in enough detail to understand the case or experience.",
+          "es": "Contexto, lugar, período, participantes y lo que se hizo, con detalle suficiente para entender el caso o la experiencia."
+        },
+        "anchors": {
+          "pt": [
+            "Contexto, local, período, participantes e as ações ou condutas descritos com detalhe; o relato permite entender e julgar o caso.",
+            "Maioria dos elementos descrita; uma lacuna menor (p. ex. período ou número de participantes).",
+            "Contexto descrito, mas o que foi feito fica genérico.",
+            "Só menção ao caso ou à experiência, sem descrição; o relato não pode ser julgado.",
+            "Sem descrição do caso ou da experiência."
+          ],
+          "en": [
+            "Setting, place, period, participants and the actions or management described in detail; the report lets the reader understand and judge the case.",
+            "Most elements described; one minor gap (e.g. period or number of participants).",
+            "Setting described, but what was done stays generic.",
+            "The case or experience only mentioned, not described; the report cannot be judged.",
+            "No description of the case or experience."
+          ],
+          "es": [
+            "Contexto, lugar, período, participantes y las acciones o conductas descritos con detalle; el relato permite entender y juzgar el caso.",
+            "La mayoría de los elementos descritos; una laguna menor (p. ej. período o número de participantes).",
+            "Contexto descrito, pero lo que se hizo queda genérico.",
+            "Solo mención al caso o a la experiencia, sin descripción; el relato no puede juzgarse.",
+            "Sin descripción del caso o de la experiencia."
+          ]
+        }
+      },
+      "results": {
+        "name": {
+          "pt": "Observações e aprendizados",
+          "en": "Observations and lessons learned",
+          "es": "Observaciones y aprendizajes"
+        },
+        "description": {
+          "pt": "O que foi observado ou alcançado, de forma concreta, e o que se aprendeu, com os limites de um caso único.",
+          "en": "What was observed or achieved, concretely, and what was learned, with the limits of a single case.",
+          "es": "Lo que se observó o logró, de forma concreta, y lo que se aprendió, con los límites de un caso único."
+        },
+        "anchors": {
+          "pt": [
+            "Observações concretas (evolução, desfechos, produtos, reações dos participantes) e aprendizados explícitos, com os limites de um caso único reconhecidos.",
+            "Observações concretas e aprendizados presentes; limites pouco discutidos.",
+            "Observações genéricas, com poucos elementos concretos.",
+            "Só impressões gerais (\"a experiência foi enriquecedora\"), ou resultados majoritariamente preliminares.",
+            "Sem resultados, ou resultados apenas prometidos para o evento."
+          ],
+          "en": [
+            "Concrete observations (course, outcomes, products, participants' reactions) and explicit lessons, acknowledging the limits of a single case.",
+            "Concrete observations and lessons present; limits barely discussed.",
+            "Generic observations with few concrete elements.",
+            "Only general impressions (\"the experience was enriching\"), or mostly preliminary results.",
+            "No results, or results only promised for the event."
+          ],
+          "es": [
+            "Observaciones concretas (evolución, desenlaces, productos, reacciones de los participantes) y aprendizajes explícitos, reconociendo los límites de un caso único.",
+            "Observaciones concretas y aprendizajes presentes; límites poco discutidos.",
+            "Observaciones genéricas, con pocos elementos concretos.",
+            "Solo impresiones generales (\"la experiencia fue enriquecedora\"), o resultados mayoritariamente preliminares.",
+            "Sin resultados, o resultados solo prometidos para el evento."
+          ]
+        }
+      }
+    },
+    "documentary": {
+      "methods": {
+        "name": {
+          "pt": "Percurso metodológico",
+          "en": "Methodological approach",
+          "es": "Recorrido metodológico"
+        },
+        "description": {
+          "pt": "Abordagem, participantes, corpus ou fontes e critério de escolha, contexto, técnica de produção dos dados e procedimento de análise nomeado.",
+          "en": "Approach, participants, corpus or sources and how they were chosen, setting, data-collection technique and a named analysis procedure.",
+          "es": "Enfoque, participantes, corpus o fuentes y criterio de elección, contexto, técnica de producción de datos y procedimiento de análisis nombrado."
+        },
+        "anchors": {
+          "pt": [
+            "Abordagem, participantes ou corpus/fontes com critério de escolha, contexto, técnica de coleta e procedimento de análise nomeado (p. ex. análise de conteúdo, temática, do discurso); o percurso responde à pergunta.",
+            "Maioria dos elementos informada; uma lacuna menor (p. ex. período ou número de participantes/documentos).",
+            "Abordagem e técnica informadas, mas falta o critério de escolha do corpus/participantes ou o procedimento de análise.",
+            "Só descrição genérica (\"foram realizadas entrevistas\", \"foi feita uma análise documental\"); o percurso não pode ser julgado.",
+            "Sem percurso metodológico, ou percurso que não responde à pergunta."
+          ],
+          "en": [
+            "Approach, participants or corpus/sources with selection criteria, setting, collection technique and a named analysis procedure (e.g. content, thematic or discourse analysis); the approach can answer the question.",
+            "Most elements stated; one minor gap (e.g. period or number of participants/documents).",
+            "Approach and technique stated, but the selection of corpus/participants or the analysis procedure is missing.",
+            "Only a generic description (\"interviews were conducted\", \"a documentary analysis was carried out\"); the approach cannot be judged.",
+            "No methodological approach, or one that cannot answer the question."
+          ],
+          "es": [
+            "Enfoque, participantes o corpus/fuentes con criterio de elección, contexto, técnica de recolección y procedimiento de análisis nombrado (p. ej. análisis de contenido, temático o del discurso); el recorrido responde a la pregunta.",
+            "La mayoría de los elementos informados; una laguna menor (p. ej. período o número de participantes/documentos).",
+            "Enfoque y técnica informados, pero falta el criterio de elección del corpus/participantes o el procedimiento de análisis.",
+            "Solo descripción genérica (\"se realizaron entrevistas\", \"se hizo un análisis documental\"); el recorrido no puede juzgarse.",
+            "Sin recorrido metodológico, o uno que no responde a la pregunta."
+          ]
+        }
+      },
+      "results": {
+        "name": {
+          "pt": "Resultados sustentados pelo material",
+          "en": "Findings grounded in the material",
+          "es": "Resultados sustentados por el material"
+        },
+        "description": {
+          "pt": "Achados (categorias, temas, sentidos) apresentados com evidência do material analisado, não prometidos para depois.",
+          "en": "Findings (categories, themes, meanings) presented with evidence from the analyzed material, not promised for later.",
+          "es": "Hallazgos (categorías, temas, sentidos) presentados con evidencia del material analizado, no prometidos para después."
+        },
+        "anchors": {
+          "pt": [
+            "Achados principais nomeados (categorias, temas, sentidos) e sustentados por evidência do material (trechos, falas, documentos citados); interpretação articulada ao referencial.",
+            "Achados principais nomeados e sustentados; evidência ou articulação com o referencial falta em alguns.",
+            "Achados enunciados de forma genérica, com pouca evidência do material, ou parcialmente ausentes.",
+            "Resultados vagos (\"os resultados mostram a importância de…\") sem achados identificáveis, ou majoritariamente preliminares.",
+            "Sem resultados, ou resultados apenas prometidos para o evento."
+          ],
+          "en": [
+            "Main findings named (categories, themes, meanings) and supported by evidence from the material (excerpts, quotes, cited documents); interpretation linked to the framework.",
+            "Main findings named and supported; evidence or link to the framework missing for some.",
+            "Findings stated generically, with little evidence from the material, or partly missing.",
+            "Vague results (\"the results show the importance of…\") with no identifiable findings, or mostly preliminary.",
+            "No results, or results only promised for the event."
+          ],
+          "es": [
+            "Hallazgos principales nombrados (categorías, temas, sentidos) y sustentados por evidencia del material (fragmentos, testimonios, documentos citados); interpretación articulada con el marco teórico.",
+            "Hallazgos principales nombrados y sustentados; falta evidencia o articulación con el marco en algunos.",
+            "Hallazgos enunciados de forma genérica, con poca evidencia del material, o parcialmente ausentes.",
+            "Resultados vagos (\"los resultados muestran la importancia de…\") sin hallazgos identificables, o mayoritariamente preliminares.",
+            "Sin resultados, o resultados solo prometidos para el evento."
+          ]
+        }
+      }
+    }
+  },
+  "approach_variants_note": "Levels of methods/results for research approaches that do not produce numbers; documentary research uses the qualitative levels. The quantitative and computational approaches keep the category's own levels."
+}

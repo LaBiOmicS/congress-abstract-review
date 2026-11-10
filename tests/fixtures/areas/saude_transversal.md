@@ -1,0 +1,4 @@
+Prevalência de ansiedade em estudantes de enfermagem de uma universidade privada
+
+Introdução: Sintomas de ansiedade são frequentes entre estudantes da área da saúde e afetam o desempenho acadêmico. Objetivo: Estimar a prevalência de sintomas de ansiedade e fatores associados em estudantes de enfermagem. Métodos: Estudo transversal com 214 estudantes do 1º ao 8º semestre, que responderam ao Inventário de Ansiedade de Beck e a um questionário sociodemográfico em 2026. Utilizou-se regressão de Poisson com variância robusta. Resultados: A prevalência de ansiedade moderada a grave foi de 38,3% (IC95%: 31,8–45,1). Trabalhar mais de 20 horas semanais (RP = 1,62; p = 0,004) e dormir menos de seis horas (RP = 1,48; p = 0,02) associaram-se à ansiedade. Conclusão: Um em cada três estudantes apresenta ansiedade moderada a grave; ações de apoio psicopedagógico devem considerar a carga de trabalho e o sono.
+Palavras-chave: ansiedade; estudantes de enfermagem; saúde mental.

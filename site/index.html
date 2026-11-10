@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt" data-os="win" data-ai="claude">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>congress-abstract-review · LaBiOmicS</title>
+<meta name="description" content="Avaliação de resumos de congressos assistida por IA para Claude Code e Antigravity: conferência do edital, barema por níveis, nota com duas casas decimais e decisão sugerida, para a comissão científica e para o autor antes de submeter.">
+<meta property="og:title" content="congress-abstract-review — avaliação de resumos de congressos assistida por IA">
+<meta property="og:description" content="Cada resumo pela sua régua: pesquisa, inovação e extensão, área e abordagem. Planilha da comissão classificada por eixo, ficha e parecer para cada trabalho.">
+<meta property="og:image" content="https://labiomics.github.io/congress-abstract-review/assets/logo-180.png">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbfaf7; --surface: #ffffff; --surface-2: #f3f1ec; --ink: #14182b; --ink-2: #3d4257; --muted: #6b6f80;
+  --line: #e3e0d8; --gold: #b45309; --gold-soft: #fdf3e1; --cyan: #0369a1; --cyan-soft: #e6f2f9;
+  --red: #b42318; --red-soft: #fdecea; --green: #1f7a4d; --green-soft: #e8f5ee;
+  --code-bg: #0f1730; --code-ink: #e8ecf8; --code-dim: #8c95b8; --code-hi: #f2b25c;
+  --shadow: 0 1px 2px rgba(20,24,43,.05), 0 6px 24px rgba(20,24,43,.06);
+  --radius: 14px;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0f1f; --surface: #111831; --surface-2: #161f3d; --ink: #eef0f7; --ink-2: #c4c8d8; --muted: #8d93a8;
+    --line: #253056; --gold: #f2b25c; --gold-soft: #2a2213; --cyan: #67c1ec; --cyan-soft: #10273a;
+    --red: #f08a80; --red-soft: #2c1615; --green: #6fcf9c; --green-soft: #12281d; --code-bg: #060a17;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a0f1f; --surface: #111831; --surface-2: #161f3d; --ink: #eef0f7; --ink-2: #c4c8d8; --muted: #8d93a8;
+  --line: #253056; --gold: #f2b25c; --gold-soft: #2a2213; --cyan: #67c1ec; --cyan-soft: #10273a;
+  --red: #f08a80; --red-soft: #2c1615; --green: #6fcf9c; --green-soft: #12281d; --code-bg: #060a17;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+}
+
+/* Language, operating system and AI selectors show one variant at a time. */
+html[data-lang="pt"] [lang="en"], html[data-lang="pt"] [lang="es"],
+html[data-lang="en"] [lang="pt"], html[data-lang="en"] [lang="es"],
+html[data-lang="es"] [lang="pt"], html[data-lang="es"] [lang="en"] { display: none !important; }
+html[data-os="win"] .os-mac, html[data-os="win"] .os-linux, html[data-os="win"] .os-unix,
+html[data-os="mac"] .os-win, html[data-os="mac"] .os-linux,
+html[data-os="linux"] .os-win, html[data-os="linux"] .os-mac { display: none !important; }
+html[data-ai="claude"] .ai-agy, html[data-ai="agy"] .ai-claude { display: none !important; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+code, pre, kbd { font-family: var(--mono); }
+code { font-size: .86em; background: var(--surface-2); padding: .1em .35em; border-radius: 5px; overflow-wrap: anywhere; }
+kbd { font-size: .8em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: .05em .4em; background: var(--surface); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 650; letter-spacing: -.01em; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; }
+p + p { margin-top: 10px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+@media (max-width: 600px) { .wrap { padding: 0 16px; } body { font-size: 16px; } }
+.eyebrow { font: 500 .78rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+
+/* Header */
+header.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 18px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 600; min-width: 0; }
+.brand img { width: 30px; height: 30px; border-radius: 8px; flex: none; }
+.brand span { font-family: var(--mono); font-size: .92rem; white-space: nowrap; }
+nav.links { display: flex; gap: 20px; margin-left: auto; }
+nav.links a { color: var(--ink-2); text-decoration: none; font-size: .9rem; white-space: nowrap; }
+nav.links a:hover { color: var(--ink); }
+.toggles { display: flex; gap: 6px; align-items: center; }
+.chip-btn { font: 500 .78rem var(--mono); color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; cursor: pointer; }
+.chip-btn:hover { border-color: var(--muted); }
+.seg { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.seg button { font: 500 .8rem var(--sans); color: var(--ink-2); background: none; border: 0; border-radius: 999px; padding: 5px 11px; cursor: pointer; white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.top .seg button { font-family: var(--mono); font-size: .74rem; padding: 4px 8px; }
+/* Narrow screens: the menu moves to a second, horizontally scrollable row instead of disappearing. */
+@media (max-width: 980px) {
+  .top .wrap { flex-wrap: wrap; height: auto; padding-top: 10px; gap: 8px 14px; }
+  .toggles { margin-left: auto; }
+  nav.links { order: 3; width: 100%; margin: 0; gap: 18px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: none; }
+  nav.links::-webkit-scrollbar { display: none; }
+  html { scroll-padding-top: 110px; }
+  .pickers { top: 98px; }
+}
+@media (max-width: 420px) { .brand span { display: none; } }
+
+/* Hero */
+.hero { padding: 76px 0 64px; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: -40% -10% auto auto; width: 760px; height: 760px; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 14%, transparent), transparent); pointer-events: none; }
+.hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 52px; align-items: center; }
+.hero .wrap > * { min-width: 0; }
+@media (max-width: 920px) { .hero .wrap { grid-template-columns: 1fr; gap: 36px; } .hero { padding: 48px 0 40px; } }
+.hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.8rem); margin: 6px 0 20px; }
+.hero h1 em { font-style: italic; color: var(--gold); }
+.lede { font-size: 1.12rem; color: var(--ink-2); max-width: 36em; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: .95rem; text-decoration: none; border: 1px solid transparent; }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn.ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
+.btn:hover { transform: translateY(-1px); }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.tag { font: 500 .76rem var(--mono); padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+.tag.beta { background: var(--gold-soft); color: var(--gold); border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); font-weight: 600; letter-spacing: .04em; }
+.beta-note { display: flex; gap: 12px; align-items: flex-start; margin-top: 22px; padding: 12px 16px; max-width: 36em; border: 1px solid color-mix(in srgb, var(--gold) 40%, var(--line)); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; background: var(--gold-soft); font-size: .9rem; color: var(--ink); }
+.beta-note b { color: var(--gold); font: 600 .74rem var(--mono); letter-spacing: .06em; padding-top: 3px; flex: none; }
+
+/* Terminal mock */
+.term { background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; font: .84rem/1.65 var(--mono); }
+.term .bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.term .bar i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.18); }
+.term .bar span { margin-left: 8px; color: var(--code-dim); font-size: .74rem; }
+.term .body { padding: 16px 18px 18px; }
+.term .body > div { white-space: pre-wrap; overflow-wrap: anywhere; }
+.term .u { color: var(--code-hi); }
+.term .d { color: var(--code-dim); }
+.term .ok { color: #6fcf9c; }
+.term .w { color: #f08a80; }
+.term .gap { height: 10px; }
+.term .cap { margin-top: 12px; color: var(--code-dim); font-size: .72rem; }
+.term .bar .replay { margin-left: auto; font: .8rem var(--mono); color: var(--code-dim); background: none; border: 1px solid rgba(255,255,255,.18); border-radius: 6px; padding: 0 8px; cursor: pointer; }
+.term .bar .replay:hover { color: var(--code-ink); }
+.term .prow { display: grid; grid-template-columns: 6em 1fr 1.4em; gap: 10px; align-items: center; padding-left: 1.2em; }
+.term .prow .pbar { background: rgba(255,255,255,.12); }
+.term .prow .pbar b { background: var(--code-hi); }
+.term .rest { color: transparent; }
+.term.anim:not(.typed) .rest { box-shadow: inset 2px 0 var(--code-hi); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { box-shadow: none; } }
+
+/* Animation states. Without JavaScript, or with reduced motion, everything stays in its final state. */
+.pbar { display: block; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.pbar b { display: block; height: 100%; width: var(--w, 100%); border-radius: 3px; background: var(--cyan); }
+.anim .pbar b { width: 0; transition: width var(--d, 1.4s) cubic-bezier(.45,0,.25,1); }
+.anim .on .pbar b { width: var(--w, 100%); }
+.term.anim .ln { opacity: 0; transition: opacity .35s; }
+.term.anim .ln.on { opacity: 1; }
+.term.anim .tick { opacity: 0; transition: opacity .2s var(--d, 1.4s); }
+.term.anim .ln.on .tick { opacity: 1; }
+
+/* Sections */
+section { padding: 80px 0; }
+section.alt { background: var(--surface-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sec-head { max-width: 48em; margin-bottom: 38px; }
+.sec-head p { color: var(--ink-2); margin-top: 14px; font-size: 1.04rem; }
+@media (max-width: 600px) { section { padding: 54px 0; } }
+
+/* Two uses */
+.uses { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.uses > * { min-width: 0; }
+@media (max-width: 860px) { .uses { grid-template-columns: 1fr; } }
+.use { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; border-top: 4px solid var(--gold); }
+.use.ref { border-top-color: var(--cyan); }
+.use .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--gold-soft); color: var(--gold); }
+.use.ref .ico { background: var(--cyan-soft); color: var(--cyan); }
+.use h3 { font-size: 1.3rem; margin: 14px 0 8px; }
+.use > p { color: var(--ink-2); font-size: .95rem; }
+.use ul { margin: 14px 0 0; padding: 0; list-style: none; }
+.use li { position: relative; padding-left: 24px; margin: 7px 0; font-size: .92rem; color: var(--ink-2); }
+.use li::before { content: "→"; position: absolute; left: 0; color: var(--gold); font-family: var(--mono); }
+.use.ref li::before { color: var(--cyan); }
+
+/* Guide */
+.pickers { position: sticky; top: 64px; z-index: 10; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; padding: 14px 18px; margin-bottom: 30px; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.pickers label { font: 500 .74rem var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-right: 8px; }
+.pickers > div { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+@media (max-width: 600px) { .pickers { position: static; } }
+.needs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 36px; }
+@media (max-width: 900px) { .needs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .needs { grid-template-columns: 1fr; } }
+.needs div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: .9rem; color: var(--ink-2); }
+.needs b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 3px; }
+ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+ol.steps > li { counter-increment: s; position: relative; padding: 0 0 34px 64px; }
+ol.steps > li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font: 600 1rem var(--serif); color: var(--gold); background: var(--surface); border: 1.5px solid var(--gold); }
+ol.steps > li::after { content: ""; position: absolute; left: 20px; top: 46px; bottom: 6px; width: 1.5px; background: var(--line); }
+ol.steps > li:last-child::after { display: none; }
+ol.steps h3 { font-family: var(--sans); font-size: 1.12rem; padding-top: 8px; margin-bottom: 8px; }
+ol.steps .txt { color: var(--ink-2); font-size: .97rem; max-width: 46em; }
+ol.steps .txt ul { margin: 8px 0 0; padding-left: 20px; }
+ol.steps .txt li { margin: 3px 0; }
+@media (max-width: 600px) { ol.steps > li { padding-left: 52px; } ol.steps > li::before { width: 36px; height: 36px; } ol.steps > li::after { left: 17px; top: 40px; } }
+.tip { margin-top: 12px; padding: 12px 14px; border-left: 3px solid var(--cyan); background: var(--cyan-soft); border-radius: 0 10px 10px 0; font-size: .9rem; color: var(--ink); max-width: 46em; }
+.warn { border-left-color: var(--gold); background: var(--gold-soft); }
+
+/* Code blocks */
+.code { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: 12px; padding: 16px 18px; margin-top: 12px; font-size: .86rem; line-height: 1.7; max-width: 46em; }
+.code pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; padding-right: 64px; }
+.code .c { color: var(--code-dim); }
+.code .p { color: var(--code-hi); user-select: none; }
+.code .ph { color: var(--code-hi); border-bottom: 1px dashed var(--code-hi); }
+.copy { position: absolute; top: 10px; right: 10px; font: 500 .72rem var(--mono); color: var(--code-ink); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 6px; padding: 5px 9px; cursor: pointer; }
+.copy:hover { background: rgba(255,255,255,.16); }
+
+/* Prompts */
+.prompts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.prompts > * { min-width: 0; }
+@media (max-width: 900px) { .prompts { grid-template-columns: 1fr; } }
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; }
+.pcard .when { font: 500 .72rem var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.pcard h3 { font-family: var(--sans); font-size: 1.05rem; margin: 6px 0 4px; }
+.pcard > p { font-size: .9rem; color: var(--ink-2); }
+.pcard .code { max-width: none; margin-top: auto; }
+.pcard > p:last-of-type { margin-bottom: 14px; }
+.badge { display: inline-block; font: 500 .68rem var(--mono); padding: 2px 7px; border-radius: 5px; background: var(--cyan-soft); color: var(--cyan); margin-left: 6px; vertical-align: 1px; text-transform: none; letter-spacing: 0; }
+
+/* Pipeline */
+.pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; counter-reset: step; }
+@media (max-width: 900px) { .pipeline { grid-template-columns: 1fr; } }
+@media (min-width: 901px) and (max-width: 1120px) { .pipeline { grid-template-columns: repeat(3, 1fr); } .pipeline .step:nth-child(3)::after { display: none; } }
+.step { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; transition: opacity .35s, border-color .35s, box-shadow .35s; }
+.step:not(:last-child)::after { content: ""; position: absolute; right: -13px; top: 50%; width: 12px; height: 2px; background: var(--line); transition: background .35s; }
+@media (max-width: 900px) { .step:not(:last-child)::after { right: auto; left: 50%; top: auto; bottom: -13px; width: 2px; height: 12px; } }
+.viz { position: relative; height: 120px; margin-bottom: 14px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); overflow: hidden; font: .72rem/1.5 var(--mono); color: var(--ink-2); }
+.step.llm .viz { background: color-mix(in srgb, var(--cyan-soft) 70%, var(--surface)); }
+.viz .ok { color: var(--green); }
+.viz .w { color: var(--red); font-weight: 600; }
+.viz .doc { position: absolute; left: 12px; top: 10px; width: 32px; height: 42px; padding: 6px 5px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); display: grid; gap: 4px; align-content: start; overflow: hidden; }
+.viz .doc i { display: block; height: 3px; border-radius: 2px; background: var(--line); }
+.viz .doc i:nth-child(3n) { width: 70%; }
+.viz .scan { display: none; position: absolute; left: 0; right: 0; height: 2px; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.viz .tags { position: absolute; left: 12px; right: 8px; top: 60px; display: flex; flex-wrap: wrap; gap: 4px; font-size: .66rem; }
+.viz .tags span[lang] { display: inline-block; }
+.viz .tags > span { padding: 0 6px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--line)); background: var(--gold-soft); color: var(--gold); white-space: nowrap; }
+.viz .doc-cap { position: absolute; left: 54px; right: 8px; top: 22px; color: var(--ink); }
+.viz ul { list-style: none; margin: 0; padding: 0; }
+.viz li, .viz .row { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
+.viz .row .pbar { flex: 1; }
+.viz .row .g { width: 1.1em; text-align: center; color: var(--cyan); font-weight: 600; }
+.viz .row .n { width: 1.4em; text-align: center; border-radius: 4px; font-weight: 600; }
+.viz .row.t-block .n { background: var(--red-soft); color: var(--red); }
+.viz .row.t-ess .n { background: var(--gold-soft); color: var(--gold); }
+.viz .row.t-opt .n { background: var(--green-soft); color: var(--green); }
+.viz .row + .row { margin-top: 6px; }
+.viz .row.p + .row.p { margin-top: 2px; }
+.viz .row.t-block .pbar b { background: var(--red); }
+.viz .row.t-ess .pbar b { background: var(--gold); }
+.viz .row.t-opt .pbar b { background: var(--green); }
+.viz .stamp { margin-top: 6px; color: var(--green); }
+.viz .fi { display: inline-block; min-width: 3.4em; text-align: center; padding: 0 4px; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-weight: 600; }
+.viz .fi.pdf { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.flow.anim .step { opacity: .5; }
+.flow.anim .step.active, .flow.anim .step.done { opacity: 1; }
+.flow.anim .step.active { border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 20%, transparent); }
+.flow.anim .step.llm.active { border-color: var(--cyan); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyan) 22%, transparent); }
+.flow.anim .step.done::after { background: var(--gold); }
+.flow.anim .step.active .scan { display: block; animation: scan 1.1s ease-in-out infinite alternate; }
+@keyframes scan { from { top: 0; } to { top: calc(100% - 2px); } }
+.flow.anim .k { opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
+.flow.anim .k.on { opacity: 1; transform: none; }
+.legend .replay-btn { margin-left: auto; }
+.step::before { counter-increment: step; content: counter(step); font: 600 .8rem var(--mono); color: var(--gold); display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gold); margin-bottom: 12px; }
+.step h3 { font-family: var(--sans); font-size: 1.02rem; margin-bottom: 8px; }
+.step p { font-size: .9rem; color: var(--ink-2); }
+.step.llm { border-color: color-mix(in srgb, var(--cyan) 45%, var(--line)); background: color-mix(in srgb, var(--cyan-soft) 40%, var(--surface)); }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; font-size: .85rem; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--line); background: var(--surface); }
+.legend .l-llm { border-color: var(--cyan); background: var(--cyan-soft); }
+
+/* Panel */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.grid-2 > * { min-width: 0; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+.roles { display: grid; gap: 12px; }
+.role-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
+.role-card .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--ink); }
+.role-card h3 { font-size: 1rem; font-family: var(--sans); margin-bottom: 4px; }
+.role-card p { font-size: .9rem; color: var(--ink-2); }
+table.comp { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: .92rem; }
+table.comp th, table.comp td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.comp th { font: 500 .74rem var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--surface-2); }
+table.comp tr:last-child td { border-bottom: 0; }
+table.comp td:first-child { font-family: var(--mono); white-space: nowrap; }
+@media (max-width: 380px) { table.comp th, table.comp td { padding: 9px 10px; } table.comp th { letter-spacing: 0; } }
+
+/* Calibration */
+.cal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .cal { grid-template-columns: 1fr; } }
+.cal-card { border-radius: var(--radius); padding: 22px; border: 1px solid var(--line); background: var(--surface); }
+.lbl { font: 600 .76rem var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 3px 9px; border-radius: 6px; display: inline-block; margin-bottom: 12px; }
+.cal-card p { font-size: .93rem; color: var(--ink-2); }
+.cal-card .ex { margin-top: 12px; font-size: .85rem; color: var(--muted); font-style: italic; }
+.t-block { background: var(--red-soft); color: var(--red); }
+.t-ess { background: var(--gold-soft); color: var(--gold); }
+.t-opt { background: var(--green-soft); color: var(--green); }
+
+/* Audit and axes */
+.audit { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .audit { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .audit { grid-template-columns: 1fr; } }
+.a-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.a-card h3 { font-family: var(--sans); font-size: 1rem; margin-bottom: 6px; }
+.a-card p { font-size: .9rem; color: var(--ink-2); }
+.axes { display: grid; grid-template-columns: .8fr 1.3fr 1.2fr; gap: 14px; margin-top: 30px; }
+@media (max-width: 900px) { .axes { grid-template-columns: 1fr; } }
+.axis { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.axis .n { font-family: var(--serif); font-size: 2.4rem; line-height: 1; color: var(--gold); }
+.axis h3 { margin: 6px 0 12px; font-family: var(--sans); font-size: 1rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { font-size: .79rem; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); background: var(--bg); }
+
+/* Outputs */
+.out { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: start; }
+.out > * { min-width: 0; }
+@media (max-width: 900px) { .out { grid-template-columns: 1fr; } }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; font-size: .9rem; }
+.report .rhead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 12px; }
+.report .rhead b { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+.report .rhead small { font: .72rem var(--mono); color: var(--muted); }
+.rev { display: grid; grid-template-columns: 62px 1fr auto; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.rev code { background: none; padding: 0; font-weight: 500; }
+.rev .role { color: var(--ink-2); font-size: .85rem; }
+.verdict { font: 500 .72rem var(--mono); padding: 3px 8px; border-radius: 6px; background: var(--gold-soft); color: var(--gold); white-space: nowrap; }
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.tier { border-radius: 10px; padding: 10px; text-align: center; }
+.tier b { display: block; font-family: var(--serif); font-size: 1.5rem; line-height: 1; }
+.tier span { font: .68rem var(--mono); text-transform: uppercase; letter-spacing: .05em; }
+@media (max-width: 380px) { .report { padding: 16px; } .rev { grid-template-columns: 1fr auto; } .rev .role { grid-column: 1 / -1; grid-row: 2; } .tier span { font-size: .6rem; letter-spacing: 0; } }
+.report .foot { margin-top: 12px; font: .72rem var(--mono); color: var(--muted); }
+.file { display: grid; grid-template-columns: minmax(0, 15em) 1fr; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: .91rem; }
+.file code { background: none; padding: 0; color: var(--ink); word-break: break-all; }
+.file span { color: var(--ink-2); }
+.file.key code { color: var(--gold); font-weight: 500; }
+@media (max-width: 600px) { .file { grid-template-columns: 1fr; gap: 3px; } }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; max-width: 52em; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 18px; }
+summary { cursor: pointer; padding: 15px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font: 500 1.2rem var(--mono); color: var(--gold); line-height: 1.2; }
+details[open] summary::after { content: "–"; }
+details > div { padding: 0 0 16px; color: var(--ink-2); font-size: .94rem; }
+details .code { margin-top: 10px; }
+
+/* Advanced install */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { font: 500 .85rem var(--sans); padding: 9px 16px; border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--surface-2); color: var(--ink-2); cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--code-bg); color: var(--code-ink); border-color: var(--code-bg); }
+.panel { display: none; }
+.panel.on { display: block; }
+.panel .code { margin-top: 0; border-radius: 0 12px 12px 12px; max-width: none; }
+
+/* Responsible use */
+.resp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 900px) { .resp { grid-template-columns: 1fr; } }
+.resp div { border-top: 2px solid var(--ink); padding-top: 14px; }
+.resp h3 { font-family: var(--sans); font-size: 1rem; margin-bottom: 6px; }
+.resp p { font-size: .92rem; color: var(--ink-2); }
+
+footer { padding: 44px 0 56px; border-top: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
+footer b { color: var(--ink); font-weight: 600; }
+footer a { color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/logo-180.png" alt="" width="30" height="30"><span>congress-abstract-review</span></a>
+    <nav class="links">
+      <a href="#guia"><span lang="pt">Guia passo a passo</span><span lang="en">Step-by-step guide</span><span lang="es">Guía paso a paso</span></a>
+      <a href="#prompts"><span lang="pt">Prompts prontos</span><span lang="en">Ready prompts</span><span lang="es">Prompts listos</span></a>
+      <a href="#como"><span lang="pt">Como funciona</span><span lang="en">How it works</span><span lang="es">Cómo funciona</span></a>
+      <a href="#faq"><span lang="pt">Dúvidas</span><span lang="en">FAQ</span><span lang="es">Preguntas</span></a>
+      <a href="https://github.com/LaBiOmicS/congress-abstract-review">GitHub</a>
+    </nav>
+    <div class="toggles">
+      <div class="seg" role="group" aria-label="Language">
+        <button type="button" data-set="lang" data-val="pt">PT</button><button type="button" data-set="lang" data-val="en">EN</button><button type="button" data-set="lang" data-val="es">ES</button>
+      </div>
+      <button class="chip-btn" id="theme-btn" type="button" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span lang="pt">Plugin para Claude Code e Antigravity</span><span lang="en">Plugin for Claude Code and Antigravity</span><span lang="es">Plugin para Claude Code y Antigravity</span></div>
+      <h1 lang="pt">Cada resumo pela <em>sua</em> régua.</h1>
+      <h1 lang="en">Every abstract by <em>its own</em> ruler.</h1>
+      <h1 lang="es">Cada resumen con <em>su</em> regla.</h1>
+      <p class="lede" lang="pt">Avaliação de resumos e resumos expandidos de congressos com assistência de IA: conferência do edital, detecção de resultados só prometidos, avaliadores independentes pontuando o barema por níveis definidos, nota com duas casas decimais e decisão sugerida (aprovado ou indeferido). Pesquisa, inovação e extensão, e cada área e abordagem, são julgadas pelo que são. Para a comissão científica e para o autor antes de submeter. Não é preciso saber programar.</p>
+      <p class="lede" lang="en">AI-assisted evaluation of congress abstracts and expanded abstracts: edital compliance, detection of results that are only promised, independent evaluators scoring the barema against defined levels, a score with two decimals and a suggested decision (approved or rejected). Research, innovation and extension, and each area and approach, are judged for what they are. For the scientific committee and for authors before submitting. No programming needed.</p>
+      <p class="lede" lang="es">Evaluación de resúmenes y resúmenes extendidos de congresos con asistencia de IA: conformidad con la convocatoria, detección de resultados solo prometidos, evaluadores independientes que puntúan el baremo por niveles definidos, nota con dos decimales y decisión sugerida (aprobado o rechazado). Investigación, innovación y extensión, y cada área y enfoque, se juzgan por lo que son. Para el comité científico y para el autor antes de enviar. No hace falta saber programar.</p>
+      <div class="cta">
+        <a class="btn primary" href="#guia"><span lang="pt">Começar pelo guia</span><span lang="en">Start with the guide</span><span lang="es">Empezar por la guía</span> →</a>
+        <a class="btn ghost" href="#prompts"><span lang="pt">Ver prompts prontos</span><span lang="en">See ready prompts</span><span lang="es">Ver prompts listos</span></a>
+      </div>
+      <div class="beta-note" role="note"><b>BETA</b>
+        <span lang="pt">A ferramenta ainda está em versão beta e pode apresentar erros, tanto de funcionamento quanto nas avaliações que gera. Confira cada resultado e <a href="https://github.com/LaBiOmicS/congress-abstract-review/issues">relate problemas</a>.</span>
+        <span lang="en">The tool is still in beta and may contain errors, both in how it runs and in the evaluations it produces. Check every result and <a href="https://github.com/LaBiOmicS/congress-abstract-review/issues">report problems</a>.</span>
+        <span lang="es">La herramienta todavía está en versión beta y puede presentar errores, tanto de funcionamiento como en las evaluaciones que genera. Verifique cada resultado e <a href="https://github.com/LaBiOmicS/congress-abstract-review/issues">informe los problemas</a>.</span></div>
+      <div class="meta-row"><span class="tag beta">BETA</span><span class="tag">v0.1.0</span><span class="tag">MIT</span><span class="tag">Windows · macOS · Linux</span><span class="tag">PT · EN · ES</span></div>
+    </div>
+    <div class="term" id="term" aria-label="Exemplo de uso no terminal">
+      <div class="bar"><i></i><i></i><i></i><span>~/Documentos/simposio — claude</span><button class="replay" type="button" data-replay="term" aria-label="Replay" title="Replay">↻</button></div>
+      <div class="body">
+        <div class="ln" data-s="0"><span class="u">&gt; </span><span class="u type" lang="pt">Avalie os resumos da pasta submissoes/ segundo o edital.pdf e me dê a planilha da comissão.</span><span class="u type" lang="en">Evaluate the abstracts in submissions/ against cfp.pdf and give me the committee spreadsheet.</span><span class="u type" lang="es">Evalúa los resúmenes de envios/ según convocatoria.pdf y dame la planilla del comité.</span></div>
+        <div class="gap"></div>
+        <div class="ln" data-s="1"><span class="ok">✓</span> <span lang="pt">Edital: 3 eixos (pesquisa, inovação, extensão) · 250–300 palavras</span><span lang="en">Edital: 3 tracks (research, innovation, extension) · 250–300 words</span><span lang="es">Convocatoria: 3 ejes (investigación, innovación, extensión) · 250–300 palabras</span></div>
+        <div class="ln" data-s="2"><span class="ok">✓</span> <span lang="pt">48 resumos · 41 simples · 7 expandidos · 6 áreas</span><span lang="en">48 abstracts · 41 simple · 7 expanded · 6 areas</span><span lang="es">48 resúmenes · 41 simples · 7 extendidos · 6 áreas</span></div>
+        <div class="ln" data-s="3"><span class="w">!</span> <span lang="pt">5 fora do limite de palavras · 2 com resultados só prometidos</span><span lang="en">5 outside the word limit · 2 with results only promised</span><span lang="es">5 fuera del límite de palabras · 2 con resultados solo prometidos</span></div>
+        <div class="ln" data-s="4"><span class="w">!</span> <span lang="pt">3 sem menção a aprovação ética (CEP)</span><span lang="en">3 without an ethics approval mentioned</span><span lang="es">3 sin mención a aprobación ética</span></div>
+        <div class="ln d" data-s="5"><span class="d">…</span> <span lang="pt">omega em todos; painel completo nos limítrofes</span><span lang="en">omega on all; full panel on borderline cases</span><span lang="es">omega en todos; panel completo en los casos límite</span></div>
+        <div class="ln prow" data-s="6" style="--d:2.4s"><span class="d">omega</span><span class="pbar"><b></b></span><span class="ok tick">✓</span></div>
+        <div class="ln prow" data-s="6" style="--d:1.7s"><span class="d">alfa</span><span class="pbar"><b></b></span><span class="ok tick">✓</span></div>
+        <div class="ln prow" data-s="6" style="--d:2.0s"><span class="d">beta</span><span class="pbar"><b></b></span><span class="ok tick">✓</span></div>
+        <div class="ln prow" data-s="6" style="--d:1.8s"><span class="d">gamma</span><span class="pbar"><b></b></span><span class="ok tick">✓</span></div>
+        <div class="ln prow" data-s="6" style="--d:2.6s"><span class="d" lang="pt">síntese</span><span class="d" lang="en">synthesis</span><span class="d" lang="es">síntesis</span><span class="pbar"><b></b></span><span class="ok tick">✓</span></div>
+        <div class="ln" data-s="7"><span class="ok">✓</span> <span lang="pt">31 aprovados · 17 indeferidos · 6 para decisão da comissão</span><span lang="en">31 approved · 17 rejected · 6 for the committee to decide</span><span lang="es">31 aprobados · 17 rechazados · 6 para decisión del comité</span></div>
+        <div class="ln" data-s="8"><span class="ok">✓</span> <span>committee_scores.xlsx</span></div>
+        <div class="cap"><span lang="pt">exemplo ilustrativo, resumido</span><span lang="en">illustrative example, abridged</span><span lang="es">ejemplo ilustrativo, resumido</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Dois usos</span><span lang="en">Two uses</span><span lang="es">Dos usos</span></div>
+      <h2 lang="pt">Para quem avalia e para quem submete.</h2>
+      <h2 lang="en">For those who evaluate and those who submit.</h2>
+      <h2 lang="es">Para quien evalúa y para quien envía.</h2>
+    </div>
+    <div class="uses">
+      <div class="use ref">
+        <div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18v14H3z"/><path d="M3 10h18M9 10v9"/></svg></div>
+        <h3 lang="pt">Comissão científica</h3><h3 lang="en">Scientific committee</h3><h3 lang="es">Comité científico</h3>
+        <p lang="pt">Uma pasta de submissões e o edital do evento viram uma planilha classificada por eixo, com a lista do que precisa de decisão humana. Use só quando o evento permitir IA na avaliação.</p>
+        <p lang="en">A folder of submissions and the event's edital become a spreadsheet ranked by track, with the list of what needs a human decision. Use it only when the event allows AI in the evaluation.</p>
+        <p lang="es">Una carpeta de envíos y la convocatoria del evento se convierten en una planilla clasificada por eje, con la lista de lo que necesita decisión humana. Úselo solo cuando el evento permita IA en la evaluación.</p>
+        <ul lang="pt"><li>Nota com duas casas decimais e decisão sugerida para cada trabalho</li><li>Descumprimentos do edital sinalizados para a comissão, nunca indeferidos sozinhos</li><li>Parecer anônimo pronto para colar no Even3, EasyChair ou JEMS</li></ul>
+        <ul lang="en"><li>Score with two decimals and a suggested decision for each submission</li><li>Edital breaches flagged for the committee, never rejected on their own</li><li>Anonymous feedback ready to paste into Even3, EasyChair or JEMS</li></ul>
+        <ul lang="es"><li>Nota con dos decimales y decisión sugerida para cada trabajo</li><li>Incumplimientos señalados al comité, nunca rechazados por sí solos</li><li>Dictamen anónimo listo para pegar en el sistema de envíos</li></ul>
+      </div>
+      <div class="use">
+        <div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg></div>
+        <h3 lang="pt">Autor antes de submeter</h3><h3 lang="en">Author before submitting</h3><h3 lang="es">Autor antes de enviar</h3>
+        <p lang="pt">Confira o seu resumo contra o edital, ou contra boas práticas quando não houver um, e corrija o que custaria pontos enquanto ainda há tempo. Também serve ao orientador que revisa os resumos do grupo.</p>
+        <p lang="en">Check your abstract against the edital, or against best practices when there is none, and fix what would cost points while there is still time. It also serves supervisors checking their group's abstracts.</p>
+        <p lang="es">Revise su resumen frente a la convocatoria, o frente a buenas prácticas si no la hay, y corrija lo que costaría puntos mientras aún hay tiempo. También sirve al director que revisa los resúmenes del grupo.</p>
+        <ul lang="pt"><li>Nota e decisão prováveis</li><li>Lista "Antes de submeter": obrigatório, recomendado, conferir</li><li>Plano de revisão sem dados inventados</li></ul>
+        <ul lang="en"><li>Likely score and decision</li><li>"Before submitting" checklist: must fix, recommended, check</li><li>Revision plan without invented data</li></ul>
+        <ul lang="es"><li>Nota y decisión probables</li><li>Lista "Antes de enviar": obligatorio, recomendado, verificar</li><li>Plan de revisión sin datos inventados</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ GUIDE -->
+<section id="guia">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Manual de uso</span><span lang="en">User manual</span><span lang="es">Manual de uso</span></div>
+      <h2 lang="pt">Do zero à primeira avaliação, em oito passos.</h2>
+      <h2 lang="en">From zero to your first evaluation, in eight steps.</h2>
+      <h2 lang="es">De cero a su primera evaluación, en ocho pasos.</h2>
+      <p lang="pt">Escolha abaixo o seu sistema e a IA que vai usar. O guia mostra só os comandos certos para a sua escolha. Em cada caixa escura, clique em <b>copy</b> e cole no terminal.</p>
+      <p lang="en">Pick your system and the AI you will use below. The guide then shows only the commands for your choice. In each dark box, click <b>copy</b> and paste it into the terminal.</p>
+      <p lang="es">Elija abajo su sistema y la IA que va a usar. La guía muestra solo los comandos de su elección. En cada recuadro oscuro, haga clic en <b>copy</b> y péguelo en la terminal.</p>
+    </div>
+
+    <div class="pickers">
+      <div><label><span lang="pt">Sistema</span><span lang="en">System</span><span lang="es">Sistema</span></label>
+        <div class="seg" role="group" aria-label="Operating system"><button type="button" data-set="os" data-val="win">Windows</button><button type="button" data-set="os" data-val="mac">macOS</button><button type="button" data-set="os" data-val="linux">Linux</button></div></div>
+      <div><label>IA</label>
+        <div class="seg" role="group" aria-label="AI"><button type="button" data-set="ai" data-val="claude">Claude Code</button><button type="button" data-set="ai" data-val="agy">Antigravity</button></div></div>
+    </div>
+
+    <div class="needs">
+      <div><b lang="pt">Computador</b><b lang="en">Computer</b><b lang="es">Computadora</b>
+        <span lang="pt">Windows 10 ou 11, macOS 13 ou mais novo, ou Linux (Ubuntu 20.04+), com internet.</span><span lang="en">Windows 10 or 11, macOS 13 or later, or Linux (Ubuntu 20.04+), online.</span><span lang="es">Windows 10 u 11, macOS 13 o posterior, o Linux (Ubuntu 20.04+), con internet.</span></div>
+      <div class="ai-claude"><b lang="pt">Conta</b><b lang="en">Account</b><b lang="es">Cuenta</b>
+        <span lang="pt">Uma assinatura paga do Claude (Pro ou superior). O plano gratuito não inclui o Claude Code.</span><span lang="en">A paid Claude subscription (Pro or higher). The free plan does not include Claude Code.</span><span lang="es">Una suscripción de pago de Claude (Pro o superior). El plan gratuito no incluye Claude Code.</span></div>
+      <div class="ai-agy"><b lang="pt">Conta</b><b lang="en">Account</b><b lang="es">Cuenta</b>
+        <span lang="pt">Uma conta Google com acesso ao Antigravity.</span><span lang="en">A Google account with access to Antigravity.</span><span lang="es">Una cuenta de Google con acceso a Antigravity.</span></div>
+      <div><b lang="pt">Tempo</b><b lang="en">Time</b><b lang="es">Tiempo</b>
+        <span lang="pt">Uns 20 minutos para instalar, uma única vez. Depois, um resumo leva poucos minutos.</span><span lang="en">About 20 minutes to install, once. After that, an abstract takes a few minutes.</span><span lang="es">Unos 20 minutos para instalar, una sola vez. Después, un resumen tarda unos minutos.</span></div>
+      <div><b lang="pt">Arquivos</b><b lang="en">Files</b><b lang="es">Archivos</b>
+        <span lang="pt">Resumos em PDF, Word (.docx), Markdown ou texto, e o edital do evento (opcional).</span><span lang="en">Abstracts as PDF, Word (.docx), Markdown or text, and the event's edital (optional).</span><span lang="es">Resúmenes en PDF, Word (.docx), Markdown o texto, y la convocatoria del evento (opcional).</span></div>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <h3 lang="pt">Abra o terminal</h3><h3 lang="en">Open the terminal</h3><h3 lang="es">Abra la terminal</h3>
+        <div class="txt">
+          <p lang="pt">O terminal é uma janela onde você digita comandos. Você vai usá-lo só para colar o que está nas caixas escuras deste guia.</p>
+          <p lang="en">The terminal is a window where you type commands. You will only use it to paste what is in this guide's dark boxes.</p>
+          <p lang="es">La terminal es una ventana donde se escriben comandos. Solo la usará para pegar lo que aparece en los recuadros oscuros de esta guía.</p>
+          <p class="os-win" lang="pt">No Windows, aperte a tecla <kbd>⊞ Win</kbd>, digite <b>PowerShell</b> e abra o programa <b>Windows PowerShell</b>.</p>
+          <p class="os-win" lang="en">On Windows, press the <kbd>⊞ Win</kbd> key, type <b>PowerShell</b> and open <b>Windows PowerShell</b>.</p>
+          <p class="os-win" lang="es">En Windows, pulse la tecla <kbd>⊞ Win</kbd>, escriba <b>PowerShell</b> y abra <b>Windows PowerShell</b>.</p>
+          <p class="os-mac" lang="pt">No Mac, aperte <kbd>⌘ Cmd</kbd> + <kbd>Espaço</kbd>, digite <b>Terminal</b> e aperte <kbd>Enter</kbd>.</p>
+          <p class="os-mac" lang="en">On a Mac, press <kbd>⌘ Cmd</kbd> + <kbd>Space</kbd>, type <b>Terminal</b> and press <kbd>Enter</kbd>.</p>
+          <p class="os-mac" lang="es">En Mac, pulse <kbd>⌘ Cmd</kbd> + <kbd>Espacio</kbd>, escriba <b>Terminal</b> y pulse <kbd>Enter</kbd>.</p>
+          <p class="os-linux" lang="pt">No Linux, aperte <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd> ou procure <b>Terminal</b> no menu de aplicativos.</p>
+          <p class="os-linux" lang="en">On Linux, press <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd> or look for <b>Terminal</b> in the applications menu.</p>
+          <p class="os-linux" lang="es">En Linux, pulse <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd> o busque <b>Terminal</b> en el menú de aplicaciones.</p>
+          <div class="tip" lang="pt"><b>Para colar:</b> <span class="os-win">clique com o botão direito dentro da janela</span><span class="os-mac">use <kbd>⌘ Cmd</kbd> + <kbd>V</kbd></span><span class="os-linux">use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd></span>. Depois aperte <kbd>Enter</kbd> para executar.</div>
+          <div class="tip" lang="en"><b>To paste:</b> <span class="os-win">right-click inside the window</span><span class="os-mac">use <kbd>⌘ Cmd</kbd> + <kbd>V</kbd></span><span class="os-linux">use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd></span>. Then press <kbd>Enter</kbd> to run it.</div>
+          <div class="tip" lang="es"><b>Para pegar:</b> <span class="os-win">haga clic derecho dentro de la ventana</span><span class="os-mac">use <kbd>⌘ Cmd</kbd> + <kbd>V</kbd></span><span class="os-linux">use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd></span>. Luego pulse <kbd>Enter</kbd> para ejecutarlo.</div>
+        </div>
+      </li>
+
+      <li>
+        <h3 lang="pt">Instale o uv</h3><h3 lang="en">Install uv</h3><h3 lang="es">Instale uv</h3>
+        <div class="txt">
+          <p lang="pt">O <b>uv</b> é um programa gratuito que baixa, sozinho, as peças em Python que a ferramenta usa para ler PDFs e gerar a ficha e a planilha. Cole o comando, aperte <kbd>Enter</kbd> e espere terminar.</p>
+          <p lang="en"><b>uv</b> is a free program that fetches, on its own, the Python pieces the tool uses to read PDFs and produce the sheet and the spreadsheet. Paste the command, press <kbd>Enter</kbd> and wait until it finishes.</p>
+          <p lang="es"><b>uv</b> es un programa gratuito que descarga por sí solo las piezas de Python que la herramienta usa para leer PDF y generar la ficha y la planilla. Pegue el comando, pulse <kbd>Enter</kbd> y espere a que termine.</p>
+          <div class="code os-win"><button class="copy" type="button">copy</button><pre>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</pre></div>
+          <div class="code os-unix"><button class="copy" type="button">copy</button><pre>curl -LsSf https://astral.sh/uv/install.sh | sh</pre></div>
+          <div class="tip" lang="pt">Ao terminar, <b>feche o terminal e abra outro</b>. Isso vale para todos os passos de instalação.</div>
+          <div class="tip" lang="en">When it finishes, <b>close the terminal and open a new one</b>. This applies to every installation step.</div>
+          <div class="tip" lang="es">Al terminar, <b>cierre la terminal y abra otra</b>. Esto vale para todos los pasos de instalación.</div>
+        </div>
+      </li>
+
+      <li>
+        <h3 class="ai-claude" lang="pt">Instale o Claude Code</h3><h3 class="ai-claude" lang="en">Install Claude Code</h3><h3 class="ai-claude" lang="es">Instale Claude Code</h3>
+        <h3 class="ai-agy" lang="pt">Instale o Antigravity CLI</h3><h3 class="ai-agy" lang="en">Install the Antigravity CLI</h3><h3 class="ai-agy" lang="es">Instale Antigravity CLI</h3>
+        <div class="txt">
+          <p lang="pt">Este é o assistente de IA que vai conduzir a avaliação. O instalador não mostra progresso enquanto baixa; espere a linha de comando voltar.</p>
+          <p lang="en">This is the AI assistant that will run the evaluation. The installer shows no progress while it downloads; wait for the prompt to come back.</p>
+          <p lang="es">Este es el asistente de IA que realizará la evaluación. El instalador no muestra el progreso mientras descarga; espere a que vuelva la línea de comandos.</p>
+          <div class="code ai-claude os-win"><button class="copy" type="button">copy</button><pre>irm https://claude.ai/install.ps1 | iex</pre></div>
+          <div class="code ai-claude os-unix"><button class="copy" type="button">copy</button><pre>curl -fsSL https://claude.ai/install.sh | bash</pre></div>
+          <div class="code ai-agy os-win"><button class="copy" type="button">copy</button><pre>irm https://antigravity.google/cli/install.ps1 | iex</pre></div>
+          <div class="code ai-agy os-unix"><button class="copy" type="button">copy</button><pre>curl -fsSL https://antigravity.google/cli/install.sh | bash</pre></div>
+          <p lang="pt" style="margin-top:12px">Abra um terminal novo e confira se a instalação deu certo. Deve aparecer um número de versão:</p>
+          <p lang="en" style="margin-top:12px">Open a new terminal and check the installation. It should print a version number:</p>
+          <p lang="es" style="margin-top:12px">Abra una terminal nueva y compruebe la instalación. Debe aparecer un número de versión:</p>
+          <div class="code ai-claude"><button class="copy" type="button">copy</button><pre>claude --version</pre></div>
+          <div class="code ai-agy"><button class="copy" type="button">copy</button><pre>agy --version</pre></div>
+        </div>
+      </li>
+
+      <li>
+        <h3 lang="pt">Entre na sua conta</h3><h3 lang="en">Sign in</h3><h3 lang="es">Inicie sesión</h3>
+        <div class="txt">
+          <p lang="pt">Digite o comando abaixo. Na primeira vez, o navegador abre para você entrar na sua conta; volte ao terminal quando terminar.</p>
+          <p lang="en">Type the command below. The first time, your browser opens so you can sign in; come back to the terminal when done.</p>
+          <p lang="es">Escriba el comando de abajo. La primera vez se abre el navegador para que inicie sesión; vuelva a la terminal al terminar.</p>
+          <div class="code ai-claude"><button class="copy" type="button">copy</button><pre>claude</pre></div>
+          <div class="code ai-agy"><button class="copy" type="button">copy</button><pre>agy</pre></div>
+          <p class="ai-claude" lang="pt" style="margin-top:12px">Quando aparecer a pergunta sobre confiar na pasta, escolha <b>Yes</b>. Para sair do assistente, digite <code>/exit</code>.</p>
+          <p class="ai-claude" lang="en" style="margin-top:12px">When it asks whether you trust the folder, choose <b>Yes</b>. To leave the assistant, type <code>/exit</code>.</p>
+          <p class="ai-claude" lang="es" style="margin-top:12px">Cuando pregunte si confía en la carpeta, elija <b>Yes</b>. Para salir del asistente, escriba <code>/exit</code>.</p>
+          <p class="ai-agy" lang="pt" style="margin-top:12px">Para sair do assistente, aperte <kbd>Ctrl</kbd> + <kbd>C</kbd> duas vezes.</p>
+          <p class="ai-agy" lang="en" style="margin-top:12px">To leave the assistant, press <kbd>Ctrl</kbd> + <kbd>C</kbd> twice.</p>
+          <p class="ai-agy" lang="es" style="margin-top:12px">Para salir del asistente, pulse <kbd>Ctrl</kbd> + <kbd>C</kbd> dos veces.</p>
+        </div>
+      </li>
+
+      <li>
+        <h3 lang="pt">Instale o plugin</h3><h3 lang="en">Install the plugin</h3><h3 lang="es">Instale el plugin</h3>
+        <div class="txt">
+          <p class="ai-claude" lang="pt">Com o Claude Code aberto (passo 4), cole as duas linhas, <b>uma de cada vez</b>, apertando <kbd>Enter</kbd> depois de cada uma:</p>
+          <p class="ai-claude" lang="en">With Claude Code open (step 4), paste the two lines <b>one at a time</b>, pressing <kbd>Enter</kbd> after each:</p>
+          <p class="ai-claude" lang="es">Con Claude Code abierto (paso 4), pegue las dos líneas <b>una por vez</b>, pulsando <kbd>Enter</kbd> después de cada una:</p>
+          <div class="code ai-claude"><button class="copy" type="button">copy</button><pre><span class="p">&gt; </span>/plugin marketplace add LaBiOmicS/congress-abstract-review</pre></div>
+          <div class="code ai-claude"><button class="copy" type="button">copy</button><pre><span class="p">&gt; </span>/plugin install congress-abstract-review@labiomics-congress</pre></div>
+          <p class="ai-claude" lang="pt" style="margin-top:12px">Depois digite <code>/exit</code>. O plugin passa a funcionar na próxima vez que você abrir o Claude Code.</p>
+          <p class="ai-claude" lang="en" style="margin-top:12px">Then type <code>/exit</code>. The plugin is active the next time you open Claude Code.</p>
+          <p class="ai-claude" lang="es" style="margin-top:12px">Luego escriba <code>/exit</code>. El plugin funciona la próxima vez que abra Claude Code.</p>
+          <p class="ai-agy" lang="pt">Baixe o plugin em <a href="https://github.com/LaBiOmicS/congress-abstract-review/archive/refs/tags/v0.1.0.zip">congress-abstract-review-0.1.0.zip</a> e extraia o arquivo (clique direito → <b>Extrair tudo</b> no Windows; dois cliques no Mac). No terminal, fora do assistente, digite <code>agy plugin install </code> com um espaço no final, <b>arraste a pasta extraída para a janela</b> e aperte <kbd>Enter</kbd>. Depois ative o plugin:</p>
+          <p class="ai-agy" lang="en">Download the plugin from <a href="https://github.com/LaBiOmicS/congress-abstract-review/archive/refs/tags/v0.1.0.zip">congress-abstract-review-0.1.0.zip</a> and extract it (right-click → <b>Extract all</b> on Windows; double-click on a Mac). In the terminal, outside the assistant, type <code>agy plugin install </code> with a trailing space, <b>drag the extracted folder into the window</b> and press <kbd>Enter</kbd>. Then enable the plugin:</p>
+          <p class="ai-agy" lang="es">Descargue el plugin desde <a href="https://github.com/LaBiOmicS/congress-abstract-review/archive/refs/tags/v0.1.0.zip">congress-abstract-review-0.1.0.zip</a> y extráigalo (clic derecho → <b>Extraer todo</b> en Windows; doble clic en Mac). En la terminal, fuera del asistente, escriba <code>agy plugin install </code> con un espacio al final, <b>arrastre la carpeta extraída a la ventana</b> y pulse <kbd>Enter</kbd>. Después active el plugin:</p>
+          <div class="code ai-agy"><button class="copy" type="button">copy</button><pre><span class="c"># </span><span class="c" lang="pt">exemplo; o caminho é o da sua pasta</span><span class="c" lang="en">example; the path is your folder's</span><span class="c" lang="es">ejemplo; la ruta es la de su carpeta</span>
+agy plugin install <span class="ph os-win">C:\Users\Ana\Downloads\congress-abstract-review-0.1.0</span><span class="ph os-mac">/Users/ana/Downloads/congress-abstract-review-0.1.0</span><span class="ph os-linux">/home/ana/Downloads/congress-abstract-review-0.1.0</span>
+agy plugin enable congress-abstract-review</pre></div>
+        </div>
+      </li>
+
+      <li>
+        <h3 lang="pt">Prepare uma pasta com os resumos</h3><h3 lang="en">Prepare a folder with the abstracts</h3><h3 lang="es">Prepare una carpeta con los resúmenes</h3>
+        <div class="txt">
+          <p lang="pt">Crie uma pasta, por exemplo <b>simposio</b> dentro de <b>Documentos</b>. Coloque nela o edital do evento (se houver) e, numa subpasta <b>submissoes</b>, os resumos. Para conferir um único resumo, basta o arquivo.</p>
+          <p lang="en">Create a folder, for example <b>symposium</b> inside <b>Documents</b>. Put the event's edital in it (if there is one) and the abstracts in a <b>submissions</b> subfolder. To check a single abstract, the file alone is enough.</p>
+          <p lang="es">Cree una carpeta, por ejemplo <b>simposio</b> dentro de <b>Documentos</b>. Coloque en ella la convocatoria (si la hay) y, en una subcarpeta <b>envios</b>, los resúmenes. Para revisar un solo resumen, basta el archivo.</p>
+          <p lang="pt">No terminal, digite <code>cd </code> (com espaço), <b>arraste a pasta para a janela</b> e aperte <kbd>Enter</kbd>:</p>
+          <p lang="en">In the terminal, type <code>cd </code> (with a space), <b>drag the folder into the window</b> and press <kbd>Enter</kbd>:</p>
+          <p lang="es">En la terminal, escriba <code>cd </code> (con espacio), <b>arrastre la carpeta a la ventana</b> y pulse <kbd>Enter</kbd>:</p>
+          <div class="code"><button class="copy" type="button">copy</button><pre>cd <span class="ph os-win">C:\Users\Ana\Documents\simposio</span><span class="ph os-mac">/Users/ana/Documents/simposio</span><span class="ph os-linux">/home/ana/Documentos/simposio</span></pre></div>
+          <div class="tip" lang="pt">Se o sistema de submissão (Even3, EasyChair, JEMS) exporta uma planilha com o eixo de cada trabalho, salve-a como CSV na mesma pasta: assim cada resumo é avaliado pelo barema do seu eixo.</div>
+          <div class="tip" lang="en">If the submission system (Even3, EasyChair, JEMS) exports a spreadsheet with each submission's track, save it as CSV in the same folder: each abstract is then scored with its track's barema.</div>
+          <div class="tip" lang="es">Si el sistema de envíos exporta una planilla con el eje de cada trabajo, guárdela como CSV en la misma carpeta: así cada resumen se evalúa con el baremo de su eje.</div>
+        </div>
+      </li>
+
+      <li>
+        <h3 lang="pt">Peça a avaliação</h3><h3 lang="en">Ask for the evaluation</h3><h3 lang="es">Pida la evaluación</h3>
+        <div class="txt">
+          <p lang="pt">Ainda nessa pasta, abra o assistente e escreva o pedido com as suas palavras, ou use um dos <a href="#prompts">prompts prontos</a>.</p>
+          <p lang="en">Still in that folder, open the assistant and write your request in your own words, or use one of the <a href="#prompts">ready prompts</a>.</p>
+          <p lang="es">Todavía en esa carpeta, abra el asistente y escriba su pedido con sus palabras, o use uno de los <a href="#prompts">prompts listos</a>.</p>
+          <div class="code ai-claude"><button class="copy" type="button">copy</button><pre>claude</pre></div>
+          <div class="code ai-agy"><button class="copy" type="button">copy</button><pre>agy</pre></div>
+          <div class="code" lang="pt"><button class="copy" type="button">copy</button><pre><span class="p">&gt; </span>Avalie os resumos da pasta <span class="ph">submissoes/</span> segundo o edital <span class="ph">edital.pdf</span> e me dê a planilha da comissão.</pre></div>
+          <div class="code" lang="en"><button class="copy" type="button">copy</button><pre><span class="p">&gt; </span>Evaluate the abstracts in <span class="ph">submissions/</span> against the edital <span class="ph">cfp.pdf</span> and give me the committee spreadsheet.</pre></div>
+          <div class="code" lang="es"><button class="copy" type="button">copy</button><pre><span class="p">&gt; </span>Evalúa los resúmenes de la carpeta <span class="ph">envios/</span> según la convocatoria <span class="ph">convocatoria.pdf</span> y dame la planilla del comité.</pre></div>
+          <div class="tip warn" lang="pt"><b>O assistente vai mostrar as regras que leu do edital</b> (limites, seções, eixos, barema, nota mínima) e pedir que você confirme antes de avaliar. Confira com atenção: a avaliação inteira depende delas. Ele também vai pedir permissão para rodar programas (<code>uv run …</code>); escolha <b>Yes</b>.</div>
+          <div class="tip warn" lang="en"><b>The assistant will show the rules it read from the edital</b> (limits, sections, tracks, barema, minimum score) and ask you to confirm them before evaluating. Check them carefully: the whole evaluation depends on them. It will also ask permission to run programs (<code>uv run …</code>); choose <b>Yes</b>.</div>
+          <div class="tip warn" lang="es"><b>El asistente mostrará las reglas que leyó de la convocatoria</b> (límites, secciones, ejes, baremo, nota mínima) y pedirá que las confirme antes de evaluar. Revíselas con atención: toda la evaluación depende de ellas. También pedirá permiso para ejecutar programas (<code>uv run …</code>); elija <b>Yes</b>.</div>
+        </div>
+      </li>
+
+      <li>
+        <h3 lang="pt">Abra e confira o resultado</h3><h3 lang="en">Open and check the result</h3><h3 lang="es">Abra y verifique el resultado</h3>
+        <div class="txt">
+          <p lang="pt">Os arquivos ficam em <code>congress_reviews/&lt;evento&gt;</code>. Comece pela <b>committee_scores.xlsx</b> (planilha classificada por eixo) e pelo <b>committee_report.md</b> (o que pede decisão da comissão). Cada trabalho tem a sua ficha, <b>congress_evaluation_sheet.pdf</b>.</p>
+          <p lang="en">The files land in <code>congress_reviews/&lt;event&gt;</code>. Start with <b>committee_scores.xlsx</b> (spreadsheet ranked by track) and <b>committee_report.md</b> (what needs a committee decision). Each submission has its own sheet, <b>congress_evaluation_sheet.pdf</b>.</p>
+          <p lang="es">Los archivos quedan en <code>congress_reviews/&lt;evento&gt;</code>. Empiece por <b>committee_scores.xlsx</b> (planilla clasificada por eje) y <b>committee_report.md</b> (lo que requiere decisión del comité). Cada trabajo tiene su ficha, <b>congress_evaluation_sheet.pdf</b>.</p>
+          <div class="tip" lang="pt">A IA pode errar. A ficha é um rascunho: um membro da comissão confere, edita e assina antes de qualquer uso. Para o autor, a nota é uma estimativa, não a avaliação do evento.</div>
+          <div class="tip" lang="en">The AI can be wrong. The sheet is a draft: a committee member checks, edits and signs it before any use. For authors, the score is an estimate, not the event's evaluation.</div>
+          <div class="tip" lang="es">La IA puede equivocarse. La ficha es un borrador: un miembro del comité la verifica, edita y firma antes de usarla. Para el autor, la nota es una estimación, no la evaluación del evento.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ PROMPTS -->
+<section id="prompts" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Prompts prontos</span><span lang="en">Ready prompts</span><span lang="es">Prompts listos</span></div>
+      <h2 lang="pt">Copie, troque o que está sublinhado e envie.</h2>
+      <h2 lang="en">Copy, replace the underlined parts and send.</h2>
+      <h2 lang="es">Copie, cambie lo subrayado y envíe.</h2>
+      <p lang="pt">Os mesmos pedidos funcionam no Claude Code e no Antigravity. A ficha sai no idioma de cada resumo.</p>
+      <p lang="en">The same requests work in Claude Code and in Antigravity. Each sheet is written in its abstract's language.</p>
+      <p lang="es">Los mismos pedidos funcionan en Claude Code y en Antigravity. Cada ficha se redacta en el idioma de su resumen.</p>
+    </div>
+    <div class="prompts">
+      <div class="pcard">
+        <div class="when"><span lang="pt">Para a comissão</span><span lang="en">For the committee</span><span lang="es">Para el comité</span></div>
+        <h3 lang="pt">Avaliar um lote com o edital</h3><h3 lang="en">Evaluate a batch with the edital</h3><h3 lang="es">Evaluar un lote con la convocatoria</h3>
+        <p lang="pt">Um avaliador por trabalho e o painel completo nos casos limítrofes.</p><p lang="en">One evaluator per submission and the full panel on borderline cases.</p><p lang="es">Un evaluador por trabajo y el panel completo en los casos límite.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">Avalie todos os resumos da pasta <span class="ph">submissoes/</span> segundo o edital <span class="ph">edital.pdf</span> do <span class="ph">XV Simpósio</span>. Os eixos de cada trabalho estão em <span class="ph">even3.csv</span>. Me entregue a planilha da comissão.</pre>
+          <pre lang="en">Evaluate all abstracts in <span class="ph">submissions/</span> against the edital <span class="ph">cfp.pdf</span> of the <span class="ph">XV Symposium</span>. Each submission's track is in <span class="ph">even3.csv</span>. Give me the committee spreadsheet.</pre>
+          <pre lang="es">Evalúa todos los resúmenes de la carpeta <span class="ph">envios/</span> según la convocatoria <span class="ph">convocatoria.pdf</span> del <span class="ph">XV Simposio</span>. Los ejes de cada trabajo están en <span class="ph">envios.csv</span>. Entrégame la planilla del comité.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Para autores</span><span lang="en">For authors</span><span lang="es">Para autores</span></div>
+        <h3 lang="pt">Conferir antes de submeter</h3><h3 lang="en">Check before submitting</h3><h3 lang="es">Revisar antes de enviar</h3>
+        <p lang="pt">Nota provável, lista do que corrigir e plano de revisão.</p><p lang="en">Likely score, what to fix and a revision plan.</p><p lang="es">Nota probable, qué corregir y plan de revisión.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">Vou submeter ao eixo de <span class="ph">Inovação</span> do <span class="ph">XV Simpósio</span>. Confira meu resumo <span class="ph">resumo.docx</span> contra o edital <span class="ph">edital.pdf</span> e me diga o que corrigir primeiro.</pre>
+          <pre lang="en">I am submitting to the <span class="ph">innovation</span> track of the <span class="ph">XV Symposium</span>. Check my abstract <span class="ph">abstract.docx</span> against the edital <span class="ph">cfp.pdf</span> and tell me what to fix first.</pre>
+          <pre lang="es">Voy a enviar al eje de <span class="ph">Innovación</span> del <span class="ph">XV Simposio</span>. Revisa mi resumen <span class="ph">resumen.docx</span> frente a la convocatoria <span class="ph">convocatoria.pdf</span> y dime qué corregir primero.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Sem edital</span><span lang="en">Without an edital</span><span lang="es">Sin convocatoria</span></div>
+        <h3 lang="pt">Boas práticas</h3><h3 lang="en">Best practices</h3><h3 lang="es">Buenas prácticas</h3>
+        <p lang="pt">Limites e seções viram recomendações, nunca motivo de indeferimento.</p><p lang="en">Limits and sections become advice, never grounds for rejection.</p><p lang="es">Límites y secciones pasan a ser recomendaciones, nunca motivo de rechazo.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">Confira meu resumo <span class="ph">resumo.pdf</span> antes de eu submeter. O limite é de <span class="ph">300</span> palavras.</pre>
+          <pre lang="en">Check my abstract <span class="ph">abstract.pdf</span> before I submit it. The limit is <span class="ph">300</span> words.</pre>
+          <pre lang="es">Revisa mi resumen <span class="ph">resumen.pdf</span> antes de enviarlo. El límite es de <span class="ph">300</span> palabras.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Um trabalho</span><span lang="en">One submission</span><span lang="es">Un trabajo</span></div>
+        <h3 lang="pt">Painel completo</h3><h3 lang="en">Full panel</h3><h3 lang="es">Panel completo</h3>
+        <p lang="pt">Três avaliadores e a síntese da comissão.</p><p lang="en">Three evaluators and the committee synthesis.</p><p lang="es">Tres evaluadores y la síntesis del comité.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">Avalie o resumo expandido <span class="ph">trabalho.pdf</span> com o painel completo, segundo o edital <span class="ph">edital.pdf</span>.</pre>
+          <pre lang="en">Evaluate the expanded abstract <span class="ph">paper.pdf</span> with the full panel, against the edital <span class="ph">cfp.pdf</span>.</pre>
+          <pre lang="es">Evalúa el resumen extendido <span class="ph">trabajo.pdf</span> con el panel completo, según la convocatoria <span class="ph">convocatoria.pdf</span>.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Natureza conhecida</span><span lang="en">Known nature</span><span lang="es">Naturaleza conocida</span></div>
+        <h3 lang="pt">Dizer o que o trabalho é</h3><h3 lang="en">Say what the work is</h3><h3 lang="es">Indicar qué es el trabajo</h3>
+        <p lang="pt">Evita classificação errada: um software não é julgado como estudo, nem uma pesquisa qualitativa por estatística.</p><p lang="en">Avoids misclassification: software is not judged as a study, nor qualitative research by statistics.</p><p lang="es">Evita clasificaciones erróneas: un software no se juzga como estudio, ni una investigación cualitativa por estadística.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">Avalie <span class="ph">resumo.docx</span>. É uma <span class="ph">pesquisa qualitativa</span> da área de <span class="ph">Educação</span>; use essa classificação.</pre>
+          <pre lang="en">Evaluate <span class="ph">abstract.docx</span>. It is <span class="ph">qualitative research</span> in <span class="ph">education</span>; use that classification.</pre>
+          <pre lang="es">Evalúa <span class="ph">resumen.docx</span>. Es una <span class="ph">investigación cualitativa</span> del área de <span class="ph">Educación</span>; usa esa clasificación.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Depois da avaliação</span><span lang="en">After the evaluation</span><span lang="es">Después de la evaluación</span></div>
+        <h3 lang="pt">Explicar a nota</h3><h3 lang="en">Explain the score</h3><h3 lang="es">Explicar la nota</h3>
+        <p lang="pt">Na mesma conversa, peça que o assistente traduza a ficha em ações.</p><p lang="en">In the same conversation, ask the assistant to turn the sheet into actions.</p><p lang="es">En la misma conversación, pida al asistente que convierta la ficha en acciones.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">Explique, sem jargão, por que o resumo recebeu essa nota em cada critério e o que eu mudaria para subir a nota, citando os trechos.</pre>
+          <pre lang="en">Explain, without jargon, why the abstract got that score on each criterion and what I would change to raise it, quoting the passages.</pre>
+          <pre lang="es">Explica, sin jerga, por qué el resumen recibió esa nota en cada criterio y qué cambiaría para subirla, citando los fragmentos.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Se algo parar no meio</span><span lang="en">If something stops midway</span><span lang="es">Si algo se detiene a mitad</span></div>
+        <h3 lang="pt">Continuar um lote interrompido</h3><h3 lang="en">Resume an interrupted batch</h3><h3 lang="es">Continuar un lote interrumpido</h3>
+        <p lang="pt">As avaliações prontas são mantidas; só as que faltam são feitas.</p><p lang="en">Finished evaluations are kept; only the missing ones are done.</p><p lang="es">Las evaluaciones terminadas se conservan; solo se hacen las que faltan.</p>
+        <div class="code"><button class="copy" type="button">copy</button>
+          <pre lang="pt">A avaliação da pasta <span class="ph">congress_reviews/simposio</span> foi interrompida. Continue de onde parou e gere a planilha.</pre>
+          <pre lang="en">The evaluation in <span class="ph">congress_reviews/symposium</span> was interrupted. Resume where it stopped and produce the spreadsheet.</pre>
+          <pre lang="es">La evaluación de la carpeta <span class="ph">congress_reviews/simposio</span> se interrumpió. Continúa donde se detuvo y genera la planilla.</pre></div>
+      </div>
+      <div class="pcard">
+        <div class="when"><span lang="pt">Atalho</span><span lang="en">Shortcut</span><span lang="es">Atajo</span><span class="badge">Claude Code</span></div>
+        <h3 lang="pt">Comando direto</h3><h3 lang="en">Direct command</h3><h3 lang="es">Comando directo</h3>
+        <p lang="pt">Chama a skill pelo nome. Os parâmetros estão no <a href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.pt-BR.md#parâmetros">README</a>.</p>
+        <p lang="en">Calls the skill by name. Parameters are in the <a href="https://github.com/LaBiOmicS/congress-abstract-review#parameters">README</a>.</p>
+        <p lang="es">Llama a la skill por su nombre. Los parámetros están en el <a href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.es.md#parámetros">README</a>.</p>
+        <div class="code"><button class="copy" type="button">copy</button><pre>/congress-abstract-review:abstract-review input="<span class="ph">submissoes/</span>" edital="<span class="ph">edital.pdf</span>" panel=auto</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ HOW IT WORKS -->
+<section id="como">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Como funciona</span><span lang="en">How it works</span><span lang="es">Cómo funciona</span></div>
+      <h2 lang="pt">Cinco etapas, do edital à planilha.</h2><h2 lang="en">Five steps, from edital to spreadsheet.</h2><h2 lang="es">Cinco etapas, de la convocatoria a la planilla.</h2>
+      <p lang="pt">Regras, contagens, auditoria, nota e decisão são programas determinísticos e testados: o mesmo resumo dá sempre o mesmo resultado. Os modelos de linguagem entram só onde é preciso julgamento: nas avaliações e na síntese.</p>
+      <p lang="en">Rules, counts, audit, score and decision are deterministic, tested programs: the same abstract always gives the same result. Language models come in only where judgement is needed: the evaluations and the synthesis.</p>
+      <p lang="es">Reglas, conteos, auditoría, nota y decisión son programas deterministas y probados: el mismo resumen da siempre el mismo resultado. Los modelos de lenguaje intervienen solo donde hace falta juicio: en las evaluaciones y la síntesis.</p>
+    </div>
+    <div class="pipeline flow" id="flow">
+      <div class="step"><div class="viz" aria-hidden="true"><div class="doc"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="scan"></span></div><div class="doc-cap">edital.pdf</div><div class="tags"><span class="k" data-t="700"><span lang="pt">3 eixos</span><span lang="en">3 tracks</span><span lang="es">3 ejes</span></span><span class="k" data-t="1100"><span lang="pt">300 palavras</span><span lang="en">300 words</span><span lang="es">300 palabras</span></span><span class="k" data-t="1500">barema</span></div></div><h3 lang="pt">Regras</h3><h3 lang="en">Rules</h3><h3 lang="es">Reglas</h3>
+        <p lang="pt">O edital vira regras conferíveis, com o trecho de origem de cada número. Cada eixo recebe a sua natureza: pesquisa, inovação ou extensão.</p><p lang="en">The edital becomes checkable rules, with the source passage of every number. Each track gets its nature: research, innovation or extension.</p><p lang="es">La convocatoria se convierte en reglas verificables, con el fragmento de origen de cada número. Cada eje recibe su naturaleza: investigación, innovación o extensión.</p></div>
+      <div class="step"><div class="viz" aria-hidden="true"><ul><li class="k" data-t="200"><span class="ok">✓</span> <span lang="pt">292/300 palavras</span><span lang="en">292/300 words</span><span lang="es">292/300 palabras</span></li><li class="k" data-t="600"><span class="ok">✓</span> <span lang="pt">seções</span><span lang="en">sections</span><span lang="es">secciones</span></li><li class="k" data-t="1000"><span class="w">!</span> <span lang="pt">promessa</span><span lang="en">promise</span><span lang="es">promesa</span></li><li class="k" data-t="1400"><span class="ok">✓</span> <span lang="pt">Humanas</span><span lang="en">Humanities</span><span lang="es">Humanas</span></li><li class="k" data-t="1800"><span class="ok">✓</span> <span lang="pt">qualitativa</span><span lang="en">qualitative</span><span lang="es">cualitativo</span></li></ul></div><h3 lang="pt">Preparação</h3><h3 lang="en">Preparation</h3><h3 lang="es">Preparación</h3>
+        <p lang="pt">Extração, simples × expandido, conformidade, promessas, densidade de dados, texto oculto, área e abordagem.</p><p lang="en">Extraction, simple × expanded, compliance, promises, data density, hidden text, area and approach.</p><p lang="es">Extracción, simple × extendido, conformidad, promesas, densidad de datos, texto oculto, área y enfoque.</p></div>
+      <div class="step llm"><div class="viz" aria-hidden="true"><div class="row p k" data-t="150" style="--d:2.2s"><span class="g">α</span><span class="pbar"><b></b></span></div><div class="row p k" data-t="150" style="--d:1.6s"><span class="g">β</span><span class="pbar"><b></b></span></div><div class="row p k" data-t="150" style="--d:2.6s"><span class="g">γ</span><span class="pbar"><b></b></span></div><div class="row p k" data-t="150" style="--d:1.9s"><span class="g">ω</span><span class="pbar"><b></b></span></div></div><h3 lang="pt">Avaliação</h3><h3 lang="en">Evaluation</h3><h3 lang="es">Evaluación</h3>
+        <p lang="pt">Avaliadores independentes, sem ver os autores, pontuam cada critério pelo nível que descreve a evidência.</p><p lang="en">Independent evaluators, blind to the authors, score each criterion by the level that describes the evidence.</p><p lang="es">Evaluadores independientes, sin ver a los autores, puntúan cada criterio por el nivel que describe la evidencia.</p></div>
+      <div class="step llm"><div class="viz" aria-hidden="true"><ul><li class="k" data-t="300"><span class="ok">✓</span> <span lang="pt">problemas conferidos</span><span lang="en">problems verified</span><span lang="es">problemas verificados</span></li><li class="k" data-t="800"><span class="ok">✓</span> <span lang="pt">correção com motivo</span><span lang="en">correction with reason</span><span lang="es">corrección con motivo</span></li><li class="k" data-t="1300"><span class="ok">✓</span> <span lang="pt">parecer aos autores</span><span lang="en">author feedback</span><span lang="es">dictamen</span></li></ul></div><h3 lang="pt">Síntese da comissão</h3><h3 lang="en">Committee synthesis</h3><h3 lang="es">Síntesis del comité</h3>
+        <p lang="pt">Consolida o painel; só corrige uma nota com motivo citado, registrado na ficha.</p><p lang="en">Consolidates the panel; corrects a score only with a quoted reason, recorded in the sheet.</p><p lang="es">Consolida el panel; corrige una nota solo con motivo citado, registrado en la ficha.</p></div>
+      <div class="step"><div class="viz" aria-hidden="true"><ul><li class="k" data-t="200"><span class="fi pdf">PDF</span> <span lang="pt">ficha</span><span lang="en">sheet</span><span lang="es">ficha</span></li><li class="k" data-t="550"><span class="fi">XLSX</span> <span lang="pt">planilha</span><span lang="en">spreadsheet</span><span lang="es">planilla</span></li><li class="k" data-t="900"><span class="fi">MD</span> <span lang="pt">parecer</span><span lang="en">feedback</span><span lang="es">dictamen</span></li><li class="k" data-t="1250"><span class="fi">JSON</span> <span lang="pt">dados</span><span lang="en">data</span><span lang="es">datos</span></li></ul></div><h3 lang="pt">Nota e decisão</h3><h3 lang="en">Score and decision</h3><h3 lang="es">Nota y decisión</h3>
+        <p lang="pt">Mediana, tetos, nota ponderada com duas casas decimais, aprovado ou indeferido e classificação por eixo.</p><p lang="en">Median, caps, weighted score with two decimals, approved or rejected and ranking per track.</p><p lang="es">Mediana, topes, nota ponderada con dos decimales, aprobado o rechazado y clasificación por eje.</p></div>
+    </div>
+    <div class="legend">
+      <span><i></i><span lang="pt">programa determinístico (Python)</span><span lang="en">deterministic program (Python)</span><span lang="es">programa determinista (Python)</span></span>
+      <span><i class="l-llm"></i><span lang="pt">modelo de linguagem</span><span lang="en">language model</span><span lang="es">modelo de lenguaje</span></span>
+      <button class="chip-btn replay-btn" type="button" data-replay="flow">↻ <span lang="pt">Repetir animação</span><span lang="en">Replay animation</span><span lang="es">Repetir animación</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="painel" class="alt">
+  <div class="wrap grid-2">
+    <div>
+      <div class="sec-head" style="margin-bottom:24px">
+        <div class="eyebrow"><span lang="pt">O painel</span><span lang="en">The panel</span><span lang="es">El panel</span></div>
+        <h2 lang="pt">Três olhares, e a comissão decide.</h2><h2 lang="en">Three angles, and the committee decides.</h2><h2 lang="es">Tres miradas, y el comité decide.</h2>
+        <p lang="pt">Num lote, um avaliador lê todos os trabalhos e o painel completo entra só onde a decisão é difícil. Descumprir uma norma, sozinho, não leva ao painel: relevar uma regra é decisão da comissão.</p>
+        <p lang="en">In a batch, one evaluator reads every submission and the full panel steps in only where the decision is hard. A rule breach alone does not trigger the panel: waiving a rule is the committee's call.</p>
+        <p lang="es">En un lote, un evaluador lee todos los trabajos y el panel completo interviene solo donde la decisión es difícil. Un incumplimiento por sí solo no activa el panel: tolerar una regla es decisión del comité.</p>
+      </div>
+      <table class="comp">
+        <thead><tr><th><span lang="pt">Painel</span><span lang="en">Panel</span><span lang="es">Panel</span></th><th><span lang="pt">Quando</span><span lang="en">When</span><span lang="es">Cuándo</span></th></tr></thead>
+        <tbody>
+          <tr><td>full</td><td><span lang="pt">padrão para um arquivo: alfa, beta, gama e síntese</span><span lang="en">default for one file: alfa, beta, gamma and synthesis</span><span lang="es">predeterminado para un archivo: alfa, beta, gamma y síntesis</span></td></tr>
+          <tr><td>auto</td><td><span lang="pt">padrão para uma pasta: omega em todos; painel completo em notas limítrofes, baixa confiança, alerta de integridade ou resultados prometidos</span><span lang="en">default for a folder: omega on all; full panel on borderline scores, low confidence, integrity alerts or promised results</span><span lang="es">predeterminado para una carpeta: omega en todos; panel completo en notas límite, baja confianza, alertas de integridad o resultados prometidos</span></td></tr>
+          <tr><td>lite</td><td><span lang="pt">só omega, para triagem rápida</span><span lang="en">omega only, for quick screening</span><span lang="es">solo omega, para un cribado rápido</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="roles">
+      <div class="role-card"><div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div>
+        <div><h3 lang="pt">alfa · Conformidade e forma</h3><h3 lang="en">alfa · Compliance &amp; form</h3><h3 lang="es">alfa · Conformidad y forma</h3>
+        <p lang="pt">O edital item a item: quanto passou do limite, se a comissão costuma relevar, título, palavras-chave, ética e o que cortar para caber.</p><p lang="en">The edital item by item: how far over a limit, whether committees usually waive it, title, keywords, ethics and what to cut to fit.</p><p lang="es">La convocatoria punto por punto: cuánto se excede un límite, si el comité suele tolerarlo, título, palabras clave, ética y qué recortar.</p></div></div>
+      <div class="role-card"><div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+        <div><h3 lang="pt">beta · Dados e rigor</h3><h3 lang="en">beta · Data &amp; rigor</h3><h3 lang="es">beta · Datos y rigor</h3>
+        <p lang="pt">Resultados em vez de promessas, evidência adequada à abordagem, método capaz de responder à pergunta e conclusão coerente com o objetivo.</p><p lang="en">Results instead of promises, evidence suited to the approach, a method able to answer the question and a conclusion consistent with the objective.</p><p lang="es">Resultados en lugar de promesas, evidencia adecuada al enfoque, método capaz de responder la pregunta y conclusión coherente con el objetivo.</p></div></div>
+      <div class="role-card"><div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div><h3 lang="pt">gama · Eixo e impacto</h3><h3 lang="en">gamma · Track &amp; impact</h3><h3 lang="es">gamma · Eje e impacto</h3>
+        <p lang="pt">Eixo mais adequado, contribuição para o público do evento e o que tornaria aceitável um resumo indeferido.</p><p lang="en">Best-fitting track, contribution for the event's audience and what would make a rejected abstract acceptable.</p><p lang="es">Eje más adecuado, aporte para el público del evento y qué haría aceptable un resumen rechazado.</p></div></div>
+      <div class="role-card"><div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+        <div><h3 lang="pt">Síntese da comissão</h3><h3 lang="en">Committee synthesis</h3><h3 lang="es">Síntesis del comité</h3>
+        <p lang="pt">Confere os problemas apontados contra o texto, consolida o parecer e só altera nota ou decisão com motivo escrito.</p><p lang="en">Checks the problems raised against the text, consolidates the feedback and changes a score or decision only with a written reason.</p><p lang="es">Verifica los problemas señalados con el texto, consolida el dictamen y solo cambia una nota o decisión con un motivo escrito.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="regua">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">A régua certa</span><span lang="en">The right ruler</span><span lang="es">La regla adecuada</span></div>
+      <h2 lang="pt">Um software não é um estudo, e uma entrevista não é um teste t.</h2><h2 lang="en">Software is not a study, and an interview is not a t-test.</h2><h2 lang="es">Un software no es un estudio, y una entrevista no es una prueba t.</h2>
+      <p lang="pt">Quando o edital traz o seu barema, ele vale, com os nomes e pesos do evento. Sem barema, cada eixo recebe o padrão da sua natureza, e nos eixos de pesquisa Metodologia e Resultados seguem a abordagem do resumo.</p>
+      <p lang="en">When the edital has its own barema, it applies, with the event's names and weights. Without one, each track gets the default of its nature, and in research tracks methods and results follow the abstract's approach.</p>
+      <p lang="es">Cuando la convocatoria trae su baremo, vale ese, con los nombres y pesos del evento. Sin baremo, cada eje recibe el predeterminado de su naturaleza, y en los ejes de investigación Metodología y Resultados siguen el enfoque del resumen.</p>
+    </div>
+    <div class="cal">
+      <div class="cal-card"><span class="lbl t-ess"><span lang="pt">Pesquisa</span><span lang="en">Research</span><span lang="es">Investigación</span></span>
+        <p lang="pt">Relevância, originalidade, objetivos, metodologia, resultados, conclusão e redação.</p><p lang="en">Relevance, originality, objectives, methods, results, conclusion and writing.</p><p lang="es">Relevancia, originalidad, objetivos, metodología, resultados, conclusión y redacción.</p>
+        <p class="ex" lang="pt">Resultados com números num estudo transversal; com trechos do material numa pesquisa qualitativa.</p><p class="ex" lang="en">Results with numbers in a cross-sectional study; with excerpts from the material in qualitative research.</p><p class="ex" lang="es">Resultados con números en un estudio transversal; con fragmentos del material en una investigación cualitativa.</p></div>
+      <div class="cal-card"><span class="lbl t-opt"><span lang="pt">Inovação</span><span lang="en">Innovation</span><span lang="es">Innovación</span></span>
+        <p lang="pt">Problema e necessidade, solução e estágio de desenvolvimento, diferencial, viabilidade, impacto esperado e redação.</p><p lang="en">Problem and need, solution and stage of development, advantage, feasibility, expected impact and writing.</p><p lang="es">Problema y necesidad, solución y etapa de desarrollo, diferencial, viabilidad, impacto esperado y redacción.</p>
+        <p class="ex" lang="pt">Entregáveis concretos contam como resultado; afirmações acima do estágio declarado continuam pesando.</p><p class="ex" lang="en">Concrete deliverables count as results; claims beyond the declared stage still weigh.</p><p class="ex" lang="es">Los entregables concretos cuentan como resultado; las afirmaciones más allá de la etapa declarada siguen pesando.</p></div>
+      <div class="cal-card"><span class="lbl t-block"><span lang="pt">Extensão</span><span lang="en">Extension</span><span lang="es">Extensión</span></span>
+        <p lang="pt">Público e demanda, ação realizada, resultados e impacto social, interação com a comunidade e formação, redação.</p><p lang="en">Community and demand, action carried out, outcomes and social impact, engagement and training, writing.</p><p lang="es">Comunidad y demanda, acción realizada, resultados e impacto social, interacción y formación, redacción.</p>
+        <p class="ex" lang="pt">Depoimentos e pessoas alcançadas valem como evidência.</p><p class="ex" lang="en">Testimonies and people reached count as evidence.</p><p class="ex" lang="es">Los testimonios y las personas alcanzadas cuentan como evidencia.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="auditoria" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Checagens determinísticas</span><span lang="en">Deterministic checks</span><span lang="es">Chequeos deterministas</span></div>
+      <h2 lang="pt">O que pode ser contado é contado, não opinado.</h2><h2 lang="en">What can be counted is counted, not opined on.</h2><h2 lang="es">Lo que se puede contar se cuenta, no se opina.</h2>
+    </div>
+    <div class="audit">
+      <div class="a-card"><h3 lang="pt">Conformidade com o edital</h3><h3 lang="en">Edital compliance</h3><h3 lang="es">Conformidad con la convocatoria</h3>
+        <p lang="pt">Palavras e caracteres como o Word conta, seções obrigatórias, figuras, tabelas, referências, palavras-chave, autores, idioma e anonimato.</p><p lang="en">Words and characters the way Word counts them, mandatory sections, figures, tables, references, keywords, authors, language and anonymity.</p><p lang="es">Palabras y caracteres como los cuenta Word, secciones obligatorias, figuras, tablas, referencias, palabras clave, autores, idioma y anonimato.</p></div>
+      <div class="a-card"><h3 lang="pt">Resultados prometidos</h3><h3 lang="en">Promised results</h3><h3 lang="es">Resultados prometidos</h3>
+        <p lang="pt">"Os resultados serão apresentados no evento" não é resultado: limita a nota de Resultados e impede a aprovação.</p><p lang="en">"Results will be presented at the conference" is not a result: it caps the results score and blocks approval.</p><p lang="es">"Los resultados se presentarán en el congreso" no es un resultado: limita la nota de Resultados e impide la aprobación.</p></div>
+      <div class="a-card"><h3 lang="pt">Densidade de dados</h3><h3 lang="en">Data density</h3><h3 lang="es">Densidad de datos</h3>
+        <p lang="pt">n, %, desvio, IC, p, efeitos e métricas por 100 palavras, cobrados só onde números são esperados.</p><p lang="en">n, %, SD, CI, p, effects and metrics per 100 words, required only where numbers are expected.</p><p lang="es">n, %, DE, IC, p, efectos y métricas por 100 palabras, exigidos solo donde se esperan números.</p></div>
+      <div class="a-card"><h3 lang="pt">Texto repetido</h3><h3 lang="en">Repeated text</h3><h3 lang="es">Texto repetido</h3>
+        <p lang="pt">Frases duplicadas por erro de cópia ou para atingir o mínimo de palavras.</p><p lang="en">Sentences duplicated by copy-paste errors or to reach the minimum word count.</p><p lang="es">Frases duplicadas por errores de copia o para alcanzar el mínimo de palabras.</p></div>
+      <div class="a-card"><h3 lang="pt">Ética</h3><h3 lang="en">Ethics</h3><h3 lang="es">Ética</h3>
+        <p lang="pt">Pesquisa com pessoas ou animais sem menção a CEP/CAAE ou CEUA vira alerta para a comissão, nunca desconto automático.</p><p lang="en">Research with people or animals without a mentioned ethics approval becomes an alert for the committee, never an automatic deduction.</p><p lang="es">La investigación con personas o animales sin mención a aprobación ética se convierte en alerta para el comité, nunca en descuento automático.</p></div>
+      <div class="a-card"><h3 lang="pt">Conteúdo oculto</h3><h3 lang="en">Hidden content</h3><h3 lang="es">Contenido oculto</h3>
+        <p lang="pt">Texto branco, microscópico ou instruções a avaliadores de IA são removidos e informados à comissão.</p><p lang="en">White or microscopic text and instructions to AI evaluators are removed and reported to the committee.</p><p lang="es">El texto blanco o microscópico y las instrucciones a evaluadores de IA se eliminan y se informan al comité.</p></div>
+    </div>
+    <div class="axes">
+      <div class="axis"><div class="n">3</div><h3 lang="pt">naturezas de eixo</h3><h3 lang="en">track natures</h3><h3 lang="es">naturalezas de eje</h3>
+        <div class="chips" lang="pt"><span>Pesquisa</span><span>Inovação</span><span>Extensão</span></div>
+        <div class="chips" lang="en"><span>Research</span><span>Innovation</span><span>Extension</span></div>
+        <div class="chips" lang="es"><span>Investigación</span><span>Innovación</span><span>Extensión</span></div></div>
+      <div class="axis"><div class="n">6</div><h3 lang="pt">grandes áreas</h3><h3 lang="en">major areas</h3><h3 lang="es">grandes áreas</h3>
+        <div class="chips" lang="pt"><span>Biológicas e Agrárias</span><span>Saúde</span><span>Exatas e Computação</span><span>Engenharias</span><span>Humanas e Educação</span><span>Sociais Aplicadas</span></div>
+        <div class="chips" lang="en"><span>Life &amp; agricultural</span><span>Health</span><span>Exact sciences &amp; computing</span><span>Engineering</span><span>Humanities &amp; education</span><span>Applied social sciences</span></div>
+        <div class="chips" lang="es"><span>Biológicas y Agrarias</span><span>Salud</span><span>Exactas y Computación</span><span>Ingenierías</span><span>Humanas y Educación</span><span>Sociales Aplicadas</span></div></div>
+      <div class="axis"><div class="n">8</div><h3 lang="pt">abordagens de pesquisa</h3><h3 lang="en">research approaches</h3><h3 lang="es">enfoques de investigación</h3>
+        <div class="chips" lang="pt"><span>Quantitativa</span><span>Qualitativa</span><span>Documental</span><span>Métodos mistos</span><span>Revisão</span><span>Ensaio teórico</span><span>Computacional</span><span>Relato de caso ou experiência</span></div>
+        <div class="chips" lang="en"><span>Quantitative</span><span>Qualitative</span><span>Documentary</span><span>Mixed methods</span><span>Review</span><span>Theoretical essay</span><span>Computational</span><span>Case or experience report</span></div>
+        <div class="chips" lang="es"><span>Cuantitativo</span><span>Cualitativo</span><span>Documental</span><span>Métodos mixtos</span><span>Revisión</span><span>Ensayo teórico</span><span>Computacional</span><span>Relato de caso o experiencia</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="saidas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">O que você recebe</span><span lang="en">What you get</span><span lang="es">Qué recibe</span></div>
+      <h2 lang="pt">Tudo o que a comissão precisa, em arquivos abertos.</h2><h2 lang="en">Everything the committee needs, in open files.</h2><h2 lang="es">Todo lo que el comité necesita, en archivos abiertos.</h2>
+    </div>
+    <div class="out">
+      <aside class="report">
+        <div class="rhead"><b><span lang="pt">Ficha de avaliação</span><span lang="en">Evaluation sheet</span><span lang="es">Ficha de evaluación</span></b><small><span lang="pt">exemplo ilustrativo</span><span lang="en">illustrative example</span><span lang="es">ejemplo ilustrativo</span></small></div>
+        <div class="rev"><code>alfa</code><span class="role"><span lang="pt">conformidade e forma</span><span lang="en">compliance &amp; form</span><span lang="es">conformidad y forma</span></span><span class="verdict"><span lang="pt">Aprovado · 6,46</span><span lang="en">Approved · 6.46</span><span lang="es">Aprobado · 6,46</span></span></div>
+        <div class="rev"><code>beta</code><span class="role"><span lang="pt">dados e rigor</span><span lang="en">data &amp; rigor</span><span lang="es">datos y rigor</span></span><span class="verdict"><span lang="pt">Aprovado · 6,12</span><span lang="en">Approved · 6.12</span><span lang="es">Aprobado · 6,12</span></span></div>
+        <div class="rev"><code>gamma</code><span class="role"><span lang="pt">eixo e impacto</span><span lang="en">track &amp; impact</span><span lang="es">eje e impacto</span></span><span class="verdict"><span lang="pt">Aprovado · 6,27</span><span lang="en">Approved · 6.27</span><span lang="es">Aprobado · 6,27</span></span></div>
+        <div class="tiers">
+          <div class="tier t-opt"><b><span lang="pt">6,27</span><span lang="en">6.27</span><span lang="es">6,27</span></b><span><span lang="pt">nota final</span><span lang="en">final score</span><span lang="es">nota final</span></span></div>
+          <div class="tier t-ess"><b>✓</b><span><span lang="pt">aprovado</span><span lang="en">approved</span><span lang="es">aprobado</span></span></div>
+          <div class="tier t-block"><b>0</b><span><span lang="pt">pendências</span><span lang="en">holds</span><span lang="es">pendientes</span></span></div>
+        </div>
+        <div class="foot"><span lang="pt">eixo Inovação · barema padrão de inovação · sem conteúdo oculto</span><span lang="en">innovation track · default innovation barema · no hidden content</span><span lang="es">eje Innovación · baremo predeterminado de innovación · sin contenido oculto</span></div>
+      </aside>
+      <div>
+        <div class="file key"><code>committee_scores.xlsx</code><span lang="pt">Comece por aqui: classificação geral e por eixo, nota com duas casas decimais, notas por critério, decisão, sinalizações, área e abordagem.</span><span lang="en">Start here: overall and per-track ranking, score with two decimals, criterion scores, decision, flags, area and approach.</span><span lang="es">Empiece aquí: clasificación general y por eje, nota con dos decimales, notas por criterio, decisión, alertas, área y enfoque.</span></div>
+        <div class="file key"><code>congress_evaluation_sheet.pdf</code><span lang="pt">A ficha de cada trabalho: nota, motivos, barema com métricas, conformidade, parecer e comentários confidenciais.</span><span lang="en">Each submission's sheet: score, reasons, barema with indicators, compliance, feedback and confidential comments.</span><span lang="es">La ficha de cada trabajo: nota, motivos, baremo con métricas, conformidad, dictamen y comentarios confidenciales.</span></div>
+        <div class="file"><code>feedback_to_authors.md</code><span lang="pt">Parecer anônimo pronto para colar no sistema de submissão; para o autor, o plano de revisão.</span><span lang="en">Anonymous feedback ready to paste into the submission system; for authors, the revision plan.</span><span lang="es">Dictamen anónimo listo para pegar en el sistema de envíos; para el autor, el plan de revisión.</span></div>
+        <div class="file"><code>committee_report.md</code><span lang="pt">Aprovados, indeferidos e a lista do que pede decisão da comissão.</span><span lang="en">Approved, rejected and the list of what needs a committee decision.</span><span lang="es">Aprobados, rechazados y la lista de lo que requiere decisión del comité.</span></div>
+        <div class="file"><code>review_&lt;codinome&gt;.md</code><span lang="pt">Uma avaliação por avaliador, e a síntese da comissão.</span><span lang="en">One evaluation per evaluator, and the committee synthesis.</span><span lang="es">Una evaluación por evaluador, y la síntesis del comité.</span></div>
+        <div class="file"><code>evaluation_summary.json</code><span lang="pt">Tudo em formato estruturado, para quem quer analisar.</span><span lang="en">Everything, structured, for analysis.</span><span lang="es">Todo en formato estructurado, para análisis.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ FAQ -->
+<section id="faq" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Dúvidas e problemas comuns</span><span lang="en">Questions and common problems</span><span lang="es">Preguntas y problemas comunes</span></div>
+      <h2 lang="pt">Se algo não funcionar.</h2><h2 lang="en">If something does not work.</h2><h2 lang="es">Si algo no funciona.</h2>
+    </div>
+    <div class="faq">
+      <details><summary><span lang="pt">O terminal diz que "claude", "agy" ou "uv" não foi encontrado.</span><span lang="en">The terminal says "claude", "agy" or "uv" was not found.</span><span lang="es">La terminal dice que no encuentra "claude", "agy" o "uv".</span></summary>
+        <div><p lang="pt">Quase sempre basta <b>fechar o terminal e abrir um novo</b>. Se continuar, reinicie o computador e repita o passo de instalação.</p>
+        <p lang="en">Usually you only need to <b>close the terminal and open a new one</b>. If it persists, restart the computer and repeat the installation step.</p>
+        <p lang="es">Casi siempre basta con <b>cerrar la terminal y abrir una nueva</b>. Si continúa, reinicie la computadora y repita el paso de instalación.</p></div></details>
+      <details><summary><span lang="pt">O assistente não parece usar o plugin.</span><span lang="en">The assistant does not seem to use the plugin.</span><span lang="es">El asistente no parece usar el plugin.</span></summary>
+        <div><p lang="pt">Feche o assistente e abra de novo: o plugin só é carregado numa sessão nova. Confira se ele aparece como ativado, ou use o prompt "Comando direto".</p>
+        <p lang="en">Close the assistant and open it again: the plugin only loads in a new session. Check that it shows as enabled, or use the "Direct command" prompt.</p>
+        <p lang="es">Cierre el asistente y ábralo de nuevo: el plugin solo se carga en una sesión nueva. Compruebe que aparece como activado, o use el prompt "Comando directo".</p>
+        <div class="code ai-claude"><button class="copy" type="button">copy</button><pre>claude plugin list</pre></div>
+        <div class="code ai-agy"><button class="copy" type="button">copy</button><pre>agy plugin list</pre></div></div></details>
+      <details><summary><span lang="pt">A nota parece injusta para o tipo de trabalho.</span><span lang="en">The score looks unfair for the kind of work.</span><span lang="es">La nota parece injusta para el tipo de trabajo.</span></summary>
+        <div><p lang="pt">Confira na ficha a linha "Área e abordagem" e o barema aplicado. Se um projeto de inovação foi lido como pesquisa, ou uma pesquisa qualitativa como quantitativa, diga ao assistente o eixo e a natureza do trabalho (prompt "Dizer o que o trabalho é"): as avaliações antigas são guardadas à parte e refeitas com a régua certa.</p>
+        <p lang="en">Check the "Area and approach" line and the barema in the sheet. If an innovation project was read as research, or qualitative research as quantitative, tell the assistant the track and the nature of the work ("Say what the work is" prompt): the old evaluations are set aside and redone with the right ruler.</p>
+        <p lang="es">Revise en la ficha la línea "Área y enfoque" y el baremo aplicado. Si un proyecto de innovación se leyó como investigación, o una investigación cualitativa como cuantitativa, indique al asistente el eje y la naturaleza del trabajo (prompt "Indicar qué es el trabajo"): las evaluaciones anteriores se guardan aparte y se rehacen con la regla adecuada.</p></div></details>
+      <details><summary><span lang="pt">Quanto custa e quanto tempo leva?</span><span lang="en">How much does it cost and how long does it take?</span><span lang="es">¿Cuánto cuesta y cuánto tarda?</span></summary>
+        <div><p lang="pt">O plugin é gratuito; o uso da IA entra na sua assinatura. Num lote (modo <code>auto</code>), cada trabalho gasta cerca de uma avaliação, e só os casos difíceis (em geral 15 a 30 %) recebem o painel completo de quatro chamadas. Um resumo leva poucos minutos. Para pilotar um lote grande, peça para avaliar primeiro só três trabalhos.</p>
+        <p lang="en">The plugin is free; AI usage counts against your subscription. In a batch (<code>auto</code> mode), each submission takes about one evaluation, and only the hard cases (usually 15 to 30 %) get the four-call full panel. An abstract takes a few minutes. To pilot a large batch, ask to evaluate only three submissions first.</p>
+        <p lang="es">El plugin es gratuito; el uso de la IA cuenta en su suscripción. En un lote (modo <code>auto</code>), cada trabajo consume cerca de una evaluación, y solo los casos difíciles (en general 15 a 30 %) reciben el panel completo de cuatro llamadas. Un resumen tarda unos minutos. Para probar un lote grande, pida evaluar primero solo tres trabajos.</p></div></details>
+      <details><summary><span lang="pt">Posso enviar os resumos de outras pessoas?</span><span lang="en">Can I send other people's abstracts?</span><span lang="es">¿Puedo enviar los resúmenes de otras personas?</span></summary>
+        <div><p lang="pt">Se o resumo é <b>seu</b>, a decisão é sua. Para avaliar submissões de um evento, confirme antes que a organização permite o uso de IA na avaliação e informe os autores, se for o caso. A ficha traz um aviso de uso de IA, e a avaliação é cega por padrão.</p>
+        <p lang="en">If the abstract is <b>yours</b>, it is your decision. To evaluate an event's submissions, first confirm that the organizers allow AI in the evaluation and inform the authors where required. The sheet carries an AI-use notice, and evaluation is blind by default.</p>
+        <p lang="es">Si el resumen es <b>suyo</b>, la decisión es suya. Para evaluar los envíos de un evento, confirme antes que la organización permite el uso de IA en la evaluación e informe a los autores si corresponde. La ficha incluye un aviso de uso de IA, y la evaluación es ciega por defecto.</p></div></details>
+      <details><summary><span lang="pt">O PDF da ficha ou a planilha não foram gerados.</span><span lang="en">The PDF sheet or the spreadsheet was not created.</span><span lang="es">No se generó el PDF de la ficha o la planilla.</span></summary>
+        <div><p lang="pt">Eles dependem do <b>uv</b> (passo 2). Confirme que <code>uv --version</code> mostra uma versão e peça ao assistente para compilar de novo. Os arquivos <code>.md</code> e <code>.csv</code> trazem o mesmo conteúdo.</p>
+        <p lang="en">They need <b>uv</b> (step 2). Check that <code>uv --version</code> prints a version and ask the assistant to compile again. The <code>.md</code> and <code>.csv</code> files hold the same content.</p>
+        <p lang="es">Dependen de <b>uv</b> (paso 2). Compruebe que <code>uv --version</code> muestra una versión y pida al asistente que compile de nuevo. Los archivos <code>.md</code> y <code>.csv</code> tienen el mismo contenido.</p></div></details>
+      <details><summary><span lang="pt">Como atualizo o plugin?</span><span lang="en">How do I update the plugin?</span><span lang="es">¿Cómo actualizo el plugin?</span></summary>
+        <div><p class="ai-claude" lang="pt">No Claude Code, rode no terminal:</p><p class="ai-claude" lang="en">In Claude Code, run in the terminal:</p><p class="ai-claude" lang="es">En Claude Code, ejecute en la terminal:</p>
+        <div class="code ai-claude"><button class="copy" type="button">copy</button><pre>claude plugin marketplace update labiomics-congress
+claude plugin update congress-abstract-review@labiomics-congress</pre></div>
+        <p class="ai-agy" lang="pt">No Antigravity, baixe o ZIP mais novo na <a href="https://github.com/LaBiOmicS/congress-abstract-review/releases">página de releases</a> e repita o passo 5.</p><p class="ai-agy" lang="en">In Antigravity, download the newest ZIP from the <a href="https://github.com/LaBiOmicS/congress-abstract-review/releases">releases page</a> and repeat step 5.</p><p class="ai-agy" lang="es">En Antigravity, descargue el ZIP más reciente desde la <a href="https://github.com/LaBiOmicS/congress-abstract-review/releases">página de versiones</a> y repita el paso 5.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ ADVANCED -->
+<section id="instalar">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Para usuários técnicos</span><span lang="en">For technical users</span><span lang="es">Para usuarios técnicos</span></div>
+      <h2 lang="pt">Instalação a partir do código e uso headless.</h2><h2 lang="en">Install from source and headless use.</h2><h2 lang="es">Instalación desde el código y uso headless.</h2>
+      <p lang="pt">Parâmetros, formato do edital e o fluxo sem interface estão no <a href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.pt-BR.md">README</a>.</p>
+      <p lang="en">Parameters, the edital format and the headless workflow are in the <a href="https://github.com/LaBiOmicS/congress-abstract-review">README</a>.</p>
+      <p lang="es">Los parámetros, el formato de la convocatoria y el flujo sin interfaz están en el <a href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.es.md">README</a>.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="script">install.sh</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="agy">Antigravity</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="cli">Headless</button>
+    </div>
+    <div class="panel on" id="tab-script"><div class="code"><button class="copy" type="button">copy</button><pre><span class="c"># Claude Code + Antigravity, whichever is installed (macOS / Linux / WSL)</span>
+git clone https://github.com/LaBiOmicS/congress-abstract-review.git
+cd congress-abstract-review
+./install.sh</pre></div></div>
+    <div class="panel" id="tab-agy"><div class="code"><button class="copy" type="button">copy</button><pre>agy plugin validate ./congress-abstract-review --strict
+agy plugin install ./congress-abstract-review
+agy plugin enable congress-abstract-review</pre></div></div>
+    <div class="panel" id="tab-cli"><div class="code"><button class="copy" type="button">copy</button><pre>SKILL=skills/abstract-review; OUT=congress_reviews/symposium2026
+uv run $SKILL/scripts/edital_parser.py validate --edital $OUT/edital.json --hints $OUT/edital_hints.json --output $OUT/rules.json
+uv run $SKILL/scripts/congress_review.py prepare --input submissions/ --rules $OUT/rules.json --output-dir $OUT --submissions-csv even3.csv
+uv run $SKILL/scripts/congress_review.py run --output-dir $OUT --runner claude --parallel 4
+uv run $SKILL/scripts/congress_review.py compile --output-dir $OUT</pre></div></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Uso responsável</span><span lang="en">Responsible use</span><span lang="es">Uso responsable</span></div>
+      <h2 lang="pt">Apoio à comissão, não um substituto.</h2><h2 lang="en">Support for the committee, not a replacement.</h2><h2 lang="es">Apoyo al comité, no un sustituto.</h2>
+    </div>
+    <div class="resp">
+      <div><h3 lang="pt">Responsabilidade humana</h3><h3 lang="en">Human responsibility</h3><h3 lang="es">Responsabilidad humana</h3>
+        <p lang="pt">As fichas são rascunhos assistidos por IA. Um membro da comissão confere, edita e assina cada uma; a decisão é sempre da comissão. A ficha traz uma declaração de uso de IA por padrão.</p><p lang="en">Sheets are AI-assisted drafts. A committee member checks, edits and signs each one; the decision is always the committee's. The sheet carries an AI-use disclosure by default.</p><p lang="es">Las fichas son borradores asistidos por IA. Un miembro del comité verifica, edita y firma cada una; la decisión es siempre del comité. La ficha incluye por defecto una declaración de uso de IA.</p></div>
+      <div><h3 lang="pt">Confidencialidade</h3><h3 lang="en">Confidentiality</h3><h3 lang="es">Confidencialidad</h3>
+        <p lang="pt">Antes de enviar submissões de terceiros a um serviço de IA, confirme que o evento permite. A avaliação é cega por padrão.</p><p lang="en">Before sending other people's submissions to an AI service, confirm that the event allows it. Evaluation is blind by default.</p><p lang="es">Antes de enviar trabajos de terceros a un servicio de IA, confirme que el evento lo permite. La evaluación es ciega por defecto.</p></div>
+      <div><h3 lang="pt">Limites</h3><h3 lang="en">Limits</h3><h3 lang="es">Límites</h3>
+        <p lang="pt">A IA pode ler mal um trecho, e avaliadores no mesmo modelo podem errar juntos. A classificação de área e abordagem pode falhar em textos atípicos; nesses casos, informe-a.</p><p lang="en">The AI can misread a passage, and evaluators on the same model can be wrong together. Area and approach classification can fail on unusual texts; in that case, state it.</p><p lang="es">La IA puede leer mal un fragmento, y los evaluadores en el mismo modelo pueden equivocarse juntos. La clasificación de área y enfoque puede fallar en textos atípicos; en esos casos, indíquela.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b>congress-abstract-review</b><br>
+      <span lang="pt">Desenvolvido no LaBiOmicS — Laboratório de Bioinformática e Ciências Ômicas, Universidade de Mogi das Cruzes.</span><span lang="en">Developed at LaBiOmicS — Laboratory of Bioinformatics and Omics Sciences, University of Mogi das Cruzes.</span><span lang="es">Desarrollado en LaBiOmicS — Laboratorio de Bioinformática y Ciencias Ómicas, Universidade de Mogi das Cruzes.</span><br>
+      <span lang="pt">Coordenação</span><span lang="en">Lead</span><span lang="es">Coordinación</span>: Prof. Dr. Fabiano Bezerra Menegidio · <a href="mailto:fabianomenegidio@umc.br">fabianomenegidio@umc.br</a>
+    </div>
+    <div>
+      <a href="https://github.com/LaBiOmicS/congress-abstract-review">GitHub</a> ·
+      <a href="https://github.com/LaBiOmicS/congress-abstract-review/releases">Releases</a> ·
+      <a href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/CHANGELOG.md">Changelog</a> ·
+      <a lang="pt" href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.pt-BR.md">Documentação</a><a lang="en" href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.md">Documentation</a><a lang="es" href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/README.es.md">Documentación</a> ·
+      <a href="https://labiomics.github.io/academic-peer-review/">academic-peer-review</a> ·
+      <a href="https://github.com/LaBiOmicS/congress-abstract-review/blob/main/LICENSE"><span lang="pt">Licença MIT</span><span lang="en">MIT License</span><span lang="es">Licencia MIT</span></a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  function store(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
+  function read(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+
+  // Three independent choices (language, operating system, AI), each a data-* attribute on <html>.
+  var CHOICES = { lang: ["pt", "en", "es"], os: ["win", "mac", "linux"], ai: ["claude", "agy"] };
+  var HTML_LANG = { pt: "pt-BR", en: "en", es: "es" };
+  function set(kind, val) {
+    if (CHOICES[kind].indexOf(val) < 0) val = CHOICES[kind][0];
+    root.setAttribute("data-" + kind, val);
+    if (kind === "lang") root.setAttribute("lang", HTML_LANG[val]);
+    document.querySelectorAll('[data-set="' + kind + '"]').forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.val === val ? "true" : "false");
+    });
+    store("car-" + kind, val);
+  }
+  var browserLang = (navigator.language || "").toLowerCase().slice(0, 2);
+  var ua = (navigator.userAgent || "").toLowerCase();
+  var browserOs = ua.indexOf("win") >= 0 ? "win" : (ua.indexOf("mac") >= 0 ? "mac" : (ua.indexOf("linux") >= 0 ? "linux" : "win"));
+  set("lang", read("car-lang") || (HTML_LANG[browserLang] ? browserLang : "en"));
+  set("os", read("car-os") || browserOs);
+  set("ai", read("car-ai") || "claude");
+  document.querySelectorAll("[data-set]").forEach(function (b) {
+    b.addEventListener("click", function () { set(b.dataset.set, b.dataset.val); });
+  });
+
+  var theme = read("car-theme");
+  if (theme) root.setAttribute("data-theme", theme);
+  document.getElementById("theme-btn").addEventListener("click", function () {
+    var dark = root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    store("car-theme", next);
+  });
+
+  document.querySelectorAll(".tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      document.querySelectorAll(".tab").forEach(function (t) { t.setAttribute("aria-selected", t === tab ? "true" : "false"); });
+      document.querySelectorAll(".panel").forEach(function (p) { p.classList.toggle("on", p.id === "tab-" + tab.dataset.tab); });
+    });
+  });
+
+  // Copies only what is visible: the current language, system and AI variant, without prompt marks or comments.
+  function visibleText(node) {
+    if (node.nodeType === 3) return node.textContent;
+    if (node.nodeType !== 1 || getComputedStyle(node).display === "none") return "";
+    if (node.classList.contains("p") || node.classList.contains("c")) return "";
+    var out = "";
+    node.childNodes.forEach(function (c) { out += visibleText(c); });
+    return out;
+  }
+  document.querySelectorAll(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = "";
+      btn.parentElement.querySelectorAll("pre").forEach(function (pre) { text += visibleText(pre); });
+      text = text.split("\n").map(function (l) { return l.trim(); }).filter(Boolean).join("\n");
+      var done = function () { btn.textContent = "✓"; setTimeout(function () { btn.textContent = "copy"; }, 1400); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    });
+  });
+
+  // Animations: the terminal "runs" a review and the pipeline lights up stage by stage. Each starts
+  // when it scrolls into view; with reduced motion they stay in their final, static state.
+  function timeline() {
+    var ids = [];
+    return { at: function (ms, fn) { ids.push(setTimeout(fn, ms)); }, clear: function () { ids.forEach(clearTimeout); ids = []; } };
+  }
+  function each(scope, sel, fn) { Array.prototype.forEach.call(scope.querySelectorAll(sel), fn); }
+
+  var term = document.getElementById("term"), tt = timeline();
+  var typed = Array.prototype.slice.call(term.querySelectorAll(".type"));
+  typed.forEach(function (s) { s.dataset.full = s.textContent; });
+  function resetTerm() {
+    tt.clear();
+    term.classList.add("anim");
+    term.classList.remove("typed");
+    each(term, ".ln", function (l) { l.classList.remove("on"); });
+    typed.forEach(function (s) { typeTo(s, 0); });
+  }
+  // The untyped rest stays in place, transparent, so the box keeps its final height while typing.
+  function typeTo(span, n) {
+    var full = span.dataset.full, rest = document.createElement("span");
+    rest.className = "rest";
+    rest.textContent = full.slice(n);
+    span.textContent = full.slice(0, n);
+    if (n < full.length) span.appendChild(rest);
+  }
+  function runTerm() {
+    resetTerm();
+    term.querySelector('.ln[data-s="0"]').classList.add("on");
+    var longest = Math.max.apply(null, typed.map(function (s) { return s.dataset.full.length; }));
+    var t = 500;
+    for (var i = 1; i <= longest; i++) {
+      (function (i) { tt.at(t + i * 28, function () { typed.forEach(function (s) { typeTo(s, i); }); }); })(i);
+    }
+    t += longest * 28 + 450;
+    tt.at(t, function () { term.classList.add("typed"); });
+    [[1, 0], [2, 450], [3, 900], [4, 1350], [5, 1850], [6, 2250], [7, 5100], [8, 5600]].forEach(function (s) {
+      tt.at(t + s[1], function () { each(term, '.ln[data-s="' + s[0] + '"]', function (l) { l.classList.add("on"); }); });
+    });
+  }
+
+  var flow = document.getElementById("flow"), ft = timeline();
+  var stages = Array.prototype.slice.call(flow.querySelectorAll(".step"));
+  var STAGE_MS = [2300, 2500, 3000, 2500, 2000];
+  function resetFlow() {
+    ft.clear();
+    flow.classList.add("anim");
+    stages.forEach(function (s) { s.classList.remove("active", "done"); each(s, ".k", function (k) { k.classList.remove("on"); }); });
+  }
+  function runFlow() {
+    resetFlow();
+    var t = 300;
+    stages.forEach(function (s, i) {
+      ft.at(t, function () {
+        if (i) { stages[i - 1].classList.remove("active"); stages[i - 1].classList.add("done"); }
+        s.classList.add("active");
+      });
+      each(s, ".k", function (k) { ft.at(t + (+k.dataset.t || 0), function () { k.classList.add("on"); }); });
+      t += STAGE_MS[i];
+    });
+    ft.at(t, function () { var last = stages[stages.length - 1]; last.classList.remove("active"); last.classList.add("done"); });
+  }
+
+  var RUN = { term: runTerm, flow: runFlow };
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce && "IntersectionObserver" in window) {
+    [[term, resetTerm, runTerm], [flow, resetFlow, runFlow]].forEach(function (a) {
+      a[1]();
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { io.disconnect(); a[2](); }
+      }, { threshold: 0.35 });
+      io.observe(a[0]);
+    });
+  }
+  each(document, "[data-replay]", function (b) { b.addEventListener("click", function () { RUN[b.dataset.replay](); }); });
+})();
+</script>
+</body>
+</html>

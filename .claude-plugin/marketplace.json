@@ -1,0 +1,15 @@
+{
+  "name": "labiomics-congress",
+  "owner": {
+    "name": "LaBiOmicS / UMC",
+    "email": "fabianomenegidio@umc.br"
+  },
+  "description": "Marketplace for the congress-abstract-review plugin (LaBiOmicS).",
+  "plugins": [
+    {
+      "name": "congress-abstract-review",
+      "source": "./",
+      "description": "Evaluation of congress abstracts and expanded abstracts: edital compliance, promised-results detection, evaluator panel, barema scoring and committee spreadsheet."
+    }
+  ]
+}

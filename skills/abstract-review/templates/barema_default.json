@@ -1,0 +1,259 @@
+{
+  "event": {
+    "name": "Pré-submissão (sem edital) — boas práticas para resumos científicos",
+    "year": null,
+    "url": null,
+    "source": "default"
+  },
+  "enforcement": "advisory",
+  "languages": [],
+  "anonymized": false,
+  "formats": {
+    "simple": {
+      "limits": {
+        "words": {
+          "min": 150,
+          "max": 350
+        },
+        "characters_with_spaces": {
+          "min": null,
+          "max": null
+        },
+        "characters_without_spaces": {
+          "min": null,
+          "max": null
+        },
+        "pages": {
+          "min": null,
+          "max": 1
+        },
+        "count_scope": [
+          "body"
+        ]
+      },
+      "title": {
+        "max_words": 25,
+        "max_characters": 200
+      },
+      "required_sections": [
+        "objectives",
+        "methods",
+        "results",
+        "conclusion"
+      ],
+      "figures": {
+        "allowed": false,
+        "max": 0
+      },
+      "tables": {
+        "allowed": false,
+        "max": 0
+      },
+      "references": {
+        "allowed": false,
+        "min": null,
+        "max": 0
+      },
+      "keywords": {
+        "min": 3,
+        "max": 5
+      },
+      "max_authors": null
+    },
+    "expanded": {
+      "limits": {
+        "words": {
+          "min": 800,
+          "max": 2500
+        },
+        "characters_with_spaces": {
+          "min": null,
+          "max": null
+        },
+        "characters_without_spaces": {
+          "min": null,
+          "max": null
+        },
+        "pages": {
+          "min": 2,
+          "max": 5
+        },
+        "count_scope": [
+          "body"
+        ]
+      },
+      "title": {
+        "max_words": 25,
+        "max_characters": 200
+      },
+      "required_sections": [
+        "introduction",
+        "objectives",
+        "methods",
+        "results",
+        "discussion",
+        "conclusion",
+        "references"
+      ],
+      "figures": {
+        "allowed": true,
+        "max": 3
+      },
+      "tables": {
+        "allowed": true,
+        "max": 3
+      },
+      "references": {
+        "allowed": true,
+        "min": 3,
+        "max": 15
+      },
+      "keywords": {
+        "min": 3,
+        "max": 5
+      },
+      "max_authors": null
+    }
+  },
+  "tracks": [],
+  "rubric": {
+    "source": "default",
+    "scale": {
+      "min": 0,
+      "max": 10
+    },
+    "aggregation": "weighted_mean",
+    "criteria": [
+      {
+        "id": "relevance",
+        "name": "Relevância e adequação ao eixo temático",
+        "description": "O problema importa para a área e para o público do evento; o trabalho se encaixa no eixo.",
+        "weight": 1.0
+      },
+      {
+        "id": "originality",
+        "name": "Originalidade e contribuição",
+        "description": "O trabalho traz algo novo (dado, método, contexto ou síntese) e diz o que é.",
+        "weight": 1.0
+      },
+      {
+        "id": "objectives",
+        "name": "Clareza do problema e dos objetivos",
+        "description": "Lacuna e objetivo explícitos, verificáveis e coerentes entre si.",
+        "weight": 1.0
+      },
+      {
+        "id": "methods",
+        "name": "Metodologia",
+        "description": "Desenho, amostra, período, instrumentos e análise descritos o suficiente para julgar a validade.",
+        "weight": 1.5
+      },
+      {
+        "id": "results",
+        "name": "Resultados com dados concretos",
+        "description": "Resultados apresentados com números (n, medidas, incerteza, testes), não prometidos para depois.",
+        "weight": 1.5
+      },
+      {
+        "id": "conclusion",
+        "name": "Conclusão coerente",
+        "description": "A conclusão responde ao objetivo e não vai além do que os resultados sustentam.",
+        "weight": 1.0
+      },
+      {
+        "id": "writing",
+        "name": "Redação e conformidade às normas",
+        "description": "Texto claro, conciso, correto, dentro dos limites e das seções exigidas.",
+        "weight": 1.0
+      }
+    ],
+    "approval_cutoff": 6.0,
+    "approval_min_scores": {},
+    "tie_breakers": [
+      "results",
+      "methods",
+      "originality"
+    ],
+    "kind": "research"
+  },
+  "notes": "Sem edital: limites e seções são referência de boas práticas (enforcement=advisory) e nunca motivo de rejeição por si só.",
+  "provenance": {},
+  "rubrics_by_kind": {
+    "innovation": {
+      "source": "default",
+      "kind": "innovation",
+      "scale": {
+        "min": 0,
+        "max": 10
+      },
+      "aggregation": "weighted_mean",
+      "criteria": [
+        {
+          "id": "problem",
+          "weight": 1.0
+        },
+        {
+          "id": "solution_stage",
+          "weight": 1.5
+        },
+        {
+          "id": "differential",
+          "weight": 1.0
+        },
+        {
+          "id": "feasibility",
+          "weight": 1.0
+        },
+        {
+          "id": "impact",
+          "weight": 1.0
+        },
+        {
+          "id": "writing",
+          "weight": 1.0
+        }
+      ],
+      "tie_breakers": [
+        "solution_stage",
+        "differential",
+        "problem"
+      ]
+    },
+    "extension": {
+      "source": "default",
+      "kind": "extension",
+      "scale": {
+        "min": 0,
+        "max": 10
+      },
+      "aggregation": "weighted_mean",
+      "criteria": [
+        {
+          "id": "community",
+          "weight": 1.0
+        },
+        {
+          "id": "action",
+          "weight": 1.5
+        },
+        {
+          "id": "outcomes",
+          "weight": 1.5
+        },
+        {
+          "id": "dialogue",
+          "weight": 1.0
+        },
+        {
+          "id": "writing",
+          "weight": 1.0
+        }
+      ],
+      "tie_breakers": [
+        "outcomes",
+        "action",
+        "community"
+      ]
+    }
+  }
+}

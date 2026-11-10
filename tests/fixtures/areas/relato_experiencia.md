@@ -1,0 +1,4 @@
+Oficinas de educação em saúde bucal com crianças de uma escola pública: relato de experiência
+
+Introdução: A educação em saúde bucal na infância contribui para a prevenção da cárie. Objetivo: Relatar a experiência de acadêmicos de Odontologia na condução de oficinas de saúde bucal com crianças. Metodologia: Trata-se de um relato de experiência das oficinas realizadas em uma escola municipal de Mogi das Cruzes, em abril de 2026, com quatro turmas do 2º ano. Foram usados macromodelos, escovação supervisionada e jogos lúdicos. Resultados: As crianças participaram ativamente e demonstraram a técnica de escovação ao final; as professoras relataram interesse em repetir as atividades. Para os acadêmicos, a experiência exigiu adaptar a linguagem técnica ao universo infantil. Conclusão: As oficinas lúdicas mostraram-se uma estratégia viável de educação em saúde bucal e enriqueceram a formação dos acadêmicos.
+Palavras-chave: saúde bucal; educação em saúde; criança.

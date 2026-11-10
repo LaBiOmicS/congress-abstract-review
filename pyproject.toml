@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "congress-abstract-review"
+version = "0.1.0"
+description = "AI-assisted evaluation of congress abstracts and expanded abstracts (single submission or committee batch) for Claude Code and Antigravity"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Prof. Dr. Fabiano Bezerra Menegidio", email = "fabianomenegidio@umc.br" }
+]
+keywords = ["abstract-review", "scientific-congress", "call-for-papers", "peer-review", "scientific-committee", "antigravity", "claude-code"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = []
+
+[project.optional-dependencies]
+extract = ["pypdf>=4.0.0", "pdfplumber>=0.11.0", "python-docx>=1.1.0"]
+report = ["reportlab>=4.0.0", "openpyxl>=3.1.0"]
+all = ["pypdf>=4.0.0", "pdfplumber>=0.11.0", "python-docx>=1.1.0", "reportlab>=4.0.0", "openpyxl>=3.1.0"]
+
+[project.urls]
+Homepage = "https://github.com/LaBiOmicS/congress-abstract-review"
+Repository = "https://github.com/LaBiOmicS/congress-abstract-review.git"
+Issues = "https://github.com/LaBiOmicS/congress-abstract-review/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["skills"]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pypdf>=4.0.0",
+    "pdfplumber>=0.11.0",
+    "python-docx>=1.1.0",
+    "reportlab>=4.0.0",
+    "openpyxl>=3.1.0",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 160
+src = ["skills/abstract-review/scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

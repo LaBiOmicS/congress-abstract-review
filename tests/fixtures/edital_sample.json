@@ -1,0 +1,40 @@
+{
+  "event": {"name": "XV Simpósio de Biotecnologia", "year": 2026, "url": null, "source": "edital"},
+  "enforcement": "strict",
+  "languages": ["pt"],
+  "anonymized": false,
+  "formats": {
+    "simple": {
+      "limits": {"words": {"min": 250, "max": 500}, "count_scope": ["body"]},
+      "required_sections": ["Introdução", "Objetivos", "Metodologia", "Resultados", "Conclusão"],
+      "figures": {"allowed": false}, "tables": {"allowed": false}, "references": {"allowed": false},
+      "keywords": {"min": 3, "max": 5},
+      "max_authors": 8
+    },
+    "expanded": {
+      "limits": {"pages": {"max": 4}, "characters_with_spaces": {"max": 12000}, "count_scope": ["body", "references"]},
+      "required_sections": ["introduction", "objectives", "methods", "results", "conclusion", "references"],
+      "figures": {"allowed": true, "max": 2}, "tables": {"allowed": true, "max": null},
+      "references": {"allowed": true, "max": 10},
+      "keywords": {"min": 3, "max": 5},
+      "max_authors": 8
+    }
+  },
+  "tracks": ["Biotecnologia Ambiental", "Bioinformática", "Biotecnologia em Saúde"],
+  "rubric": {
+    "scale": {"min": 0, "max": 10},
+    "aggregation": "weighted_mean",
+    "criteria": [
+      {"id": "relevance", "name": "Relevância", "weight": 2},
+      {"id": "methods", "name": "Metodologia", "weight": 3},
+      {"id": "results", "name": "Resultados", "weight": 3},
+      {"id": "writing", "name": "Redação", "weight": 2}
+    ],
+    "approval_cutoff": 6.0,
+    "tie_breakers": ["results", "methods"]
+  },
+  "provenance": {
+    "formats.simple.limits.words": "Os resumos simples devem ter entre 250 e 500 palavras, sem contar título, autores e afiliações",
+    "rubric.approval_cutoff": "Serão aprovados os trabalhos com nota igual ou superior a 6,0."
+  }
+}

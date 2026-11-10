@@ -1,0 +1,8 @@
+A novel machine learning pipeline for predicting antimicrobial peptides
+
+John Doe, Mary Roe
+Department of Computer Science, University of Somewhere
+
+Antimicrobial peptides are promising alternatives to antibiotics. In this work we are developing a deep learning model to predict antimicrobial activity from sequence. The model is currently being trained on public databases. Preliminary results are promising and the full results will be presented at the conference. We expect that our approach will outperform existing tools. Further analyses are ongoing and will be discussed during the presentation.
+
+Keywords: antimicrobial peptides, deep learning

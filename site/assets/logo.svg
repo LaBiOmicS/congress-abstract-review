@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B1938"/>
+      <stop offset="55%" stop-color="#071026"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="goldRim" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="50%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="scrollGrad" x1="160" y1="130" x2="340" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="100%" stop-color="#E7E5E4"/>
+    </linearGradient>
+    <linearGradient id="prismLeft" x1="250" y1="180" x2="310" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#67E8F9" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="prismRight" x1="310" y1="180" x2="375" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="beamGrad" x1="280" y1="260" x2="150" y2="390" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Squircle Emblem (with ~12% margin) -->
+  <rect x="64" y="64" width="384" height="384" rx="84" fill="#061024" stroke="url(#goldRim)" stroke-width="12"/>
+  <rect x="76" y="76" width="360" height="360" rx="74" fill="url(#bgGrad)" stroke="#38BDF8" stroke-width="4" stroke-opacity="0.75"/>
+
+  <!-- Manuscript Scroll -->
+  <path d="M156 156C156 142.745 166.745 132 180 132H312C325.255 132 336 142.745 336 156V356C336 369.255 325.255 380 312 380H188C174.745 380 164 369.255 164 356V184H144V156C144 142.745 150 132 164 132" fill="url(#scrollGrad)" stroke="#0F172A" stroke-width="6"/>
+  <path d="M188 356H356C356 371 344 380 328 380H188C196 380 202 370 202 356H188Z" fill="#D6D3D1" stroke="#0F172A" stroke-width="5"/>
+
+  <!-- Gaussian Curve & Axes on Manuscript -->
+  <path d="M188 164V224H272" stroke="#64748B" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M194 218C208 218 214 172 228 172C242 172 248 218 264 218" stroke="#0284C7" stroke-width="4.5" stroke-linecap="round"/>
+  <line x1="228" y1="164" x2="228" y2="224" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 4"/>
+
+  <!-- Refracted Analysis Beam -->
+  <polygon points="256,264 344,284 212,412 128,356" fill="url(#beamGrad)"/>
+
+  <!-- Analytical Prism -->
+  <polygon points="310,174 252,272 316,290" fill="url(#prismLeft)" stroke="#E0F2FE" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="310,174 316,290 368,272" fill="url(#prismRight)" stroke="#FEF9C3" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Greek Reviewer Symbols (α β γ) -->
+  <text x="192" y="330" fill="#0F172A" font-family="Georgia, serif" font-size="44" font-weight="bold">α</text>
+  <text x="242" y="330" fill="#B45309" font-family="Georgia, serif" font-size="44" font-weight="bold">β</text>
+  <text x="290" y="330" fill="#0369A1" font-family="Georgia, serif" font-size="44" font-weight="bold">γ</text>
+
+  <!-- Gemini 4-Point Sparkle -->
+  <path d="M372 114C372 140 378 146 404 146C378 146 372 152 372 178C372 152 366 146 340 146C366 146 372 140 372 114Z" fill="#7DD3FC"/>
+  <path d="M336 104C336 115 339 118 350 118C339 118 336 121 336 132C336 121 333 118 322 118C333 118 336 115 336 104Z" fill="#BAE6FD"/>
+</svg>

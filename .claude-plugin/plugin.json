@@ -1,0 +1,13 @@
+{
+  "name": "congress-abstract-review",
+  "version": "0.1.0",
+  "description": "AI-assisted evaluation of congress abstracts and expanded abstracts, one submission or a committee batch: deterministic compliance checks against the event's edital (word/character limits, sections, figures, references, language, blind review), detection of results that are only promised, a panel of independent evaluators (compliance, data & rigor, track & impact) or a single evaluator with escalation of borderline cases, barema scoring adapted to each track's nature (research, innovation, extension) and to the abstract's area and research approach, with an approve/reject decision (presentation modality and posters are left to the committee), and evaluation sheets (MD + PDF), feedback to authors and a committee spreadsheet ranked by track. Output is a draft for human committee members.",
+  "author": {
+    "name": "Prof. Dr. Fabiano Bezerra Menegidio (LaBiOmicS / UMC)",
+    "email": "fabianomenegidio@umc.br"
+  },
+  "homepage": "https://github.com/LaBiOmicS/congress-abstract-review",
+  "repository": "https://github.com/LaBiOmicS/congress-abstract-review",
+  "license": "MIT",
+  "keywords": ["abstract-review", "scientific-congress", "call-for-papers", "edital", "scientific-committee", "peer-review"]
+}
