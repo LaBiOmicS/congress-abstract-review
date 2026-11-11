@@ -71,7 +71,7 @@ header.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srg
 .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 600; min-width: 0; }
 .brand img { width: 30px; height: 30px; border-radius: 8px; flex: none; }
 .brand span { font-family: var(--mono); font-size: .92rem; white-space: nowrap; }
-nav.links { display: flex; gap: 20px; margin-left: auto; }
+nav.links { display: flex; gap: 16px; margin-left: auto; }
 nav.links a { color: var(--ink-2); text-decoration: none; font-size: .9rem; white-space: nowrap; }
 nav.links a:hover { color: var(--ink); }
 .toggles { display: flex; gap: 6px; align-items: center; }
@@ -82,7 +82,7 @@ nav.links a:hover { color: var(--ink); }
 .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .top .seg button { font-family: var(--mono); font-size: .74rem; padding: 4px 8px; }
 /* Narrow screens: the menu moves to a second, horizontally scrollable row instead of disappearing. */
-@media (max-width: 980px) {
+@media (max-width: 1060px) {
   .top .wrap { flex-wrap: wrap; height: auto; padding-top: 10px; gap: 8px 14px; }
   .toggles { margin-left: auto; }
   nav.links { order: 3; width: 100%; margin: 0; gap: 18px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: none; }
@@ -366,8 +366,8 @@ footer a { color: var(--ink-2); white-space: nowrap; }
   <div class="wrap">
     <a class="brand" href="#"><img src="assets/logo-180.png" alt="" width="30" height="30"><span>congress-abstract-review</span></a>
     <nav class="links">
-      <a href="#guia"><span lang="pt">Guia passo a passo</span><span lang="en">Step-by-step guide</span><span lang="es">Guía paso a paso</span></a>
-      <a href="#prompts"><span lang="pt">Prompts prontos</span><span lang="en">Ready prompts</span><span lang="es">Prompts listos</span></a>
+      <a href="#guia"><span lang="pt">Guia</span><span lang="en">Guide</span><span lang="es">Guía</span></a>
+      <a href="#prompts">Prompts</a>
       <a href="#como"><span lang="pt">Como funciona</span><span lang="en">How it works</span><span lang="es">Cómo funciona</span></a>
       <a href="#faq"><span lang="pt">Dúvidas</span><span lang="en">FAQ</span><span lang="es">Preguntas</span></a>
       <a href="https://github.com/LaBiOmicS/congress-abstract-review">GitHub</a>
