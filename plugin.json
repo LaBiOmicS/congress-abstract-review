@@ -1,7 +1,7 @@
 {
   "name": "congress-abstract-review",
   "displayName": "Congress Abstract Review",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI-assisted evaluation of congress abstracts and expanded abstracts, one submission or a committee batch: deterministic compliance checks against the event's edital, detection of results that are only promised, a panel of independent evaluators or a single evaluator with escalation of borderline cases, barema scoring adapted to each track's nature (research, innovation, extension) and to the abstract's area and research approach, with an approve/reject decision (presentation modality and posters are left to the committee), evaluation sheets (MD + PDF), feedback to authors and a committee spreadsheet ranked by track. Output is a draft for human committee members.",
   "logo": "assets/logo.jpg",
   "author": {

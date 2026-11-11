@@ -156,7 +156,7 @@ A audiência é independente das regras: o autor pode conferir o resumo contra o
 
 ```text
 /plugin marketplace add LaBiOmicS/congress-abstract-review
-/plugin install congress-abstract-review@labiomics-congress
+/plugin install congress-abstract-review@labiomics
 ```
 
 ### Script de instalação (Claude Code e Antigravity)
@@ -270,7 +270,7 @@ Os testes são herméticos (sem rede) e cobrem extração, contagens, edital, au
   author  = {Menegidio, Fabiano Bezerra},
   title   = {congress-abstract-review: AI-assisted evaluation of congress abstracts with deterministic checks},
   year    = {2026},
-  version = {0.1.0},
+  version = {0.1.1},
   url     = {https://github.com/LaBiOmicS/congress-abstract-review},
   note    = {LaBiOmicS, Universidade de Mogi das Cruzes}
 }

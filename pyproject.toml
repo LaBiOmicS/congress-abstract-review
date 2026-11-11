@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "congress-abstract-review"
-version = "0.1.0"
+version = "0.1.1"
 description = "AI-assisted evaluation of congress abstracts and expanded abstracts (single submission or committee batch) for Claude Code and Antigravity"
 readme = "README.md"
 requires-python = ">=3.10"

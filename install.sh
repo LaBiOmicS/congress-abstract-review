@@ -50,7 +50,7 @@ else
     NOTES+=("Antigravity/Gemini: arquivos copiados para ~/.gemini, sem validação nem ativação ('agy' não está no PATH).")
 fi
 
-echo "==> [4/4] Instalando no Claude Code (marketplace local 'labiomics-congress')..."
+echo "==> [4/4] Instalando no Claude Code (marketplace local 'labiomics')..."
 if command -v claude &> /dev/null; then
     # Copiar arquivos para ~/.claude/plugins não registra o plugin; o caminho suportado é
     # registrar este diretório como marketplace e instalar a partir dele.
@@ -60,20 +60,20 @@ if command -v claude &> /dev/null; then
     REGISTERED_PATH="$(claude plugin marketplace list --json 2>/dev/null | uv run --no-project python -c '
 import json, sys
 for m in json.load(sys.stdin):
-    if m.get("name") == "labiomics-congress":
+    if m.get("name") == "labiomics":
         print(m.get("path") or m.get("installLocation") or "")
 ' 2>/dev/null || true)"
     if [ -n "$REGISTERED_PATH" ] && [ "$REGISTERED_PATH" != "$PLUGIN_DIR" ]; then
-        echo "Aviso: marketplace 'labiomics-congress' registrado em $REGISTERED_PATH. Registrando de novo em $PLUGIN_DIR..."
-        claude plugin marketplace remove labiomics-congress
+        echo "Aviso: marketplace 'labiomics' registrado em $REGISTERED_PATH. Registrando de novo em $PLUGIN_DIR..."
+        claude plugin marketplace remove labiomics
     fi
     if [ "$REGISTERED_PATH" = "$PLUGIN_DIR" ]; then
-        claude plugin marketplace update labiomics-congress
+        claude plugin marketplace update labiomics
     else
         # Sem o caminho registrado (ex.: CLI sem --json), cai no comportamento anterior.
-        claude plugin marketplace add "$PLUGIN_DIR" || claude plugin marketplace update labiomics-congress
+        claude plugin marketplace add "$PLUGIN_DIR" || claude plugin marketplace update labiomics
     fi
-    claude plugin install congress-abstract-review@labiomics-congress
+    claude plugin install congress-abstract-review@labiomics
     echo "✔ Plugin instalado no Claude Code (reinicie a sessão para carregá-lo)."
     INSTALLED+=("Claude Code")
 else

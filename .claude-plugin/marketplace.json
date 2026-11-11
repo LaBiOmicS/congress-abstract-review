@@ -1,15 +1,31 @@
 {
-  "name": "labiomics-congress",
+  "name": "labiomics",
   "owner": {
     "name": "LaBiOmicS / UMC",
     "email": "fabianomenegidio@umc.br"
   },
-  "description": "Marketplace for the congress-abstract-review plugin (LaBiOmicS).",
+  "description": "LaBiOmicS / UMC plugins for research: academic peer review, congress abstract evaluation and WHOQOL quality-of-life analysis.",
   "plugins": [
+    {
+      "name": "academic-peer-review",
+      "source": {
+        "source": "github",
+        "repo": "LaBiOmicS/academic-peer-review"
+      },
+      "description": "Multi-reviewer academic peer review panel with statistical, citation, journal-scope and FAIR audits, and PDF report synthesis."
+    },
     {
       "name": "congress-abstract-review",
       "source": "./",
       "description": "Evaluation of congress abstracts and expanded abstracts: edital compliance, promised-results detection, evaluator panel, barema scoring and committee spreadsheet."
+    },
+    {
+      "name": "whoqol-toolkit",
+      "source": {
+        "source": "github",
+        "repo": "LaBiOmicS/whoqol-toolkit"
+      },
+      "description": "WHOQOL scoring, psychometrics and publication-grade statistics."
     }
   ]
 }

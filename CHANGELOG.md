@@ -2,6 +2,13 @@
 
 Todas as mudanças relevantes deste plugin. O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.1.1] — 2026-11-11
+
+### Alterado
+- Marketplace único `labiomics`: o `marketplace.json` lista os três plugins LaBiOmicS, e
+  `congress-abstract-review@labiomics` substitui `congress-abstract-review@labiomics-congress` (READMEs, página do
+  projeto e `install.sh`).
+
 ## [0.1.0] — 2026-11-04
 
 ### Adicionado

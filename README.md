@@ -156,7 +156,7 @@ The audience is independent of the rules: an author can check an abstract agains
 
 ```text
 /plugin marketplace add LaBiOmicS/congress-abstract-review
-/plugin install congress-abstract-review@labiomics-congress
+/plugin install congress-abstract-review@labiomics
 ```
 
 ### Installer script (Claude Code and Antigravity)
@@ -270,7 +270,7 @@ The tests are hermetic (no network) and cover extraction, counts, the edital, th
   author  = {Menegidio, Fabiano Bezerra},
   title   = {congress-abstract-review: AI-assisted evaluation of congress abstracts with deterministic checks},
   year    = {2026},
-  version = {0.1.0},
+  version = {0.1.1},
   url     = {https://github.com/LaBiOmicS/congress-abstract-review},
   note    = {LaBiOmicS, Universidade de Mogi das Cruzes}
 }
