@@ -55,17 +55,43 @@ if command -v claude &> /dev/null; then
     # Copiar arquivos para ~/.claude/plugins não registra o plugin; o caminho suportado é
     # registrar este diretório como marketplace e instalar a partir dele.
     claude plugin validate "$PLUGIN_DIR"
-    # Se o repositório mudou de lugar, o marketplace continua apontando para o caminho antigo e o
-    # plugin deixa de carregar ("cache-miss"). Nesse caso o registro é refeito no caminho atual.
+    # O marketplace 'labiomics' é compartilhado: o marketplace.json de cada repositório LaBiOmicS
+    # (academic-peer-review, congress-abstract-review, whoqol-toolkit) lista os três plugins. Quando ele
+    # aponta para outro caminho (outro repositório LaBiOmicS, ou um caminho antigo que faz o plugin deixar
+    # de carregar com "cache-miss"), o registro é refeito neste diretório. Remover um marketplace desinstala
+    # todos os plugins dele, então os outros plugins LaBiOmicS instalados são reinstalados em seguida.
     REGISTERED_PATH="$(claude plugin marketplace list --json 2>/dev/null | uv run --no-project python -c '
 import json, sys
 for m in json.load(sys.stdin):
     if m.get("name") == "labiomics":
         print(m.get("path") or m.get("installLocation") or "")
 ' 2>/dev/null || true)"
+    REINSTALL=()
     if [ -n "$REGISTERED_PATH" ] && [ "$REGISTERED_PATH" != "$PLUGIN_DIR" ]; then
-        echo "Aviso: marketplace 'labiomics' registrado em $REGISTERED_PATH. Registrando de novo em $PLUGIN_DIR..."
-        claude plugin marketplace remove labiomics
+        # Sem a lista de plugins instalados não dá para reinstalá-los: mantém o registro atual.
+        if LABIOMICS_PLUGINS="$(claude plugin list --json 2>/dev/null | uv run --no-project python -c '
+import json, sys
+for p in json.load(sys.stdin):
+    name, _, market = p.get("id", "").partition("@")
+    if market == "labiomics":
+        print(p.get("scope", "user"), name)
+')"; then
+            while read -r scope name; do
+                [ -z "$name" ] || [ "$name" = "congress-abstract-review" ] && continue
+                if [ "$scope" = "user" ]; then
+                    REINSTALL+=("$name")
+                else
+                    NOTES+=("Claude Code: $name@labiomics (escopo $scope) foi desinstalado ao registrar o marketplace de novo; reinstale-o no projeto em que estava com 'claude plugin install $name@labiomics --scope $scope'.")
+                fi
+            done <<< "$LABIOMICS_PLUGINS"
+            echo "Aviso: marketplace 'labiomics' registrado em $REGISTERED_PATH. Registrando de novo em $PLUGIN_DIR..."
+            claude plugin marketplace remove labiomics
+            REGISTERED_PATH=""
+        else
+            echo "Aviso: não foi possível listar os plugins instalados; o marketplace 'labiomics' continua em $REGISTERED_PATH."
+            NOTES+=("Claude Code: marketplace 'labiomics' mantido em $REGISTERED_PATH; congress-abstract-review foi instalado a partir dele, não deste diretório.")
+            REGISTERED_PATH="$PLUGIN_DIR"  # só atualiza o registro existente
+        fi
     fi
     if [ "$REGISTERED_PATH" = "$PLUGIN_DIR" ]; then
         claude plugin marketplace update labiomics
@@ -74,6 +100,13 @@ for m in json.load(sys.stdin):
         claude plugin marketplace add "$PLUGIN_DIR" || claude plugin marketplace update labiomics
     fi
     claude plugin install congress-abstract-review@labiomics
+    for name in "${REINSTALL[@]}"; do
+        if claude plugin install "$name@labiomics"; then
+            echo "✔ $name reinstalado (marketplace 'labiomics' registrado de novo)."
+        else
+            NOTES+=("Claude Code: falha ao reinstalar $name@labiomics; rode 'claude plugin install $name@labiomics'.")
+        fi
+    done
     echo "✔ Plugin instalado no Claude Code (reinicie a sessão para carregá-lo)."
     INSTALLED+=("Claude Code")
 else
