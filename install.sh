@@ -56,7 +56,7 @@ if command -v claude &> /dev/null; then
     # registrar este diretório como marketplace e instalar a partir dele.
     claude plugin validate "$PLUGIN_DIR"
     # O marketplace 'labiomics' é compartilhado: o marketplace.json de cada repositório LaBiOmicS
-    # (academic-peer-review, congress-abstract-review, whoqol-toolkit) lista os três plugins. Quando ele
+    # (academic-peer-review, congress-abstract-review, whoqol-toolkit, cep-umc-tutor) lista os plugins LaBiOmicS. Quando ele
     # aponta para outro caminho (outro repositório LaBiOmicS, ou um caminho antigo que faz o plugin deixar
     # de carregar com "cache-miss"), o registro é refeito neste diretório. Remover um marketplace desinstala
     # todos os plugins dele, então os outros plugins LaBiOmicS instalados são reinstalados em seguida.
