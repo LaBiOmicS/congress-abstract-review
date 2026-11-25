@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "congress-abstract-review: AI-assisted evaluation of congress abstracts with deterministic checks"
+authors:
+  - name: "LaBiOmicS – Laboratory of Bioinformatics and Omics Sciences, University of Mogi das Cruzes"
+    city: "Mogi das Cruzes"
+    country: BR
+version: "0.1.1"
+date-released: "2026-11-11"
+license: MIT
+url: "https://labiomics.github.io/congress-abstract-review/"
+repository-code: "https://github.com/LaBiOmicS/congress-abstract-review"

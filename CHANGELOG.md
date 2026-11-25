@@ -2,6 +2,12 @@
 
 Todas as mudanças relevantes deste plugin. O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e as versões seguem o [SemVer](https://semver.org/lang/pt-BR/).
 
+## [Não lançado]
+
+### Documentação
+- Como citar: `CITATION.cff` (botão "Cite this repository" do GitHub), seção nos READMEs e no site, com BibTeX
+  em nome do LaBiOmicS.
+
 ## [0.1.1] — 2026-11-11
 
 ### Alterado

@@ -265,16 +265,20 @@ The tests are hermetic (no network) and cover extraction, counts, the edital, th
 
 ## Citation
 
+If you use `congress-abstract-review` in your research, please cite it:
+
 ```bibtex
-@software{menegidio_congress_abstract_review,
-  author  = {Menegidio, Fabiano Bezerra},
-  title   = {congress-abstract-review: AI-assisted evaluation of congress abstracts with deterministic checks},
-  year    = {2026},
+@software{congress_abstract_review,
+  author  = {{LaBiOmicS -- Laboratory of Bioinformatics and Omics Sciences, University of Mogi das Cruzes}},
+  title   = {{congress-abstract-review}: AI-assisted evaluation of congress abstracts with deterministic checks},
   version = {0.1.1},
-  url     = {https://github.com/LaBiOmicS/congress-abstract-review},
-  note    = {LaBiOmicS, Universidade de Mogi das Cruzes}
+  year    = {2026},
+  url     = {https://github.com/LaBiOmicS/congress-abstract-review}
 }
 ```
+
+Set `version` to the release you used. On GitHub, **Cite this repository** gives the same reference in other formats
+(APA and BibTeX), from [`CITATION.cff`](CITATION.cff).
 
 ## License and authorship
 

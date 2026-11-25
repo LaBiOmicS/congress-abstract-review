@@ -358,6 +358,9 @@ footer { padding: 44px 0 56px; border-top: 1px solid var(--line); font-size: .9r
 footer .wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
 footer b { color: var(--ink); font-weight: 600; }
 footer a { color: var(--ink-2); white-space: nowrap; }
+.code.cite { max-width: none; }
+.code.cite pre { white-space: pre; overflow-x: auto; overflow-wrap: normal; }
+.cite-note { margin-top: 14px; font-size: .92rem; color: var(--ink-2); }
 </style>
 </head>
 <body>
@@ -963,6 +966,22 @@ uv run $SKILL/scripts/congress_review.py compile --output-dir $OUT</pre></div></
       <div><h3 lang="pt">Limites</h3><h3 lang="en">Limits</h3><h3 lang="es">Límites</h3>
         <p lang="pt">A IA pode ler mal um trecho, e avaliadores no mesmo modelo podem errar juntos. A classificação de área e abordagem pode falhar em textos atípicos; nesses casos, informe-a.</p><p lang="en">The AI can misread a passage, and evaluators on the same model can be wrong together. Area and approach classification can fail on unusual texts; in that case, state it.</p><p lang="es">La IA puede leer mal un fragmento, y los evaluadores en el mismo modelo pueden equivocarse juntos. La clasificación de área y enfoque puede fallar en textos atípicos; en esos casos, indíquela.</p></div>
     </div>
+  </div>
+</section>
+<section id="citar">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow"><span lang="pt">Como citar</span><span lang="en">How to cite</span><span lang="es">Cómo citar</span></div>
+      <h2 lang="pt">Usou na pesquisa? Cite o congress-abstract-review.</h2><h2 lang="en">Used it in research? Cite congress-abstract-review.</h2><h2 lang="es">¿Lo usó en su investigación? Cite congress-abstract-review.</h2>
+      <p lang="pt">Ajuste <code>version</code> para a versão que você usou. No GitHub, o botão <a href="https://github.com/LaBiOmicS/congress-abstract-review">Cite this repository</a> dá a mesma referência em APA e BibTeX.</p><p lang="en">Set <code>version</code> to the release you used. On GitHub, <a href="https://github.com/LaBiOmicS/congress-abstract-review">Cite this repository</a> gives the same reference in APA and BibTeX.</p><p lang="es">Ajuste <code>version</code> a la versión que usó. En GitHub, el botón <a href="https://github.com/LaBiOmicS/congress-abstract-review">Cite this repository</a> da la misma referencia en APA y BibTeX.</p>
+    </div>
+    <div class="code cite"><button class="copy" type="button">copy</button><pre>@software{congress_abstract_review,
+  author  = {{LaBiOmicS -- Laboratory of Bioinformatics and Omics Sciences, University of Mogi das Cruzes}},
+  title   = {{congress-abstract-review}: AI-assisted evaluation of congress abstracts with deterministic checks},
+  version = {0.1.1},
+  year    = {2026},
+  url     = {https://github.com/LaBiOmicS/congress-abstract-review}
+}</pre></div>
   </div>
 </section>
 </main>

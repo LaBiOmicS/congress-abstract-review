@@ -39,7 +39,7 @@ Todo lo que produce es un **borrador**: un miembro del comité lo verifica, edit
 - [Salidas](#salidas)
 - [Limitaciones](#limitaciones)
 - [Desarrollo](#desarrollo)
-- [Cita](#cita)
+- [Cómo citar](#cómo-citar)
 - [Licencia y autoría](#licencia-y-autoría)
 
 ---
@@ -263,18 +263,22 @@ uvx ruff check skills tests
 
 Las pruebas son herméticas (sin red) y cubren extracción, conteos, convocatoria, auditoría de contenido, clasificación de área y enfoque, puntuación, escalamiento y el ciclo completo del lote con evaluaciones simuladas. Algunos módulos provienen de academic-peer-review, con una nota de origen al inicio de cada archivo. Los cambios están en [CHANGELOG.md](CHANGELOG.md).
 
-## Cita
+## Cómo citar
+
+Si usa `congress-abstract-review` en su investigación, cítelo así:
 
 ```bibtex
-@software{menegidio_congress_abstract_review,
-  author  = {Menegidio, Fabiano Bezerra},
-  title   = {congress-abstract-review: AI-assisted evaluation of congress abstracts with deterministic checks},
-  year    = {2026},
+@software{congress_abstract_review,
+  author  = {{LaBiOmicS -- Laboratory of Bioinformatics and Omics Sciences, University of Mogi das Cruzes}},
+  title   = {{congress-abstract-review}: AI-assisted evaluation of congress abstracts with deterministic checks},
   version = {0.1.1},
-  url     = {https://github.com/LaBiOmicS/congress-abstract-review},
-  note    = {LaBiOmicS, Universidade de Mogi das Cruzes}
+  year    = {2026},
+  url     = {https://github.com/LaBiOmicS/congress-abstract-review}
 }
 ```
+
+Ajuste `version` a la versión que usó. En GitHub, el botón **Cite this repository** da la misma referencia en otros
+formatos (APA y BibTeX), a partir de [`CITATION.cff`](CITATION.cff).
 
 ## Licencia y autoría
 
